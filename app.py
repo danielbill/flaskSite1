@@ -1,29 +1,34 @@
-import os,sys
-from flask import Flask, render_template
-import py.db.mysql_db_manager as mydb
-from flask_apscheduler import APScheduler
-from scheduleManager import *
-import router.blueprint_main as bp_main
 import logging
 
+from flask import Flask, render_template
+from flask_apscheduler import APScheduler
+
+import py.db.mysql_db_manager as mydb
+import router.blueprint_main as bp_main
+from global_data import *
+from scheduleManager import *
 
 app = Flask(__name__)
 app.config.from_pyfile('settings.py')
-app.config.from_object(SchedulerConfig())
-scheduler = APScheduler()  # 实例化 APScheduler
-scheduler.init_app(app)  # 把任务列表放入 flask
-scheduler.start()  # 启动任务列表
+
 app.register_blueprint(bp_main.bp)
 handler = logging.FileHandler("site.log")
 app.logger.addHandler(handler)
 app.logger.setLevel(logging.DEBUG)
+global_data = Site_global_data()
+app.config['global_data'] = global_data
 
+with app.app_context():
+    app.config.from_object(SchedulerConfig())
+    scheduler = APScheduler()  # 实例化 APScheduler
+    scheduler.init_app(app)  # 把任务列表放入 flask
+    scheduler.start()  # 启动任务列表
 
 
 @app.route('/hello')
 def hello():
     sql = " select * from em_yugao_plain"
-    return render_template('yubao.html',data=mydb.queryToDataframe(sql))
+    return render_template('yubao.html', data=mydb.queryToDataframe(sql))
 
 
 @app.route('/')

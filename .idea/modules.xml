@@ -2,6 +2,7 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
+      <module fileurl="file://C:/量化研究/数据管理/A股相关数据采集/.idea/A股相关数据采集.iml" filepath="C:/量化研究/数据管理/A股相关数据采集/.idea/A股相关数据采集.iml" />
       <module fileurl="file://$PROJECT_DIR$/.idea/flaskSite1.iml" filepath="$PROJECT_DIR$/.idea/flaskSite1.iml" />
     </modules>
   </component>
