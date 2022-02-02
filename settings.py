@@ -7,7 +7,8 @@
 # @Software: PyCharm  #
 # =========================== #
 
-DEBUG = True
+DEBUG = False
+use_reloader=False
 JSON_AS_ASCII = False
 
 # app.config.from_pyfile('settings.py')

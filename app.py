@@ -1,5 +1,3 @@
-import logging
-
 from flask import Flask, render_template
 from flask_apscheduler import APScheduler
 
@@ -12,9 +10,9 @@ app = Flask(__name__)
 app.config.from_pyfile('settings.py')
 
 app.register_blueprint(bp_main.bp)
-handler = logging.FileHandler("site.log")
-app.logger.addHandler(handler)
-app.logger.setLevel(logging.DEBUG)
+# handler = logging.FileHandler("site.log")
+# app.logger.addHandler(handler)
+# app.logger.setLevel(logging.DEBUG)
 global_data = Site_global_data()
 app.config['global_data'] = global_data
 

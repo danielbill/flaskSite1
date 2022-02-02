@@ -62,7 +62,7 @@ class SchedulerConfig(object):
                 'seconds': 999999920  # 任务执行时间，单位秒
             }
         ]
-
+    SCHEDULER_TIMEZONE = 'Asia/Shanghai'
     SCHEDULER_API_ENABLED = True
 
 
@@ -70,6 +70,3 @@ def test(global_data):
     log.debug("this is test")
 
 
-if __name__ == '__main__':
-    scheduleManager = SchedulerConfig()
-    quit(0)
