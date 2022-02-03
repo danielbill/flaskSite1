@@ -17,6 +17,7 @@ import py.akshare_data.as_getEmLatestPrice as priceTool
 import py.akshare_data.as_getEmStockAbcInfo as stockInfoTool
 import py.akshare_data.as_getMarketInfo as market
 import py.akshare_data.as_iwc_hotrank as hotrank
+import py.akshare_data.bulk_commodity.ak_future_price as fuPrice
 import py.akshare_data.bulk_commodity.ak_future_storage as fuStorage
 import py.data_process.processor_manager as processors
 import py.web_worm.em_web_worm.em_stock_popular_rank as em_rank
@@ -63,15 +64,19 @@ def update_after_marketClose_daily(global_data):
     # 因为股票过多,所以也需要每日更新
     stockInfoTool.run()
     log.info('股票股本数据更新成功 %d' % i + 1)
+    #期货价格数据
+    fuPrice_fetcher = fuPrice.Fetcher()
+    fuPrice_fetcher.allProcess()
+    log.info('期货价格数据更新成功 %d' % i + 1)
     #期货库存数据
     fuStorage_fetcher = fuStorage.Fetcher()
     fuStorage_fetcher.allProcess()
     log.info('期货库存数据更新成功 %d' % i + 1)
 
-
+    # -----------------------------------------------------
     log.info('当日收盘%d个任务, 圆满结束!!!!!!' % i)
     log.info("启动后处理...")
-    # ----------
+    # -----------------------------------------------------
     # 数据后处理
     after_update_after_marketClose_daily(global_data)
 
