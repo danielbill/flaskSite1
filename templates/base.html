@@ -1,0 +1,23 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+    <meta charset="UTF-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <title>{% block title %}{% endblock %} -我的系统</title>
+    <link rel="stylesheet" href="{{ url_for('static',filename='css/layui.css',_external=True) }}">
+    <!-- The Main CSS File -->
+    <link rel="stylesheet" href="{{ url_for('static',filename='css/style.css',_external=True) }}">
+    <!-- echarts -->
+    <script src="{{ url_for('static',filename='js/echarts.min.js') }}"></script>
+    <!-- jQuery -->
+    <script src="{{ url_for('static',filename='js/jQuery/jquery-1.7.2.min.js') }}"></script>
+    <script src="{{ url_for('static',filename='js/myjs.js') }}"></script>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+    {% block head %}{% endblock %}
+</head>
+<body>
+{% block body %}
+    这是基类base.html中的内容
+{% endblock %}
+</body>
+</html>
