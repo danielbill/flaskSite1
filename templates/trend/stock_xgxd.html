@@ -1,10 +1,152 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Title</title>
-</head>
-<body>
+{% extends "base.html" %}
 
-</body>
-</html>
+{% block title %}市场趋势{% endblock %}
+
+{% block head %}
+    <!-- DataTables -->
+    <script src="{{ url_for('static',filename='js/DataTables/jquery.dataTables.min.js') }}"></script>
+    <!-- ColResizable -->
+    <script src="{{ url_for('static',filename='js/ColResizable/colResizable-1.3.js') }}"></script>
+    <script>
+    function update_table(type,obj){
+        table_render.reload({
+            url: '{{ url_for(_external=True,endpoint='ajaxapi.xgxd_list') }}'
+            ,where: {type: type }
+        });
+        list_name = $(obj).html()
+        $("#list_name").text(list_name+'股')
+    }
+
+    </script>
+{% endblock %}
+
+{% block body %}
+
+
+    <!-- Table With Tabs -->
+    <div class="g_12" id="Tabs">
+        <div class="widget_header">
+            <h4 class="widget_header_title wwIcon i_16_tabs">A股新高新低态势</h4>
+            <ul class="w_Tabs">
+                <li><a href="#" title="Tab 1" onclick="update_table(0,this)">历史新高</a></li>
+                <li><a href="#" title="Tab 2" onclick="update_table(1,this)">一年新高</a></li>
+                <li><a href="#" title="Tab 3" onclick="update_table(2,this)">半年新高</a></li>
+                <li><a href="#" title="Tab 4" onclick="update_table(3,this)">一月新高</a></li>
+                <li><a href="#" title="Tab 5" onclick="update_table(4,this)">历史新低</a></li>
+                <li><a href="#" title="Tab 6" onclick="update_table(5,this)">一年新低</a></li>
+                <li><a href="#" title="Tab 7" onclick="update_table(6,this)">半年新低</a></li>
+                <li><a href="#" title="Tab 8" onclick="update_table(7,this)">一月新低</a></li>
+            </ul>
+        </div>
+        <div class="widget_contents noPadding">
+            <div class="pie_charts" id="xgxd_stats">
+            </div>
+            <script type="text/javascript">
+                // 基于准备好的dom，初始化echarts实例
+                var myChart = echarts.init(document.getElementById('xgxd_stats'));
+                // 指定图表的配置项和数据
+                var option = {
+                    title: {
+                       // text: '新高新低数对比'
+                    },
+                    tooltip: {
+                        trigger: 'axis',
+                        axisPointer: {
+                            type: 'shadow'
+                        }
+                    },
+                    legend: {},
+                    grid: {
+                        left: '2%',
+                        right: '2%',
+                        bottom: '2%',
+                        containLabel: true
+                    },
+                    xAxis: {
+                        type: 'value',
+                        boundaryGap: [0, 0.01]
+                    },
+                    yAxis: {
+                        type: 'category',
+                        data: ['一月', '半年', '一年', '历史']
+                    },
+                    series: [
+                        {
+                            name: '新高数',
+                            type: 'bar',
+                            label: {
+                                show: true
+                            },
+                            itemStyle: {
+                                color: 'rgb(225,16,77)'
+                            },
+                            data: [{{ data.stats_xgxd.xg30 }},
+                                {{ data.stats_xgxd.xghy }},
+                                {{ data.stats_xgxd.xgyear }},
+                                {{ data.stats_xgxd.xghist }}]
+                        },
+                        {
+                            name: '新低数',
+                            type: 'bar',
+                            label: {
+                                show: true
+                            },
+                            itemStyle: {
+                                color: 'rgb(51,231,22)'
+                            },
+                            data: [{{ data.stats_xgxd.xd30 }},
+                                {{ data.stats_xgxd.xdhy }},
+                                {{ data.stats_xgxd.xdyear }},
+                                {{ data.stats_xgxd.xdhist }}]
+                        }
+                    ]
+                };
+                // 使用刚指定的配置项和数据显示图表。
+                myChart.setOption(option);
+            </script>
+            <div class="widget_contents noPadding">
+                <div class="widget_header">
+                    <h4 id="list_name" class="widget_header_title ">历史新高股</h4>
+                </div>
+                <table class="layui-hide" id="data_table">
+
+                </table>
+
+            </div>
+            <script>
+                layui.use('table', function () {
+                    var table = layui.table;
+                    table_render = table.render({
+                        elem: '#data_table'
+                        , url: '{{ url_for(_external=True,endpoint='ajaxapi.xgxd_list') }}?type={{ data.type }}'
+                        ,parseData: function(res){ //res 即为原始返回的数据
+                            return {
+                                "code": res.code, //解析接口状态
+                                "msg": res.msg, //解析提示文本
+                                "count": res.count, //解析数据长度
+                                "data": res.data //解析数据列表
+                            };
+                        }
+                        , cellMinWidth: 120 //全局定义常规单元格的最小宽度，layui 2.2.1 新增
+                        , cols: [[
+                            { field: '序号', width: 120, title: 'ID' }
+                            , { field: '股票代码', width: 120, title: '代码' }
+                            , { field: '股票简称', width: 120, title: '名称' }
+                            , { field: '涨跌幅', width: 100, title: '涨跌幅',sort: true }
+                            , { field: '换手率', title: '换手率',  sort: true } //minWidth：局部定义当前单元格的最小宽度，layui 2.2.1 新增
+                            , { field: '最新价', title: '最新价', sort: true }
+
+                            , { field: 'update_time', title: '更新时间', sort: true}
+                        ]]
+                    });
+                });
+            </script>
+        </div>
+    </div>
+
+
+{% endblock %}
+
+
+
+

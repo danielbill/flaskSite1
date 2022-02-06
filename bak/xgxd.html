@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+{% if data.type in (0,1,2,3) %}
+    , { field: '前期高点', title: '前高', sort: true }
+    , { field: '前期高点日期', title: '前高日期' }
+{% else %}
+    , { field: '前期低点', title: '前低', sort: true }
+    , { field: '前期低点日期', title: '前低日期' }
+{% endif %}
+</body>
+</html>

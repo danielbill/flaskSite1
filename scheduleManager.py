@@ -40,8 +40,8 @@ class SchedulerConfig(object):
                 'func': 'backend.schedule_task.sche_stock_holders:getShareHolder',  # 任务执行程序
                 'args': [self.global_data],  # 执行程序参数
                 'trigger': 'cron',
-                'day_of_week': 'sat',  # 每周1至周516点执行
-                'hour': 18,
+                'day_of_week': 'mon-sun',  # 每周1至周7
+                'hour': 17,
                 'minute': 2
             },
             {
@@ -59,7 +59,7 @@ class SchedulerConfig(object):
                 # 'func': 'backend.schedule_task.sche_yubao:get_yubao',
                 'args': [self.global_data],  # 执行程序参数
                 'trigger': 'interval',  # 任务执行类型，定时器
-                'seconds': 999999920  # 任务执行时间，单位秒
+                'seconds': 9999999999920  # 任务执行时间，单位秒
             }
         ]
     SCHEDULER_TIMEZONE = 'Asia/Shanghai'

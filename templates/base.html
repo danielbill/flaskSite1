@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8"/>
     <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-    <title>{% block title %}{% endblock %} -我的系统</title>
+    <title>{% block title %}{% endblock %} -大道系统</title>
     <link rel="stylesheet" href="{{ url_for('static',filename='css/layui.css',_external=True) }}">
     <!-- The Main CSS File -->
     <link rel="stylesheet" href="{{ url_for('static',filename='css/style.css',_external=True) }}">
@@ -11,13 +11,83 @@
     <script src="{{ url_for('static',filename='js/echarts.min.js') }}"></script>
     <!-- jQuery -->
     <script src="{{ url_for('static',filename='js/jQuery/jquery-1.7.2.min.js') }}"></script>
+    <!-- layui -->
+    <script src="{{ url_for('static',filename='js/layui.js') }}"></script>
     <script src="{{ url_for('static',filename='js/myjs.js') }}"></script>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
     {% block head %}{% endblock %}
 </head>
 <body>
-{% block body %}
-    这是基类base.html中的内容
-{% endblock %}
+<div class="wrapper contents_wrapper">
+    <aside class="sidebar">
+        <ul class="tab_nav">
+            {% set url = request.path %}
+
+            <li class="{% if url.find('market') != -1 %}
+                active_tab
+            {% endif %} i_16_dashboard">
+                <a href="{{ url_for('market.home') }}" title="market_view">
+                    <span class="tab_label">市场</span>
+                    <span class="tab_info">状态总览</span>
+                </a>
+            </li>
+            <li class="{% if url.find('value') != -1 %}
+                active_tab
+            {% endif %} i_16_pacman">
+                <a href="{{ url_for('market.home') }}" title="stock_value">
+                    <span class="tab_label">价值</span>
+                    <span class="tab_info">高增低估</span>
+                </a>
+            </li>
+            <li class="{% if url.find('hot') != -1 %}
+                active_tab
+            {% endif %} i_16_charts">
+                <a href="{{ url_for('market.home') }}" title="stock_hot">
+                    <span class="tab_label">热点</span>
+                    <span class="tab_info">人气澎湃</span>
+                </a>
+            </li>
+            <li class="{% if url.find('trend') != -1 %}
+                active_tab
+            {% endif %} i_16_icons">
+                <a href="{{ url_for('trend.xgxd') }}" title="stock_xgxd">
+                    <span class="tab_label">走势</span>
+                    <span class="tab_info">运行状态</span>
+                </a>
+            </li>
+            <li class="{% if url.find('sys') != -1 %}
+                active_tab
+            {% endif %} i_16_settings">
+                <a href="{{ url_for('market.home') }}" title="sys_manage">
+                    <span class="tab_label">系统</span>
+                    <span class="tab_info">运行状态</span>
+                </a>
+            </li>
+            <li class="{% if url.find('param') != -1 %}
+                active_tab
+            {% endif %} i_16_valid">
+                <a href="{{ url_for('market.home') }}" title="sys_param">
+                    <span class="tab_label">参数</span>
+                    <span class="tab_info">参数配置</span>
+                </a>
+            </li>
+            <li class="{% if url.find('other') != -1 %}
+                active_tab
+            {% endif %} i_16_data">
+                <a href="{{ url_for('market.home') }}" title="other">
+                    <span class="tab_label">其他</span>
+                    <span class="tab_info">...</span>
+                </a>
+            </li>
+        </ul>
+    </aside>
+    <div class="contents">
+        <div class="grid_wrapper">
+        {% block body %}
+            这是基类base.html中的内容
+        {% endblock %}
+        </div>
+    </div>
+</div>
 </body>
 </html>

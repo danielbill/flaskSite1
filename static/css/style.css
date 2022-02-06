@@ -1320,8 +1320,9 @@
 	}
 
 	.w_Tabs > li {
-		float: right;
+		float: left;
 		display: inline-block;
+
 	}
 
 	.w_Tabs > li > a{

@@ -9,10 +9,19 @@
 # =========================== #
 
 from flask import (
-    Blueprint, render_template)
+    Blueprint, render_template, request)
 
-bp = Blueprint('value', __name__, url_prefix='/trend')
+import backend.view.trend_model as trdModl
+
+bp = Blueprint('trend', __name__, url_prefix='/trend')
 
 @bp.route('/xgxd', methods=('GET', 'POST'))
-def register():
-    return render_template('trend/stock_xgxd.html')
+def xgxd():
+    #获取查询类别
+    type = request.args.get('type')
+    if type is None or len(type)==0: type =0
+    stats_xgxd = trdModl.get_stats_xgxd()
+    param ={}
+    param['type'] = type
+    param['stats_xgxd'] = stats_xgxd
+    return render_template('trend/stock_xgxd.html',data=param)
