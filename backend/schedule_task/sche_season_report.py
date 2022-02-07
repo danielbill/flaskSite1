@@ -8,25 +8,21 @@
 #
 # =========================== #
 import log
-import py.akshare_data.as_em_yjkb as yjkb
+import py.akshare_data.as_em_yjbb_kb as bb_kb
 import py.tools.financial_report_tool as frt
 
 
-def get_allreport():
+def get_allreport(global_data):
     if frt.is_fina_report_time() == False:
         log.info("不是发布快报的时段,pass")
         return
-    get_em_kuaibao()
     get_em_seasonreport()
 
 #更新东财财务快报,这会变更财务报表更新的逻辑
-def get_em_kuaibao():
-    fetcher = yjkb.Fetcher()
+def get_em_seasonreport():
+    fetcher = bb_kb.Fetcher()
     fetcher.allProcess()
 
-#季报抓取方法要重新实现了
-def get_em_seasonreport():
-    return
 
 if __name__ == '__main__':
     quit(0)
