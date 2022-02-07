@@ -617,7 +617,7 @@
                 }
             }
 
-            // give the hooks a chance to run
+            // give the hooks a chance to getReport
             for (i = 0; i < series.length; ++i) {
                 s = series[i];
                 
@@ -768,7 +768,7 @@
             eventHolder = $([overlay, canvas]);
 
             if (reused) {
-                // run shutdown in the old plot object
+                // getReport shutdown in the old plot object
                 placeholder.data("plot").shutdown();
 
                 // reset reused canvases

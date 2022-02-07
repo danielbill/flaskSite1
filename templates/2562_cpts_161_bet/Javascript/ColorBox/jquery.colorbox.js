@@ -799,7 +799,7 @@
 			prep($(href));
 		} else if (settings.iframe) {
 			// IFrame element won't be added to the DOM until it is ready to be displayed,
-			// to avoid problems with DOM-ready JS that might be trying to run in that iframe.
+			// to avoid problems with DOM-ready JS that might be trying to getReport in that iframe.
 			prep(" ");
 		} else if (settings.html) {
 			prep(settings.html);
@@ -849,7 +849,7 @@
 				}, 1);
 			});
 			
-			setTimeout(function () { // A pause because Opera 10.6+ will sometimes not run the onload function otherwise.
+			setTimeout(function () { // A pause because Opera 10.6+ will sometimes not getReport the onload function otherwise.
 				photo.src = href;
 			}, 1);
 		} else if (href) {

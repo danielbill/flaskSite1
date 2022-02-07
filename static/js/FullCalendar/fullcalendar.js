@@ -3810,7 +3810,7 @@ function AgendaEventRenderer() {
 		slotSegmentContainer[0].innerHTML = html; // faster than html()
 		eventElements = slotSegmentContainer.children();
 		
-		// retrieve elements, run through eventRender callback, bind event handlers
+		// retrieve elements, getReport through eventRender callback, bind event handlers
 		for (i=0; i<segCnt; i++) {
 			seg = segs[i];
 			event = seg.event;
@@ -4732,7 +4732,7 @@ function DayEventRenderer() {
 		var seg;
 		var element;
 		var event;
-		// retrieve elements, run through eventRender callback, bind handlers
+		// retrieve elements, getReport through eventRender callback, bind handlers
 		for (i=0; i<segCnt; i++) {
 			seg = segs[i];
 			element = seg.element;

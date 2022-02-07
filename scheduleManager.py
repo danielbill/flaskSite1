@@ -20,11 +20,18 @@ class SchedulerConfig(object):
         self.global_data = self.app.config['global_data']
         self.JOBS = [
             {
+                'id': '东财业绩快报\财报定时抓取任务',  #
+                'func': 'backend.schedule_task.sche_season_report:get_allreport',
+                'args': [self.global_data],  # 执行程序参数
+                'trigger': 'interval',  # 任务执行类型，定时器
+                'hours': 2  # 任务执行时间
+            },
+            {
                 'id': '东财预告定时抓取任务',  #
                 'func': 'backend.schedule_task.sche_yubao:get_yubao',
                 'args': [self.global_data],  # 执行程序参数
                 'trigger': 'interval',  # 任务执行类型，定时器
-                'minutes': 30  # 任务执行时间，单位秒
+                'minutes': 30  # 任务执行时间
             },
             {
                 'id': '每日收盘更新任务',  #
@@ -59,7 +66,7 @@ class SchedulerConfig(object):
                 # 'func': 'backend.schedule_task.sche_yubao:get_yubao',
                 'args': [self.global_data],  # 执行程序参数
                 'trigger': 'interval',  # 任务执行类型，定时器
-                'seconds': 9999999999920  # 任务执行时间，单位秒
+                'seconds': 9999999920  # 任务执行时间，单位秒
             }
         ]
     SCHEDULER_TIMEZONE = 'Asia/Shanghai'
