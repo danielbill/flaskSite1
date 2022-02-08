@@ -16,7 +16,7 @@ import py.akshare_data.ak_ths_cxd as cxd
 import py.akshare_data.ak_ths_cxg as cxg
 import py.akshare_data.as_getEmLatestPrice as priceTool
 import py.akshare_data.as_getEmStockAbcInfo as stockInfoTool
-import py.akshare_data.as_getMarketInfo as market
+
 import py.akshare_data.as_iwc_hotrank as hotrank
 import py.akshare_data.bulk_commodity.ak_future_price as fuPrice
 import py.akshare_data.bulk_commodity.ak_future_storage as fuStorage
@@ -33,9 +33,6 @@ def update_after_marketClose_daily(global_data):
     # 1,更新个股最新价格
     priceTool.getLatestPrice()
     log.info('收盘股价抓取成功')
-    # 获取市场统计情况,主要是成交额,平均市盈率
-    market.getMarketInfo()
-    log.info('市场大致情况获取成功')
     # 更新涨停板情况
     update_ztb = emztb.get_ztb()
     update_ztb.allProcess()
@@ -77,7 +74,7 @@ def update_after_marketClose_daily(global_data):
     log.info('期货库存数据更新成功')
 
     # -----------------------------------------------------
-    log.info('当日收盘结束!' % i)
+    log.info('当日收盘结束!')
     log.info("启动后处理...")
     # -----------------------------------------------------
     # 数据后处理

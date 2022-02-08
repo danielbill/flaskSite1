@@ -24,7 +24,7 @@ class SchedulerConfig(object):
                 'func': 'backend.schedule_task.sche_season_report:get_allreport',
                 'args': [self.global_data],  # 执行程序参数
                 'trigger': 'interval',  # 任务执行类型，定时器
-                'hours': 2  # 任务执行时间
+                'hours': 4  # 任务执行时间
             },
             {
                 'id': '东财预告定时抓取任务',  #
@@ -40,7 +40,7 @@ class SchedulerConfig(object):
                 'trigger': 'cron',
                 'day_of_week': '0-4',  # 每周1至周5 16点执行
                 'hour': 16,
-                'minute': 1
+                'minute': 30
             },
             {
                 'id': '获取股东变化情况',  #
