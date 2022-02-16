@@ -1,0 +1,16 @@
+{%- macro col_md3_input(label, name, type='number', value='',verify='',class='small') %}
+        <div class="layui-col-md3">
+            <label class="layui-form-label">{{label}}</label>
+            <input name="{{name}}" type="{{ type }}" lay-verify="{{ verify }}" autocomplete="off"
+                   class="layui-input {{ class }}" value="{{ value }}">
+        </div>
+{%- endmacro %}
+
+{%- macro col_md3_empty(num) -%}
+    {%- if num>0 %}
+        {% for i in range(0,num) -%}
+            <div class="layui-col-md3">&nbsp</div>
+        {% endfor %}
+        </div>
+    {% endif %}
+{%- endmacro %}

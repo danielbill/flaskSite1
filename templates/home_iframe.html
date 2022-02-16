@@ -1,0 +1,125 @@
+<html>
+<head>
+    <meta charset="utf-8">
+
+    <title>大道</title>
+    <link rel="shortcut icon" href="{{ url_for('static',filename='favicon.ico') }}"
+          type="image/x-ico" media="screen">
+    <!-- The Main CSS File -->
+    <link rel="stylesheet" href="{{ url_for('static',filename='layui/css/layui.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static',filename='css/my.css') }}">
+
+    <script src="{{ url_for('static',filename='js/jQuery/jquery-3.6.0.min.js') }}"></script>
+    <script src="{{ url_for('static',filename='layui/layui.js') }}"></script>
+    <script src="{{ url_for('static',filename='js/myjs.js') }}"></script>
+    <style>
+
+    </style>
+
+    <script>
+        $(document).ready(function(){
+            $("dd>a").click(function (e) {
+                e.preventDefault();
+                $("#iframeMain").attr("src",$(this).attr("href"));
+            });
+        });
+    </script>
+
+</head>
+<body>
+<div class="layui-layout ">
+    <div class="layui-side layui-bg-black">
+        <div class="layui-side-scroll tocenter">
+            <div class="kit-side-fold" >
+                <li class="layui-icon" style="padding:10px 40px 10px 40px" >&#xe668;</li>
+            </div>
+            <ul class="layui-nav layui-nav-tree" lay-filter="test" style="align-items: center;">
+                <li class="layui-nav-item layui-nav-itemed">
+                    <a href="javascript:;"><i class="layui-icon"> &#xe735; </i><span> 甄股</span></a>
+                    <dl class="layui-nav-child">
+                        <dd><a href="{{ url_for('sl.hglp') }}">高增低估</a></dd>
+                        <dd><a href="{{ url_for('q.query', query_key='hm')}}">优质金牛</a></dd>
+                        <dd><a href="{{ url_for('sl.hglp') }}">持续扩张</a></dd>
+                        <dd><a href="{{ url_for('sl.hglp') }}">扭亏为盈</a></dd>
+                    </dl>
+                </li>
+                <li class="layui-nav-item " >
+                    <a href="javascript:;"><i class="layui-icon"> &#xe62c; </i><span> 市场</span></a>
+                    <dl class="layui-nav-child">
+                        <dd><a href="{{ url_for('market.home') }}">状态总览</a></dd>
+                        <dd><a href="{{ url_for('trend.xgxd') }}">新高新低</a></dd>
+                        <dd><a href="{{ url_for('trend.xgxd') }}">热点人气</a></dd>
+                        <dd><a href="{{ url_for('trend.xgxd') }}">股东变化</a></dd>
+                    </dl>
+                </li>
+                <li class="layui-nav-item">
+                    <a href="javascript:;"><i class="layui-icon"> &#xe63c; </i><span> 大宗</span></a>
+                    <dl class="layui-nav-child">
+                        <dd><a href="{{ url_for('dz.price') }}">价格变动</a></dd>
+                        <dd><a href="{{ url_for('dz.jicha') }}">基差分析</a></dd>
+                        <dd><a href="{{ url_for('dz.storage') }}">库存变化</a></dd>
+                    </dl>
+                </li>
+                <li class="layui-nav-item">
+                    <a href="javascript:;"><i class="layui-icon"> &#xe620; </i><span> 系统</span></a>
+                </li>
+
+            </ul>
+        </div>
+    </div>
+
+    <div class="layui-body">
+
+            <iframe id="iframeMain" src="" style="width:100%;height: 100%;
+            frameborder:'no'; border:0; marginwidth:0; marginheight:0;
+            scrolling:'no'; allowtransparency:'yes'"></iframe>
+
+    </div>
+</div>
+<script>
+    side_width = 100
+    side_small_with = 50
+    //JavaScript代码区域
+    layui.use('element', function(){
+        var element = layui.element;
+
+    });
+    var isShow = true;  //定义一个标志位
+    $('.kit-side-fold').click(function(){
+        //选择出所有的span，并判断是不是hidden
+        $('.layui-nav-item span').each(function(){
+            if($(this).is(':hidden')){
+                $(this).show();
+            }else{
+                $(this).hide();
+            }
+        });
+        //判断isshow的状态
+        if(isShow){
+            $('.layui-side').width(side_small_with); //设置宽度
+            $('.kit-side-fold li').css('padding-left', '20px');  //修改图标的位置
+            $('.kit-side-fold li').html('&#xe66b;')
+            //将footer和body的宽度修改
+            $('.layui-body').css('left', side_small_with+'px');
+
+            //将二级导航栏隐藏
+            $('dd a').each(function(){
+                $(this).hide();
+            });
+            //修改标志位
+            isShow =false;
+        }else{
+            $('.layui-side').width(side_width);
+            $('.kit-side-fold li').css('padding-left', '40px');
+            $('.kit-side-fold li').html('&#xe668;')
+            $('.layui-body').css('left', side_width+'px');
+            $('dd a').each(function(){
+                $(this).show();
+            });
+            isShow =true;
+        }
+    });
+
+</script>
+</body>
+</html>

@@ -9,6 +9,7 @@
 # =========================== #
 import log
 import py.akshare_data.as_em_yjbb_kb as bb_kb
+
 import py.tools.financial_report_tool as frt
 
 
@@ -20,6 +21,8 @@ def get_allreport(global_data):
 
 #更新东财财务快报,这会变更财务报表更新的逻辑
 def get_em_seasonreport():
+
+
     fetcher = bb_kb.Fetcher()
     fetcher.allProcess()
 

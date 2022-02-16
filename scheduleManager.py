@@ -39,8 +39,8 @@ class SchedulerConfig(object):
                 'args': [self.global_data],  # 执行程序参数
                 'trigger': 'cron',
                 'day_of_week': '0-4',  # 每周1至周5 16点执行
-                'hour': 16,
-                'minute': 30
+                'hour': 17,
+                'minute': 50
             },
             {
                 'id': '获取股东变化情况',  #
@@ -59,6 +59,17 @@ class SchedulerConfig(object):
                 'day_of_week': '0-4',  # 每周1至周5 16点执行
                 'hour': 8,
                 'minute': 30
+            },
+            {
+                'id': '每月底更新任务',  #
+                'func': 'backend.schedule_task.sche_monthly_manager:run_monthly_task',
+                'args': None,  # 执行程序参数
+                'trigger': 'cron',
+                'year': '*',
+                'month': '*',
+                'day': 'last',
+                'hour':18,
+                'minute':0
             },
             {
                 'id': 'test',  #

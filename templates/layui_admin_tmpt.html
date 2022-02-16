@@ -1,0 +1,123 @@
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <title>{% block title %}{% endblock %} -大道系统</title>
+    <link rel="shortcut icon" href="{{ url_for('static',filename='favicon.ico',_external=True) }}"
+          type="image/x-ico" media="screen">
+    <!-- The Main CSS File -->
+    <link rel="stylesheet" href="{{ url_for('static',filename='css/layui.css',_external=True) }}">
+    <link rel="stylesheet" href="{{ url_for('static',filename='css/style.css',_external=True) }}">
+    <link rel="stylesheet" href="{{ url_for('static',filename='css/iconfont.css',_external=True) }}">
+    <!-- echarts -->
+    <script src="{{ url_for('static',filename='js/echarts.min.js') }}"></script>
+    <!-- jQuery -->
+    <script src="{{ url_for('static',filename='js/jQuery/jquery-1.7.2.min.js') }}"></script>
+    <!-- layui -->
+    <script src="{{ url_for('static',filename='js/layui.js') }}"></script>
+    <script src="{{ url_for('static',filename='js/myjs.js') }}"></script>
+    <script src="{{ url_for('static',filename='js/iconfont.js') }}"></script>
+    <style>
+        .layui-side{position:fixed;left:0;top:0;bottom:0;z-index:999;width:100px;background-color: #FBFBFB}
+        .layui-body{position:relative;left:100px;right:0;top:0;bottom:0;z-index:900;
+            width:auto;box-sizing:border-box}
+
+
+    </style>
+
+    {% block head %}{% endblock %}
+
+</head>
+{% set url = request.path %}
+<body>
+<div class="layui-layout ">
+    <div class="layui-side">
+        <div class="layui-side-scroll">
+            <ul class="layui-nav layui-nav-tree"  lay-filter="test">
+                <li class="kit-side-fold icon iconfont" style="margin:0 auto;padding-left: 40px" >&#xeb04;</li>
+
+                <li class="layui-nav-item {% if url.find('market') != -1 %} layui-nav-itemed{% endif %}">
+                    <a class="" href="{{ url_for('market.home') }}"><span>市场分析</span></a>
+                    <dl class="layui-nav-child">
+                        <dd><a href="{{ url_for('market.home') }}"><span>总体情况</span></a></dd>
+                        <dd><a href="{{ url_for('market.home') }}"><span>新高新低</span></a></dd>
+
+                    </dl>
+                </li>                
+               <li class="layui-nav-item {% if url.find('sl') != -1 %} layui-nav-itemed{% endif %}">
+                    <a href="{{ url_for('sl.hglp') }}"><i class=""></i><span>智能选股</span></a>
+                    <dl class="layui-nav-child">
+                        <dd><a href="{{ url_for('sl.hglp') }}"><span>高增低估</span></a></dd>
+                        <dd><a href=""><span>优质金牛</span></a></dd>
+                        <dd><a href=""><span>持续扩张</span></a></dd>
+                        <dd><a href=""><span>扭亏为盈</span></a></dd>
+                    </dl>
+                </li>
+               <li class="layui-nav-item {% if url.find('dz') != -1 %} layui-nav-itemed{% endif %}">
+                    <a href="{{ url_for('dz.price') }}"><i class=""></i><span>商品动向</span></a>
+                    <dl class="layui-nav-child">
+                        <dd><a href="{{ url_for('dz.price') }}"><span>价格变动</span></a></dd>
+                        <dd><a href="{{ url_for('dz.jicha') }}"><span>基差分析</span></a></dd>
+                        <dd><a href="{{ url_for('dz.storage') }}"><span>库存变化</span></a></dd>
+                    </dl>
+                </li>
+               <li class="layui-nav-item {% if url.find('param') != -1 %} layui-nav-itemed{% endif %}">
+                    <a href=""><i class=""></i><span>系统参数</span></a>
+                    <dl class="layui-nav-child">
+                        <dd><a href="{{ url_for('dz.price') }}"><span>价格变动</span></a></dd>
+                    </dl>
+                </li>
+            </ul>
+        </div>
+    </div>
+    <div class="layui-body">
+            {% block body %}
+                这是基类base.html中的内容
+            {% endblock %}
+    </div>
+</div>
+<script>
+    side_width = 100
+    //JavaScript代码区域
+    layui.use('element', function(){
+        var element = layui.element;
+
+    });
+    var isShow = true;  //定义一个标志位
+    $('.kit-side-fold').click(function(){
+        //选择出所有的span，并判断是不是hidden
+        $('.layui-nav-item span').each(function(){
+            if($(this).is(':hidden')){
+                $(this).show();
+            }else{
+                $(this).hide();
+            }
+        });
+        //判断isshow的状态
+        if(isShow){
+            $('.layui-side.layui-bg-black').width(60); //设置宽度
+            $('.kit-side-fold i').css('margin-right', '70%');  //修改图标的位置
+            //将footer和body的宽度修改
+            $('.layui-body').css('left', 60+'px');
+            $('.layui-footer').css('left', 60+'px');
+            //将二级导航栏隐藏
+            $('dd span').each(function(){
+                $(this).hide();
+            });
+            //修改标志位
+            isShow =false;
+        }else{
+            $('.layui-side.layui-bg-black').width(side_width);
+            $('.kit-side-fold i').css('margin-right', '10%');
+            $('.layui-body').css('left', side_width+'px');
+            $('.layui-footer').css('left', side_width+'px');
+            $('dd span').each(function(){
+                $(this).show();
+            });
+            isShow =true;
+        }
+    });
+
+</script>
+</body>
+</html>

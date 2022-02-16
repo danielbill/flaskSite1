@@ -1,0 +1,23 @@
+.custom-table thead th{
+    background-color: #dddddd;
+    text-align: center;
+    font-size:13px;
+    height: 28px;
+    padding-top: 5px;
+    font-weight: 500;
+    font-family: "Microsoft YaHei";
+    border: 0px;
+
+}
+
+.custom-table tbody tr:nth-child(odd) th {
+    background-color: #f0f0f0;
+}
+.custom-table tbody tr:nth-child(odd) td {
+    background-color: #f0f0f0;
+}
+
+.custom-table tbody td{
+    font-family: "Microsoft YaHei";
+    font-size: small;
+}

@@ -311,7 +311,7 @@ function Calendar(element, options, eventSources) {
 	/* View Rendering
 	-----------------------------------------------------------------------------*/
 	
-	// TODO: improve view switching (still weird transition in IE, and FF has whiteout problem)
+	// TODO: improve model switching (still weird transition in IE, and FF has whiteout problem)
 	
 	function changeView(newViewName) {
 		if (!currentView || newViewName != currentView.name) {
@@ -327,7 +327,7 @@ function Calendar(element, options, eventSources) {
 				setMinHeight(content, content.height());
 				oldView.element.hide();
 			}else{
-				setMinHeight(content, 1); // needs to be 1 (not 0) for IE7, or else view dimensions miscalculated
+				setMinHeight(content, 1); // needs to be 1 (not 0) for IE7, or else model dimensions miscalculated
 			}
 			content.css('overflow', 'hidden');
 			
@@ -337,7 +337,7 @@ function Calendar(element, options, eventSources) {
 			}else{
 				currentView = viewInstances[newViewName] = new fcViews[newViewName](
 					newViewElement = absoluteViewElement =
-						$("<div class='fc-view fc-view-" + newViewName + "' style='position:absolute'/>")
+						$("<div class='fc-model fc-model-" + newViewName + "' style='position:absolute'/>")
 							.appendTo(content),
 					t // the calendar object
 				);
@@ -377,13 +377,13 @@ function Calendar(element, options, eventSources) {
 			
 			var forceEventRender = false;
 			if (!currentView.start || inc || date < currentView.start || date >= currentView.end) {
-				// view must render an entire new date range (and refetch/render events)
+				// model must render an entire new date range (and refetch/render events)
 				currentView.render(date, inc || 0); // responsible for clearing events
 				setSize(true);
 				forceEventRender = true;
 			}
 			else if (currentView.sizeDirty) {
-				// view must resize (and rerender events)
+				// model must resize (and rerender events)
 				currentView.clearEvents();
 				setSize();
 				forceEventRender = true;
@@ -464,7 +464,7 @@ function Calendar(element, options, eventSources) {
 	
 	function windowResize() {
 		if (!ignoreWindowResize) {
-			if (currentView.start) { // view has already been rendered
+			if (currentView.start) { // model has already been rendered
 				var uid = ++resizeUID;
 				setTimeout(function() { // add a delay
 					if (uid == resizeUID && !ignoreWindowResize && elementVisible()) {
@@ -3972,7 +3972,7 @@ function AgendaEventRenderer() {
 		var minMinute = getMinMinute();
 		eventElement.draggable({
 			zIndex: 9,
-			opacity: opt('dragOpacity', 'month'), // use whatever the month view was using
+			opacity: opt('dragOpacity', 'month'), // use whatever the month model was using
 			revertDuration: opt('dragRevertDuration'),
 			start: function(ev, ui) {
 				trigger('eventDragStart', eventElement, event, ev, ui);
@@ -4304,7 +4304,7 @@ function View(element, calendar, viewName) {
 	------------------------------------------------------------------------------*/
 	
 	
-	// report when view receives new events
+	// report when model receives new events
 	function reportEvents(events) { // events are already normalized at this point
 		eventsByID = {};
 		var i, len=events.length, event;
@@ -4330,7 +4330,7 @@ function View(element, calendar, viewName) {
 	------------------------------------------------------------------------------*/
 	
 	
-	// report when view creates an element for an event
+	// report when model creates an element for an event
 	function reportEventElement(event, element) {
 		eventElements.push(element);
 		if (eventElementsByID[event._id]) {

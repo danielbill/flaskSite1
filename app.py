@@ -1,25 +1,25 @@
-from flask import Flask
-from flask_apscheduler import APScheduler
-
-import router.bp_ajax_api as ajax_api
-import router.bp_martket as bp_market
-import router.bp_trend as bp_trend
-from global_data import *
-from scheduleManager import *
-
+from flask import Flask ,render_template
 app = Flask(__name__)
-#配置参数
-app.config.from_pyfile('settings.py')
 
+from backend.router import bp_query,bp_selection,bp_dazong,bp_trend,bp_martket,bp_ajax_api
+#增加router
+app.register_blueprint(bp_query.bp)
+app.register_blueprint(bp_martket.bp)
+app.register_blueprint(bp_trend.bp)
+app.register_blueprint(bp_ajax_api.bp)
+app.register_blueprint(bp_dazong.bp)
+app.register_blueprint(bp_selection.bp)
+
+from global_data import *
 #设置站点级全局变量
 global_data = Site_global_data()
+#配置参数
+app.config.from_pyfile('settings.py')
 app.config['global_data'] = global_data
 
-#增加router
-app.register_blueprint(bp_market.bp)
-app.register_blueprint(bp_trend.bp)
-app.register_blueprint(ajax_api.bp)
 
+from flask_apscheduler import APScheduler
+from scheduleManager import *
 #配置定时任务
 with app.app_context():
     app.config.from_object(SchedulerConfig())
@@ -27,10 +27,11 @@ with app.app_context():
     scheduler.init_app(app)  # 把任务列表放入 flask
     scheduler.start()  # 启动任务列表
 
-# @app.route('/')
-# def index():
-#     return render_template('/index1.html')
+@app.route('/')
+def index():
+    return render_template('/home_iframe.html')
 
 
-
+if __name__ == '__main__':
+    app.run()
 

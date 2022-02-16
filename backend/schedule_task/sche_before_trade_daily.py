@@ -8,7 +8,7 @@
 # 开盘前的定时任务
 # =========================== #
 import log
-import py.akshare_data.as_getMarketInfo as market
+
 import py.akshare_data.as_iwc_hotrank as hotrank
 import py.data_process.processor_manager as processors
 import py.web_worm.em_web_worm.em_stock_popular_rank as em_rank
@@ -24,9 +24,7 @@ def update_before_marketOpen_daily(global_data):
     emrank_fetcher = em_rank.em_popular_rank_fetcher()
     emrank_fetcher.allProcess()
     log.info('东财人气更新成功')
-    # 获取市场统计情况,主要是成交额,平均市盈率
-    market.getMarketInfo()
-    log.info('市场大致情况获取成功')
+
     log.info('..............')
     log.info('数据处理中....')
     after_update(global_data)

@@ -7,6 +7,7 @@
 # @Software: PyCharm  #
 # 收盘后的日常工作
 # =========================== #
+import os
 import global_data as gd
 import log
 import py.akshare_data.ak_em_stock_strong as stockStrong
@@ -22,7 +23,7 @@ import py.akshare_data.bulk_commodity.ak_future_price as fuPrice
 import py.akshare_data.bulk_commodity.ak_future_storage as fuStorage
 import py.data_process.processor_manager as processors
 import py.web_worm.em_web_worm.em_stock_popular_rank as em_rank
-
+import py.akshare_data.as_getMarketInfo as market
 
 # 收盘更新日常
 def update_after_marketClose_daily(global_data):
@@ -72,6 +73,9 @@ def update_after_marketClose_daily(global_data):
     fuStorage_fetcher = fuStorage.Fetcher()
     fuStorage_fetcher.allProcess()
     log.info('期货库存数据更新成功')
+    # 获取市场统计情况,主要是成交额,平均市盈率
+    market.getMarketInfo()
+    log.info('市场大致情况获取成功')
 
     # -----------------------------------------------------
     log.info('当日收盘结束!')

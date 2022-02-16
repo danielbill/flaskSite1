@@ -1,0 +1,127 @@
+{% extends "iframe_tmpt.html" %}
+{% block title %}{% endblock %}
+
+{% block head %}
+    <!-- 此模板固定对应上方一个查询form(layui form),下方一个数据表格(handsontable) -->
+    <link rel="stylesheet" href="{{ url_for('static',filename='handsontable/handsontable.min.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static',filename='css/my_handsontable.css') }}">
+    <script src="{{ url_for('static',filename='handsontable/handsontable.min.js') }}"></script>
+
+    <script>
+
+
+    </script>
+{% endblock %}
+
+{% block body %}
+
+
+<div class="layui-row" >
+        <div class="layui-card shadow" >
+            <div class="layui-card-header" style="height: 40px">
+                <div class="layui-row">
+                        <div class="layui-col-md2" >
+                            <span class="layui-icon">&#xe627;</span><span>&nbsp预报高增低估甄选</span>
+                        </div>
+                        <div class="layui-col-md7" >
+                            &nbsp
+                        </div>
+                        <div class="layui-col-md3" style="margin-top: 5px">
+                            <button type="button" class="layui-btn layui-btn-sm layui-btn-normal"
+                                    style="width: 100px;"
+                                    onclick="load_handsonTable()">
+                                甄 - 选
+                            </button>
+                        </div>
+                    </div>
+            </div>
+            <div class="layui-card-body">
+                {% import 'jinja2_macro/macro_html_ele.html' as htm_ele %}
+                {% set moreCols=namespace(num=1) %}
+                <form id="query_form" class="layui-form-pane" action="">
+
+                        {% for name in qc.get('param')  -%}
+                            {%- set ele = htm_ele.col_md3_input(label=qc.get('label')[loop.index0],
+                                name=name,value=qc.get('def_val')[loop.index0]) -%}
+                            {% if loop.index%4==1 -%}
+                                <div class="layui-row">{{ '\n' }}
+                            {%- endif -%}
+                                    {{ele}}
+                            {% if loop.index/4==1 -%}
+                                </div>{{ '\n' }}
+                            {%- endif -%}
+                                {% set moreCols.num=loop.index %}
+                        {% endfor %}
+                        {{ htm_ele.col_md3_empty(4-moreCols.num%4) }}
+
+                </form>
+                <div class="layui-row" style="margin-bottom: 2px">
+                    <!--空白条2px-->
+                </div>
+            </div>
+        </div>
+
+    </div>
+    <div class="layui-row" style="margin-top: 10px">
+        <div id="data_table" class="fullWidth mytable"></div>
+    </div>
+
+    <script>
+        const container = document.querySelector('#data_table');
+        var mytable = new Handsontable(container, {
+            data: null,
+            colHeaders: [
+                {% for dbcol in qc.get('tableCol') %}
+                    {{ ("'"+dbcol+"',")|safe }}
+                {% endfor %}
+            ],
+            columns: [
+                {% for dbcol in qc.get('dbCol') %}
+                 {{ ("{data: '"+dbcol+"'},")|safe }}
+                {% endfor %}
+            ],
+            className: 'custom-table',
+            rowHeaders: true,
+            height: 'auto',
+            width: '100%',
+            readOnly: false,
+            copyable: true,
+            autoColumnSize: true,
+            columnSorting: true,
+            contextMenu:true,
+            manualColumnResize: true,
+            manualColumnMove: true,//可整行整列移动
+            dropdownMenu: true, // 两项必须同时打开
+            filters: true,
+            licenseKey: 'non-commercial-and-evaluation'
+        });
+
+        function _tableUpdateData(data){
+            mytable.updateData(data)
+        }
+        /*
+        给handson table重新渲染时,加载form的input值
+         */
+        function load_handsonTable(){
+            const url = {{ ("'" + url_for('ajaxapi.query',_external=True,query_key=query_key) +"'")|safe }};
+            var param = getInputToWhere()
+            ajax_fetch(_tableUpdateData,url,param)
+
+        }
+       $(document).ready(function () {
+           load_handsonTable()
+       });
+
+
+
+
+
+
+    </script>
+
+
+{% endblock %}
+
+
+
+

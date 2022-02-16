@@ -1,0 +1,138 @@
+{% extends "iframe_tmpt.html" %}
+{% block title %}当季高增低估{% endblock %}
+
+{% block head %}
+    <script>
+        function reload_table(){
+            var where=getInputToWhere()
+            table_render.reload({
+                where: where
+            });
+        }
+        function getInputToWhere(){
+            var a= $( "form input");
+            var where={}
+            $.each(a,function(){
+                where[this.name] = this.value
+            })
+            return where
+        }
+
+    </script>
+{% endblock %}
+
+{% block body %}
+
+    <div class="layui-row" style="margin-bottom: 0px">
+        <div class="layui-col-md12 layui-col-space10" >
+            <div class="layui-card shadow" >
+                <div class="layui-card-header layui-icon"> &#xe627;预报高增低估甄选</div>
+                <div class="layui-card-body">
+                    <form id="query_form" class="layui-form layui-form-pane" action="" style="margin-bottom: -15px">
+                    <div class="layui-form-item">
+                        <div class="layui-inline">
+                            <label class="layui-form-label" style="width: 150px">净利环比增速% ></label>
+                            <div class="layui-input-inline">
+                                <input type="number" name="np_hb" lay-verify="required|number" autocomplete="off"
+                                       class="layui-input small" value="10">
+                            </div>
+                            <label class="layui-form-label" style="width: 150px">扣非环比增速% ></label>
+                            <div class="layui-input-inline">
+                                <input type="number" name="kf_hb" lay-verify="number" autocomplete="off"
+                                       class="layui-input small" value="10">
+                            </div>
+                            <label class="layui-form-label" style="width: 150px">营收环比增速% ></label>
+                            <div class="layui-input-inline">
+                                <input type="number" name="in_hb" lay-verify="number" autocomplete="off"
+                                       class="layui-input small" value="">
+                            </div>
+                        </div>
+                        <div class="layui-inline">
+                            <label class="layui-form-label" style="width: 150px">上季净利增速% ></label>
+                            <div class="layui-input-inline">
+                                <input type="number" name="ls_np_hb" lay-verify="number" autocomplete="off"
+                                       class="layui-input small" value="10">
+                            </div>
+                            <label class="layui-form-label" style="width: 150px">上季营收增速% ></label>
+                            <div class="layui-input-inline">
+                                <input type="number" name="ls_in_hb" lay-verify="number" autocomplete="off"
+                                       class="layui-input small" value="10">
+                            </div>
+                            <label class="layui-form-label" style="width: 150px">上季扣非增速% ></label>
+                            <div class="layui-input-inline">
+                                <input type="number" name="ls_kf_hb" lay-verify="number" autocomplete="off"
+                                       class="layui-input small" value="10">
+                            </div>
+                        </div>
+                        <div class="layui-inline">
+                            <label class="layui-form-label" style="width: 150px">Pe_2s上限 <</label>
+                            <div class="layui-input-inline">
+                                <input type="number" name="pe_2s_top" lay-verify="number" autocomplete="off"
+                                       class="layui-input small" value="10">
+                            </div>
+                            <div class="layui-input-inline">
+                                <button type="submit" class="layui-btn layui-btn-normal"
+                                        lay-submit="" lay-filter="demo1" style="width: 300px;"
+                                        onclick="reload_table()">
+                                    甄 - 选
+                                </button>
+                            </div>
+                        </div>
+
+
+                    </div>
+                    </form>
+                </div>
+
+            </div>
+        </div>
+    </div>
+    <div class="layui-row" style="background-color: transparent;margin-top: 20px;padding-top:0px;">
+        <div class="layui-col-md12 layui-col-space10" >
+            <div class="layui-card shadow">
+                <table id="data_table" lay-filter="test"></table>
+            </div>
+            <script>
+                layui.use('table', function () {
+                    var table = layui.table;
+                    var where = getInputToWhere();
+                    table_render = table.render({
+                        elem: '#data_table'
+                        , url: '{{ url_for(endpoint='ajaxapi.ls_hglp') }}'
+                        , where:where
+                        ,size: 'sm'
+                        ,page: true //开启分页
+                        ,parseData: function(res){ //res 即为原始返回的数据
+                            return {
+                                "code": res.code, //解析接口状态
+                                "msg": res.msg, //解析提示文本
+                                "count": res.count, //解析数据长度
+                                "data": res.data //解析数据列表
+                            };
+                        }
+                        , cellMinWidth: 40 //全局定义常规单元格的最小宽度，layui 2.2.1 新增
+                        , cols: [[
+                            { field: 'scode', width:45,title: '代码' }
+                            , { field: 'sname', width:50, title: '名称' ,unresize:true }
+                            , { field: 'PE_2S', width:60, title: '两季估值',sort: true }
+                            , { field: 'yb_np_hb', width:60, title: '净利环比',  sort: true } //minWidth：局部定义当前单元格的最小宽度，layui 2.2.1 新增
+                            , { field: 'yb_kf_hb', width:60, title: '扣非环比', sort: true }
+                            , { field: 'yb_ss_np', width:60, title: '单季净利', sort: true}
+                            , { field: 'yb_ss_kf', width:60, title: '单季扣非', sort: true}
+                            , { field: 'yb_in_hb', width:60, title: '营收环比', sort: true}
+                            , { field: 'yb_in', width:60, title: '预报营收', sort: true}
+                            , { field: 'rank', width:50, title: '东财人气', sort: true}
+                            , { field: '换手率', width:50, title: '换手率', sort: true}
+                        ]]
+                    });
+                });
+            </script>
+        </div>
+    </div>
+
+
+{% endblock %}
+
+
+
+

@@ -1,0 +1,188 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Hello Bulma!</title>
+    <link rel="stylesheet" href="../static/bulma/css/bulma.min.css">
+    <script src="https://kit.fontawesome.com/e52eb81a40.js" crossorigin="anonymous"></script>
+    <style>
+        .bulma-arrow-mixin {
+            @include arrow(purple);
+        }
+    </style>
+</head>
+<body>
+<div class="container is-widescreen">
+
+        <div class="columns">
+            <div class="column">
+                <div class="block">
+                    This text is within a <strong>block</strong>.
+                </div>
+                <div class="block">
+                    This text is within a <strong>second block</strong>. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean efficitur sit amet massa fringilla egestas. Nullam condimentum luctus turpis.
+                </div>
+                <div class="block">
+                    This text is within a <strong>third block</strong>. This block has no margin at the bottom.
+                </div>
+            </div>
+            <div class="column">
+                <article class="panel is-primary">
+                    <p class="panel-heading">
+                        Primary
+                    </p>
+                    <p class="panel-tabs">
+                        <a class="is-active">All</a>
+                        <a>Public</a>
+                        <a>Private</a>
+                        <a>Sources</a>
+                        <a>Forks</a>
+                    </p>
+                    <div class="panel-block">
+                        <p class="control has-icons-left">
+                            <input class="input is-primary" type="text" placeholder="Search">
+                            <span class="icon is-left">
+        <i class="fas fa-search" aria-hidden="true"></i>
+      </span>
+                        </p>
+                    </div>
+                    <a class="panel-block is-active">
+    <span class="panel-icon">
+      <i class="fas fa-book" aria-hidden="true"></i>
+    </span>
+                        bulma
+                    </a>
+                    <a class="panel-block">
+    <span class="panel-icon">
+      <i class="fas fa-book" aria-hidden="true"></i>
+    </span>
+                        marksheet
+                    </a>
+                    <a class="panel-block">
+    <span class="panel-icon">
+      <i class="fas fa-book" aria-hidden="true"></i>
+    </span>
+                        minireset.css
+                    </a>
+                    <a class="panel-block">
+    <span class="panel-icon">
+      <i class="fas fa-book" aria-hidden="true"></i>
+    </span>
+                        jgthms.github.io
+                    </a>
+                </article>
+            </div>
+            <div class="column">
+                <article class="message">
+                    <div class="message-header">
+                        <p>Hello World</p>
+                        <button class="delete" aria-label="delete"></button>
+                    </div>
+                    <div class="message-body">
+                        Lorem ipsum dolor sit amet, consectetur adipiscing elit. <strong>Pellentesque risus mi</strong>, tempus quis placerat ut, porta nec nulla. Vestibulum rhoncus ac ex sit amet fringilla. Nullam gravida purus diam, et dictum <a>felis venenatis</a> efficitur. Aenean ac <em>eleifend lacus</em>, in mollis lectus. Donec sodales, arcu et sollicitudin porttitor, tortor urna tempor ligula, id porttitor mi magna a neque. Donec dui urna, vehicula et sem eget, facilisis sodales sem.
+                    </div>
+                </article>
+            </div>
+            <div class="column">
+       <span class="icon-text">
+          <span class="icon">
+            <i class="fas fa-home"></i>
+          </span>
+          <span>Home</span>
+        </span>
+
+            </div>
+            <div class="column">
+                <div class="notification is-info">
+                    <button class="delete"></button>
+                    Primar lorem ipsum dolor sit amet, consectetur
+                    adipiscing elit lorem ipsum dolor. <strong>Pellentesque risus mi</strong>, tempus quis placerat ut, porta nec nulla. Vestibulum rhoncus ac ex sit amet fringilla. Nullam gravida purus diam, et dictum <a>felis venenatis</a> efficitur.
+                </div>
+            </div>
+            <div class="column">
+                <span class="tag is-black">Black</span>
+                <span class="tag is-dark">Dark</span>
+                <span class="tag is-light">Light</span>
+                <span class="tag is-white">White</span>
+                <span class="tag is-primary">Primary</span>
+                <span class="tag is-link">Link</span>
+                <span class="tag is-info">Info</span>
+                <span class="tag is-success">Success</span>
+                <span class="tag is-warning">Warning</span>
+                <span class="tag is-danger">Danger</span>
+            </div>
+            <div class="column">
+                <aside class="menu">
+                    <p class="menu-label">
+                        General
+                    </p>
+                    <ul class="menu-list">
+                        <li><a>Dashboard</a></li>
+                        <li><a>Customers</a></li>
+                    </ul>
+                    <p class="menu-label">
+                        Administration
+                    </p>
+                    <ul class="menu-list">
+                        <li><a>Team Settings</a></li>
+                        <li>
+                            <a class="is-active">Manage Your Team</a>
+                            <ul>
+                                <li><a>Members</a></li>
+                                <li><a>Plugins</a></li>
+                                <li><a>Add a member</a></li>
+                            </ul>
+                        </li>
+                        <li><a>Invitations</a></li>
+                        <li><a>Cloud Storage Environment Settings</a></li>
+                        <li><a>Authentication</a></li>
+                    </ul>
+                    <p class="menu-label">
+                        Transactions
+                    </p>
+                    <ul class="menu-list">
+                        <li><a>Payments</a></li>
+                        <li><a>Transfers</a></li>
+                        <li><a>Balance</a></li>
+                    </ul>
+                </aside>
+            </div>
+            <div class="column">
+                8 column
+            </div>
+        </div>
+
+</div>
+<section class="section">
+    <h1 class="title">Section</h1>
+    <h2 class="subtitle">
+        A simple container to divide your page into <strong>sections</strong>, like the one you're currently reading.
+    </h2>
+</section>
+<div class="tile is-ancestor">
+    <div class="tile is-4 is-vertical is-parent">
+        <div class="tile is-child box">
+            <p class="title">One</p>
+        </div>
+        <div class="tile is-child box">
+            <p class="title">Two</p>
+        </div>
+    </div>
+    <div class="tile is-parent">
+        <div class="tile is-child box">
+            <p class="title">Three</p>
+        </div>
+    </div>
+</div>
+<footer class="footer">
+    <div class="content has-text-centered">
+        <p>
+            <strong>Bulma</strong> by <a href="https://jgthms.com">Jeremy Thomas</a>. The source code is licensed
+            <a href="http://opensource.org/licenses/mit-license.php">MIT</a>. The website content
+            is licensed <a href="http://creativecommons.org/licenses/by-nc-sa/4.0/">CC BY NC SA 4.0</a>.
+        </p>
+    </div>
+</footer>
+</body>
+</html>

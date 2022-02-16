@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script>
+        var f1 = function (param){
+            alert(param)
+        }
+
+        function f2 (message,f){
+            alert('in f2 call f1')
+            f(message)
+        }
+        f2('hello',f1)
+    </script>
+</head>
+<body>
+
+</body>
+</html>

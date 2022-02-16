@@ -15,7 +15,7 @@ import py.db.dao.common_data_access as common_data
 
 class Site_global_data():
     def __init__(self):
-        self.trade_day = common_data.get_trade_day()
+        self.trade_day = common_data.get_trade_day_thisyear()
 
     def is_trade_day(self, day: date = None) -> bool:
         # log.debug(type(day))

@@ -1,0 +1,42 @@
+.w_input_rate{
+    width:50px
+}
+.w80{
+    width:80px
+}
+.w120{
+    width:120px
+}
+.w200{
+    width:200px
+}
+label.label{
+    font-family: "Microsoft YaHei";
+    font-size: 13px;
+    font-weight: 500;
+}
+.field div {
+    font-family: "Microsoft YaHei";
+    font-size: 10px;
+    font-weight: 500;
+}
+p.help1{
+    font-family: "Microsoft YaHei";
+    font-size: 10px;
+    font-weight: 300;
+    color: #aba8a8;
+    text-align: left;
+    padding-left: 50px;
+    margin-top: 2px;
+}
+input.input{
+    border:0px;
+    border-bottom: 1px solid #565353;
+    height: 24px;
+}
+p.card-header-title{
+    font-family:"KaiTi";
+    font-size: 18px;
+    font-weight: 600;
+    color: #949393;
+}

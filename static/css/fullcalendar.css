@@ -116,7 +116,7 @@ html .fc,
 	}
 	
 .fc-view {
-	width: 100%; /* needed for view switching (when view is absolute) */
+	width: 100%; /* needed for model switching (when model is absolute) */
 	overflow: auto;
 	}
 	

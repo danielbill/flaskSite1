@@ -4,7 +4,9 @@
     <meta charset="UTF-8"/>
     <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
     <title>{% block title %}{% endblock %} -大道系统</title>
-    <link rel="stylesheet" href="{{ url_for('static',filename='css/layui.css',_external=True) }}">
+    <link rel="shortcut icon" href="{{ url_for('static',filename='favicon.ico',_external=True) }}"
+          type="image/x-ico" media="screen">
+    <link rel="stylesheet" href="{{ url_for('static',filename='layui/css/layui.css',_external=True) }}">
     <!-- The Main CSS File -->
     <link rel="stylesheet" href="{{ url_for('static',filename='css/style.css',_external=True) }}">
     <!-- echarts -->
@@ -18,11 +20,10 @@
     {% block head %}{% endblock %}
 </head>
 <body>
+{% set url = request.path %}
 <div class="wrapper contents_wrapper">
     <aside class="sidebar">
         <ul class="tab_nav">
-            {% set url = request.path %}
-
             <li class="{% if url.find('market') != -1 %}
                 active_tab
             {% endif %} i_16_dashboard">
@@ -55,13 +56,19 @@
                     <span class="tab_info">运行状态</span>
                 </a>
             </li>
-            <li class="{% if url.find('sys') != -1 %}
+            <li class="{% if url.find('dz') != -1 %}
                 active_tab
-            {% endif %} i_16_settings">
-                <a href="{{ url_for('market.home') }}" title="sys_manage">
-                    <span class="tab_label">系统</span>
-                    <span class="tab_info">运行状态</span>
+            {% endif %} i_16_data">
+                <a href="{{ url_for('dz.price') }}" title="dz">
+                    <span class="tab_label">价格</span>
                 </a>
+                <a href="{{ url_for('dz.jicha') }}" title="dz">
+                    <span class="tab_info">基差</span>
+                </a>
+                <a href="{{ url_for('dz.storage') }}" title="dz">
+                    <span class="tab_info">库存</span>
+                </a>
+
             </li>
             <li class="{% if url.find('param') != -1 %}
                 active_tab

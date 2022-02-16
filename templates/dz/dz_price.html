@@ -1,0 +1,91 @@
+{% extends "base.html" %}
+{% block title %}大宗价格{% endblock %}
+{% block body %}
+
+    <!-- 库存一览图  -->
+    <div class="g_12">
+        <div class="widget_header">
+            <h4 class="widget_header_title wwIcon i_16_data">大宗价格变化({{ data.date }}|{{ data.type }})
+                <a href="/dz/price?chg_type=chg_d20">20天环比</a>
+                <a href="/dz/price?chg_type=chg_gap_d20">20天价差</a>
+                <a href="/dz/price?chg_type=chg_d60">60天环比</a>
+                <a href="/dz/price?chg_type=chg_gap_d60">60天价差</a>
+                <a href="/dz/price?chg_type=chg_d120">120天环比</a>
+                <a href="/dz/price?chg_type=chg_gap_d120">120天价差</a>
+                <a href="/dz/price?chg_type=chg_d240">240天环比</a>
+                <a href="/dz/price?chg_type=chg_gap_d240">240天价差</a>
+            </h4>
+        </div>
+        <div class="widget_contents " >
+            <div class="hugeChart" id="mydiv"/>
+
+            <script type="text/javascript">
+                // 基于准备好的dom，初始化echarts实例
+                var myChart = echarts.init(document.getElementById('mydiv'));
+                // 指定图表的配置项和数据
+                option = {
+                    tooltip: {
+                        trigger: 'axis',
+                        axisPointer: {
+                            type: 'shadow'
+                        }
+                    },
+                    legend: {
+                    },
+                    grid: {
+                        x: '3%',
+                        y: '2%',
+                        x2: '3%',
+                        y2: '2%',
+                        containLabel: true
+                    },
+                    xAxis: [
+                        {
+                            type: 'value',
+                            inverse:true
+                        }
+                    ],
+                    yAxis: [
+                        {
+                            type: 'category',
+                            axisTick: {
+                                show: false
+                            },
+                            inverse:true,
+                            data: [{{data.name|safe}}]
+                        }
+                    ],
+                    series: [
+                        {
+                            name: '{{ data.chg_type }}',
+                            type: 'bar',
+                            stack: 'Total',
+                            label: {
+                                show: true
+                            },
+                            itemStyle: {
+                                normal: {
+                                    color: (val) => {
+                                        return val.value > 0 ? "#E93030" : "#229D45"
+                                    }
+                                }
+                            },
+                            emphasis: {
+                                focus: 'series'
+                            },
+                            data: [{{data.value|safe}}]
+                        }
+                    ]
+                };
+
+                // 使用刚指定的配置项和数据显示图表。
+                myChart.setOption(option);
+            </script>
+
+        </div>
+    </div>
+{% endblock %}
+
+
+
+

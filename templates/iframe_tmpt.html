@@ -1,0 +1,28 @@
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <title>{% block title %}{% endblock %} -大道</title>
+    <link rel="shortcut icon" href="{{ url_for('static',filename='favicon.ico') }}"
+          type="image/x-ico" media="screen">
+    <!-- 此模板固定对应上方一个查询form(layui form),下方一个数据表格(handsontable) -->
+    <link rel="stylesheet" href="{{ url_for('static',filename='layui/css/layui.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static',filename='css/my.css') }}">
+    <!-- js -->
+    <script src="{{ url_for('static',filename='js/jQuery/jquery-3.6.0.min.js') }}"></script>
+    <script src="{{ url_for('static',filename='layui/layui.js') }}"></script>
+    <script src="{{ url_for('static',filename='js/myjs.js') }}"></script>
+
+    {% block head %}
+        子类在此处写head代码
+    {% endblock %}
+</head>
+<body>
+{% set url = request.path %} <!--内置url对象-->
+<div class="layui-container layui-fluid"  style="float: left;background-color: transparent;width: calc(100% - 100px);margin-top: 15px;">
+        {% block body %}
+            这是基类base.html中的内容
+        {% endblock %}
+</div>
+</body>
+</html>

@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>layui</title>
+    <!--css-->
+    <link rel="stylesheet" href="../../static/layui/css/layui.css">
+    <link rel="stylesheet" type="text/css" href="../../static/handsontable/handsontable.min.css" />
+    <link rel="stylesheet" href="../../static/css/my_handsontable.css">
+    <link rel="stylesheet" href="../../static/css/my.css">
+
+    <!--script-->
+    <script src="https://kit.fontawesome.com/e52eb81a40.js" crossorigin="anonymous"></script>
+    <script src="../../static/js/jQuery/jquery-3.6.0.min.js"></script>
+    <script src="../../static/layui/layui.js"></script>
+    <script src="../../static/handsontable/handsontable.min.js"></script>
+
+
+
+
+
+
+    <script>
+        function reload_table(){
+            var where=getInputToWhere()
+            table_render.reload({
+                where: where
+            });
+        }
+        function getInputToWhere(){
+            var a= $( "form input");
+            var where={}
+            $.each(a,function(){
+                where[this.name] = this.value
+            })
+            return where
+        }
+
+    </script>
+</head>
+<body>
+<div class="layui-container">
+    <div class="layui-row" >
+        <div class="layui-card shadow" >
+        <div class="layui-card-header" style="height: 40px">
+            <div class="layui-row">
+                <div class="layui-col-md2" >
+                    <span class="layui-icon">&#xe627;</span><span>&nbsp预报高增低估甄选</span>
+                </div>
+                <div class="layui-col-md7" >
+                    &nbsp
+                </div>
+                <div class="layui-col-md3" >
+                    <button type="button" class="layui-btn layui-btn-sm layui-btn-normal"
+                            style="width: 100px;"
+                            onclick="reload_table()">
+                        甄 - 选
+                    </button>
+                </div>
+            </div>
+        </div>
+        <div class="layui-card-body">
+            <form id="query_form" class="layui-form-pane" action="">
+                <div class="layui-row">
+                    <div class="layui-col-md3">
+                        <label class="layui-form-label">净利环比增速% ></label>
+                        <input type="number" name="np_hb" lay-verify="required|number" autocomplete="off"
+                                   class="layui-input small" value="10">
+                    </div>
+                    <div class="layui-col-md3">
+                        <label class="layui-form-label">净利环比增速% ></label>
+                        <input type="number" name="np_hb" lay-verify="required|number" autocomplete="off"
+                               class="layui-input small" value="10">
+                    </div>
+                    <div class="layui-col-md3">
+                        <label class="layui-form-label">净利环比增速% ></label>
+                        <input type="number" name="np_hb" lay-verify="required|number" autocomplete="off"
+                               class="layui-input small" value="10">
+                    </div>
+                    <div class="layui-col-md3">
+                        <label class="layui-form-label">净利环比增速% ></label>
+                        <input type="number" name="np_hb" lay-verify="required|number" autocomplete="off"
+                               class="layui-input small" value="10">
+                    </div>
+                </div>
+                <div class="layui-row">
+                    <div class="layui-col-md3">
+                        <label class="layui-form-label">净利环比增速% ></label>
+                        <input type="number" name="np_hb" lay-verify="required|number" autocomplete="off"
+                               class="layui-input small" value="10">
+                    </div>
+                    <div class="layui-col-md3">
+                        <label class="layui-form-label">净利环比增速% ></label>
+                        <input type="number" name="np_hb" lay-verify="required|number" autocomplete="off"
+                               class="layui-input small" value="10">
+                    </div>
+                    <div class="layui-col-md3">
+                        <label class="layui-form-label">净利环比增速% ></label>
+                        <input type="number" name="np_hb" lay-verify="required|number" autocomplete="off"
+                               class="layui-input small" value="10">
+                    </div>
+                    <div class="layui-col-md3">
+                        <label class="layui-form-label">净利环比增速% ></label>
+                        <input type="number" name="np_hb" lay-verify="required|number" autocomplete="off"
+                               class="layui-input small" value="10">
+                    </div>
+                </div>
+            </form>
+            <div class="layui-row" style="margin-bottom: 2px">
+                <!--空白条2px-->
+            </div>
+
+        </div>
+    </div>
+    <div class="layui-row" style="margin-top: -5px">
+        <div id="example1" ></div>
+    </div>
+
+</div>
+
+</div>
+
+
+<script>
+
+    const container = document.querySelector('#example1');
+
+    const hot = new Handsontable(container, {
+        data: Handsontable.helper.createSpreadsheetData(3, 11),
+        colHeaders(index) {
+            return 'Col ' + (index + 1);
+        },
+        rowHeaders: true,
+        height: 'auto',
+        licenseKey: 'non-commercial-and-evaluation'
+    });
+
+
+
+</script>
+</body>
+</html>

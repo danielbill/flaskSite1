@@ -1,0 +1,150 @@
+
+<html lang="zh">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <title><!--需要一个变量传递title--> -大道</title>
+    <link rel="shortcut icon" href="http://127.0.0.1/static/favicon.ico"
+          type="image/x-ico" media="screen">
+    <!-- 此模板固定对应上方一个查询form(layui form),下方一个数据表格(handsontable) -->
+    <link rel="stylesheet" href="/static/layui/css/layui.css">
+    <link rel="stylesheet" href="/static/css/my.css">
+    <!-- js -->
+    <script src="/static/js/jQuery/jquery-3.6.0.min.js"></script>
+    <script src="/static/layui/layui.js"></script>
+    <script src="/static/js/myjs.js"></script>
+
+
+    <!-- 此模板固定对应上方一个查询form(layui form),下方一个数据表格(handsontable) -->
+    <link rel="stylesheet" href="/static/handsontable/handsontable.min.css">
+    <link rel="stylesheet" href="/static/css/my_handsontable.css">
+    <script src="/static/handsontable/handsontable.min.js"></script>
+
+    <script>
+
+
+    </script>
+
+</head>
+<body>
+<!--内置url对象-->
+<div class="layui-container layui-fluid"  style="background-color: transparent;width: calc(100% - 100px);margin-top: 10px;">
+    <div class="layui-row" >
+        <div class="layui-card shadow" >
+            <div class="layui-card-header" style="height: 40px;">
+                <div class="layui-row">
+                    <div class="layui-col-md2" >
+                        <span class="layui-icon">&#xe627;</span><span>&nbsp预报高增低估甄选</span>
+                    </div>
+                    <div class="layui-col-md7" >
+                        &nbsp
+                    </div>
+                    <div class="layui-col-md3" style="margin-top: 5px" >
+                        <button type="button" class="layui-btn layui-btn-sm layui-btn-normal"
+                                style="width: 100px;"
+                                onclick="reload_table()">
+                            甄 - 选
+                        </button>
+                    </div>
+                </div>
+            </div>
+            <div class="layui-card-body">
+
+
+                <form id="query_form" class="layui-form-pane" action="">
+
+                    <div class="layui-row">
+
+                        <div class="layui-col-md3">
+                            <label class="layui-form-label">净利率%&gt;</label>
+                            <input name="" type="number" lay-verify="" autocomplete="off"
+                                   class="layui-input small" value="35">
+                        </div>
+
+
+                        <div class="layui-col-md3">
+                            <label class="layui-form-label">资产负债率%&lt;</label>
+                            <input name="" type="number" lay-verify="" autocomplete="off"
+                                   class="layui-input small" value="55">
+                        </div>
+
+
+                        <div class="layui-col-md3">
+                            <label class="layui-form-label">PE_2S&lt;</label>
+                            <input name="" type="number" lay-verify="" autocomplete="off"
+                                   class="layui-input small" value="25">
+                        </div>
+
+
+                        <div class="layui-col-md3">
+                            <label class="layui-form-label">预报净利环比%&gt;</label>
+                            <input name="" type="number" lay-verify="" autocomplete="off"
+                                   class="layui-input small" value="5">
+                        </div>
+                    </div>
+
+                    <div class="layui-row">
+
+                        <div class="layui-col-md3">
+                            <label class="layui-form-label">上季营利同比%&gt;</label>
+                            <input name="" type="number" lay-verify="" autocomplete="off"
+                                   class="layui-input small" value="30">
+                        </div>
+
+
+                        <div class="layui-col-md3">
+                            <label class="layui-form-label">两年营利同比%&gt;</label>
+                            <input name="" type="number" lay-verify="" autocomplete="off"
+                                   class="layui-input small" value="70">
+                        </div>
+
+
+
+                        <div class="layui-col-md3">&nbsp</div>
+                        <div class="layui-col-md3">&nbsp</div>
+
+                    </div>
+
+
+                </form>
+                <div class="layui-row" style="margin-bottom: 2px">
+                    <!--空白条2px-->
+                </div>
+            </div>
+        </div>
+
+    </div>
+    <div class="layui-row" style="margin-top: 10px">
+        <div id="data_table" class="fullWidth"></div>
+    </div>
+    <script>
+        const container = document.querySelector('#data_table');
+
+        const hot = new Handsontable(container, {
+            data: Handsontable.helper.createSpreadsheetData(3, 12),
+            colHeaders(index) {
+                return 'Col ' + (index + 1);
+            },
+            rowHeaders: true,
+            height: 'auto',
+            width: '100%' ,
+            readOnly: true,
+            copyable:true,
+            autoColumnSize: true,
+            manualColumnResize: true,
+            manualColumnMove: true,//可整行整列移动
+            dropdownMenu: true, // 两项必须同时打开
+            filters: true,
+            licenseKey: 'non-commercial-and-evaluation'
+        });
+
+
+
+    </script>
+</div>
+
+
+
+
+</body>
+</html>

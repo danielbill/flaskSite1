@@ -1,0 +1,152 @@
+body {
+    /*background: url("../Images/Textures/pattern4.png") repeat scroll 0 0 #f4f4f4;*/
+    background-color: #393d49;
+}
+
+.contents_wrapper {
+    padding-top: 10px;
+    position: relative;
+    right: -1px;
+}
+
+.shadow{
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.15);
+}
+
+.content{
+    float: left;
+    top:10px;
+    left:10px;
+    width: auto;
+    background-color: #ffffff;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.15);
+    border-radius: 0 3px 3px 0;
+
+}
+
+.layui-side{position:fixed;left:0;top:0;bottom:0;z-index:999;width:100px;background-color: #f9f9f9}
+.layui-body{position:relative;left:100px;right:0;top:0;bottom:0;z-index:900;
+    width: 100%;box-sizing:border-box}
+
+.layui-card-header{
+    font-family: 'microsoft yahei';
+    font-size: 15px;
+    color:darkgrey;
+}
+
+.font6{
+    font-family: 'microsoft yahei';
+    font-size: 6px;
+    color: #2f2b75;
+}
+
+.w150{
+    width:150px;
+}
+
+input.xsmall{
+    width:50px;
+}
+
+input.small{
+    width:50px;
+}
+
+input.small,input.xsmall {
+    font-family: 'microsoft yahei';
+    font-size: 6px;
+    color: #706c6c;
+
+}
+
+.layui-input{
+    height:32px;
+    margin: 5px 5px 5px 0px;
+}
+
+/*设置layui表格cell的内边距*/
+.layui-table-cell{
+    height:auto;
+    padding: 0 ;
+    margin: 0 ;
+    line-height:24px;
+    /*空白会被浏览器忽略*/
+    /*white-space: normal;*/
+    white-space: nowrap;
+    /*允许长单词换行到下一行*/
+    /*word-wrap: break-word;*/
+    /*允许在单词内换行*/
+    /*word-break: break-all;*/
+}
+.layui-table[lay-size=sm] th{font-size:10px; font-weight: 600;
+    padding:2px 10px;display: table-cell;text-align: center;white-space: nowrap;}
+/*.layui-table th {padding:5px 0px;}*/
+
+
+.layui-card{
+    padding-top: 0px;
+    padding-bottom: 0px;
+    margin-top: 0px;
+}
+/*导航选中的颜色*/
+.layui-this > a { background-color: #1E9FFF !important; }
+/*导航侧条的颜色*/
+.layui-nav-tree .layui-nav-bar {
+    width: 5px;
+    height: 0;
+    background-color: #1E9FFF !important;
+}
+
+.layui-nav-item span{
+    font-family: 'microsoft yahei';
+    font-size: 13px;
+}
+
+.layui-nav-item a{
+    font-family: 'microsoft yahei';
+    font-size: 11px;
+}
+
+.layui-form-pane .layui-form-label{
+    width:120px;
+    padding:5px 0px;
+    margin: 5px 0px 5px 5px;
+    height:32px;
+    border-width:1px;
+    border-style:solid;
+    border-radius:5px 0 0 5px;
+    text-align:center;
+    background-color:#F8F8F8;
+    overflow:hidden;
+    white-space:nowrap;
+    text-overflow:ellipsis;
+    box-sizing:border-box
+
+}
+
+.layui-form-label{
+    font-family: 'microsoft yahei';
+    font-size: 12px;
+    color: #706c6c;
+}
+
+.layui-form-pane .layui-input-block{
+    margin-left:120px;
+    left:-1px
+}
+
+
+
+.layui-form-item{
+    margin-bottom:0px;
+    clear:both;*zoom:1
+}
+
+.layui-form-item .layui-input-inline{float:left;width:100px;margin-right:0px}
+.layui-input-inline{
+    margin-bottom: 5px;
+}
+
+.layui-col-md3{
+    left:40px
+}

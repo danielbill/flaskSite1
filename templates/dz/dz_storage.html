@@ -1,0 +1,80 @@
+{% extends "base.html" %}
+{% block title %}大宗库存{% endblock %}
+{% block body %}
+
+<!-- 库存一览图  -->
+<div class="g_12">
+    <div class="widget_header">
+        <h4 class="widget_header_title wwIcon i_16_data">大宗库存变化</h4>
+    </div>
+    <div class="widget_contents " >
+        <div class="bigChart" id="storage_chg"/>
+
+        <script type="text/javascript">
+            // 基于准备好的dom，初始化echarts实例
+            var myChart = echarts.init(document.getElementById('storage_chg'));
+            // 指定图表的配置项和数据
+            option = {
+                tooltip: {
+                    trigger: 'axis',
+                    axisPointer: {
+                        type: 'shadow'
+                    }
+                },
+                legend: {
+                },
+                grid: {
+                    x: '3%',
+                    y: '3%',
+                    x2: '3%',
+                    y2: '3%',
+                    containLabel: true
+                },
+                xAxis: [
+                    {
+                        type: 'value'
+                    }
+                ],
+                yAxis: [
+                    {
+                        type: 'category',
+                        axisTick: {
+                            show: false
+                        },
+                        data: [{{data.f_name|safe}}]
+                    }
+                ],
+                series: [
+                    {
+                        name: '',
+                        type: 'bar',
+                        stack: 'Total',
+                        label: {
+                            show: true
+                        },
+                        itemStyle: {
+                            normal: {
+                                color: (val) => {
+                                    return val.value > 0 ? "#E93030" : "#229D45"
+                                }
+                            }
+                        },
+                        emphasis: {
+                            focus: 'series'
+                        },
+                        data: [{{data.stor_chg|safe}}]
+                    }
+                ]
+            };
+
+            // 使用刚指定的配置项和数据显示图表。
+            myChart.setOption(option);
+        </script>
+
+    </div>
+</div>
+{% endblock %}
+
+
+
+

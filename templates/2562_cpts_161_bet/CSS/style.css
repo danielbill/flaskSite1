@@ -1364,8 +1364,12 @@
 /* Charts */
 	
 	.charts, .h_bars, .v_bars, .realtime_charts, .donut_charts, .pie_charts {
-		margin-top: 15px;
+		margin-top: 10px;
 		height:260px;
+	}
+	.bigChart{
+		margin-top: 5px;
+		height:400px;
 	}
 
 	.tickLabel, .legendLabel, .charts_tooltip {

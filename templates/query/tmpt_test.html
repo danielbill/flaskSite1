@@ -1,0 +1,20 @@
+{% import 'templates/jinja2_macro/macro_html_ele.html' as htm_ele %}
+{% set moreCols=namespace(num=1) %}
+<form id="query_form" class="layui-form-pane" action="">
+    {% for name in queryConf.get('param')  -%}
+        {{ name }}
+        {%- set ele = htm_ele.col_md3_input(
+        label=queryConf.get('label')[loop.index],
+        what=name,
+        value=queryConf.get('def_val')[loop.index]) -%}
+        {% if loop.index%4==1 -%}
+            <div class="layui-row">{{ '\n' }}
+        {%- endif -%}
+                {{ele}}
+        {% if loop.index/4==1 -%}
+        </div>{{ '\n' }}
+        {%- endif -%}
+        {% set moreCols.num=loop.index %}
+    {% endfor %}
+    {{ htm_ele.col_md3_empty(4-moreCols.num%4) }}
+</form>
