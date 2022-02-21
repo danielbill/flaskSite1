@@ -1,7 +1,7 @@
 from flask import Flask ,render_template
 app = Flask(__name__)
 
-from backend.router import bp_query,bp_selection,bp_dazong,bp_trend,bp_martket,bp_ajax_api
+from backend.router import bp_query,bp_selection,bp_dazong,bp_trend,bp_martket,bp_ajax_api,bp_common
 #增加router
 app.register_blueprint(bp_query.bp)
 app.register_blueprint(bp_martket.bp)
@@ -9,6 +9,7 @@ app.register_blueprint(bp_trend.bp)
 app.register_blueprint(bp_ajax_api.bp)
 app.register_blueprint(bp_dazong.bp)
 app.register_blueprint(bp_selection.bp)
+app.register_blueprint(bp_common.bp)
 
 from global_data import *
 #设置站点级全局变量

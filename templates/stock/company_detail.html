@@ -1,0 +1,401 @@
+{% extends "iframe_tmpt.html" %}
+{% block title %}公司详情{% endblock %}
+
+{% block head %}
+    <script src="{{ url_for('static',filename='js/echarts.min.js') }}"></script>
+    <style>
+        table td{
+            color:navy
+        }
+    </style>
+{% endblock %}
+
+{% block body %}
+
+    <div class="layui-main"  >
+        <div class="layui-row">
+            <div class="layui-tab layui-tab-card" >
+                <ul class="layui-tab-title" >
+                    <li class="layui-this" >公司详情</li>
+                    <li>业务分析</li>
+                    <li>公告新闻</li>
+                    <li>行业政策</li>
+                </ul>
+                <div class="layui-tab-content" style="height: 1000px;background-color: white;padding:0px 0px;">
+                    <div class="layui-tab-item layui-show" style="margin: 0px 20px">
+                        <table class="layui-table" lay-skin="nob" style="margin: 0;padding: 0">
+                            <colgroup>
+                                <col style="width:5%">
+                                <col style="">
+                            </colgroup>
+                            <tbody>
+                            <tr style="height: 50px">
+                                <td style="text-align: center">
+                                    <span class="layui-font-20" style="color:navy;font-weight: bold">{{data.report.name[0]}}</span>
+                                </td>
+                                <td>
+                                    <table class="layui-table" lay-skin="line" lay-size="sm"
+                                           style="background-color: rgb(243,242,252)">
+                                        <thead>
+                                        <tr>
+                                            <th></th>
+                                            <th>营收环比</th>
+                                            <th>扣非环比</th>
+                                            <th>净利环比</th>
+                                            <th>营收同比</th>
+                                            <th>扣非同比</th>
+                                            <th>净利同比</th>
+                                            <th>PE4S</th>
+                                            <th>PE2S</th>
+                                            <th>PEKF4S</th>
+                                            <th>PEKF2S</th>
+                                            <th>净利率</th>
+                                            <th>资产负债率</th>
+                                        </tr>
+                                        </thead>
+                                        <tbody style="text-align: center">
+                                        <tr>
+                                            {% if 'yubao' in data %}
+                                            <td>{{ data.yubao.season_y[0] }}|预</td>
+                                            <td>{{ data.yubao.营收环比[0] }}</td>
+                                            <td>{{ data.yubao.扣非环比[0] }}</td>
+                                            <td>{{ data.yubao.净利环比[0] }}</td>
+                                            <td>{{ data.yubao.营收同比[0] }}</td>
+                                            <td>{{ data.yubao.扣非同比[0] }}</td>
+                                            <td>{{ data.yubao.净利同比[0] }}</td>
+                                            <td>{{ data.yubao.PE4S_Y[0] }}</td>
+                                            <td>{{ data.yubao.PE2S_Y[0] }}</td>
+                                            <td>{{ data.yubao.PEkf4S_Y[0] }}</td>
+                                            <td>{{ data.yubao.PEkf2S_Y[0] }}</td>
+                                            <td>{{ data.yubao.净利率[0] }}</td>
+                                            <td>{{ data.yubao.debt_rate[0] }}</td>
+                                            {% endif %}
+                                        </tr>
+                                        <tr >
+                                            {% if 'report' in data %}
+                                                <td>{{ data.report.season[0] }}</td>
+                                                <td>{{ data.report.营收环比[0] }}</td>
+                                                <td>{{ data.report.扣非环比[0] }}</td>
+                                                <td>{{ data.report.净利环比[0] }}</td>
+                                                <td>{{ data.report.营收同比[0] }}</td>
+                                                <td>{{ data.report.扣非同比[0] }}</td>
+                                                <td>{{ data.report.净利同比[0] }}</td>
+                                                <td>{{ data.report.PE4S[0] }}</td>
+                                                <td>{{ data.report.PE2S[0] }}</td>
+                                                <td>{{ data.report.PEkf4S[0] }}</td>
+                                                <td>{{ data.report.PEkf2S[0] }}</td>
+                                                <td>{{ data.report.净利率[0] }}</td>
+                                                <td>{{ data.report.资产负债率[0] }}</td>
+                                            {% endif %}
+                                        </tr>
+                                        </tbody>
+                                    </table>
+
+                                </td>
+                            </tr>
+                            </tbody>
+                        </table>
+                        <table class="layui-table" lay-skin="" style="margin: 0;padding: 0">
+                            <colgroup>
+                                <col style="width:65%">
+                                <col style="">
+                            </colgroup>
+                            <tbody>
+                            <tr>
+                                <td>
+                                    <div id="main" style="width: 800px;height:300px;"></div>
+                                    <script type="text/javascript">
+                                        // 基于准备好的dom，初始化echarts实例
+                                        var myChart = echarts.init(document.getElementById('main'));
+                                        // 指定图表的配置项和数据
+                                        option = {
+
+                                            tooltip: {
+                                                trigger: 'axis'
+                                            },
+                                            grid: {
+                                                x: '2%',
+                                                y: '10%',
+                                                x2: '2%',
+                                                y2: '10%',
+                                                containLabel: true
+                                            },
+                                            dataset: {
+                                                source: [
+                                                    ['type', '扣非', '净利', '营收'],
+                                                        {% for index,row in data.ink_trend.iterrows() %}
+                                                            [{{row.season}},{{row.s扣非}},{{row.s净利}},{{row.s营收}}],
+                                                        {% endfor %}
+                                                ]
+                                            },
+                                            xAxis: { type: 'category',inverse:true },
+                                            yAxis: {},
+                                            // Declare several bar series, each will be mapped
+                                            // to a column of dataset.source by default.
+                                            series: [{ type: 'bar' }, { type: 'bar' }, { type: 'bar' }]
+                                        };
+
+                                        // 使用刚指定的配置项和数据显示图表。
+                                        myChart.setOption(option);
+                                    </script>
+                                    <div id="chart2" style="width: 800px;height:300px;margin-top: 10px"></div>
+                                    <script type="text/javascript">
+                                        // 基于准备好的dom，初始化echarts实例
+                                        var myChart = echarts.init(document.getElementById('chart2'));
+                                        // 指定图表的配置项和数据
+                                        option = {
+                                            tooltip: {
+                                                trigger: 'axis'
+                                            },
+                                            legend: {
+                                                data: ['净利率', '资产负债率','ROA','ROEA']
+                                            },
+                                            grid: {
+                                                x: '5%',
+                                                y: '15%',
+                                                x2: '5%',
+                                                y2: '10%',
+                                                containLabel: true
+                                            },
+
+                                            xAxis: {
+                                                type: 'category',
+                                                boundaryGap: false,
+                                                inverse:true,
+                                                data: [
+                                                    {% for index,row in data.ndrate_trend.iterrows() %}
+                                                        {{row.season}},
+                                                    {% endfor %}
+                                                ]
+                                            },
+                                            yAxis: {},
+                                            series: [
+                                                {
+                                                    name: '净利率',
+                                                    type: 'line',
+                                                    data: [
+                                                        {% for index,row in data.ndrate_trend.iterrows() %}
+                                                            {{row.npr}},
+                                                        {% endfor %}
+                                                    ]
+                                                },
+                                                {
+                                                    name: '资产负债率',
+                                                    type: 'line',
+
+                                                    data: [
+                                                        {% for index,row in data.ndrate_trend.iterrows() %}
+                                                            {{row.资产负债率}},
+                                                        {% endfor %}
+                                                    ]
+                                                },
+                                                {
+                                                    name: 'ROA',
+                                                    type: 'line',
+                                                    data: [
+                                                        {% for index,row in data.ndrate_trend.iterrows() %}
+                                                            {{row.ROA}},
+                                                        {% endfor %}
+                                                    ]
+                                                },
+                                                {
+                                                    name: 'ROEA',
+                                                    type: 'line',
+                                                    data: [
+                                                        {% for index,row in data.ndrate_trend.iterrows() %}
+                                                            {{row.ROEA}},
+                                                        {% endfor %}
+                                                    ]
+                                                },
+
+                                            ]
+                                        };
+
+                                        // 使用刚指定的配置项和数据显示图表。
+                                        myChart.setOption(option);
+                                    </script>
+                                    <div id="chart3" style="width: 800px;height:250px;margin-top: 10px"></div>
+                                    <script type="text/javascript">
+                                        // 基于准备好的dom，初始化echarts实例
+                                        var myChart = echarts.init(document.getElementById('chart3'));
+                                        option = {
+                                            tooltip: {
+                                                trigger: 'axis',
+                                                axisPointer: {
+                                                    type: 'cross',
+                                                    crossStyle: {
+                                                        color: '#999'
+                                                    }
+                                                }
+                                            },
+                                            toolbox: { //可视化的工具箱
+                                                show: true,
+                                                itemSize:25,
+                                                right:'10%',
+                                                top:'0%',
+                                                feature: {
+                                                    myDbReload: { //自定义
+                                                        show: true,
+                                                        title: '载入',
+                                                        iconStyle: {
+                                                            borderColor: '#343232'
+                                                        },
+                                                        icon:'image://../../static/images/icons/18/i_18_search.png',
+                                                        onclick:function(){
+                                                            alert('yea!')
+                                                            ajax_call('{{ url_for('ajaxapi.db_reload',reload_id=whole_view_key) }}',{'code':'{{request.args.get('code')}}'})
+                                                        }
+                                                    }
+                                                }
+                                            },
+                                            legend: {
+                                                data: ['户均市值', '股东户数']
+                                            },
+                                            grid: {
+                                                x: '5%',
+                                                y: '25%',
+                                                x2: '5%',
+                                                y2: '5%',
+                                                containLabel: true
+                                            },
+                                            xAxis: [
+                                                {
+                                                    type: 'category',
+                                                    inverse:true,
+                                                    boundaryGap: false,
+                                                    data: [
+                                                        {% for index,row in data.holder_change.iterrows() %}
+                                                            '{{row.date.strftime('%y%m%d')}}',
+                                                        {% endfor %}
+                                                    ],
+                                                    axisPointer: {
+                                                        type: 'shadow'
+                                                    }
+                                                }
+                                            ],
+                                            yAxis: [
+                                                {
+                                                    type: 'value',
+                                                    name: '股东户数',
+                                                    splitLine:{ show:true }
+
+                                                },
+                                                {
+                                                    type: 'value',
+                                                    name: '户均市值',
+                                                    splitLine:{ show:false }
+
+                                                }
+                                            ],
+                                            series: [
+
+                                                {
+                                                    name: '股东户数',
+                                                    type: 'line',
+                                                    data: [
+                                                        {% for index,row in data.holder_change.iterrows() %}
+                                                            {{row.股东户数}},
+                                                        {% endfor %}
+                                                    ]
+                                                },
+                                                {
+                                                    name: '户均市值',
+                                                    type: 'line',
+                                                    yAxisIndex: 1,
+                                                    areaStyle: {},
+                                                    emphasis: {
+                                                        focus: 'series'
+                                                    },
+                                                    data: [
+                                                        {% for index,row in data.holder_change.iterrows() %}
+                                                            {{row.户均持股市值}},
+                                                        {% endfor %}
+                                                    ]
+                                                }
+                                            ]
+                                        };
+
+                                        // 使用刚指定的配置项和数据显示图表。
+                                        myChart.setOption(option);
+
+                                        function refreshChart3(data){
+                                            if(!myChart){
+                                                return;
+                                            }
+                                            //更新数据
+                                            var option = myChart.getOption();
+                                            option.series[0].data = data.hushu;
+                                            option.series[1].data = data.huzhi;
+                                            myChart.setOption(option);
+                                        }
+                                    </script>
+                                </td>
+                                <td style="text-align: left;vertical-align: top">
+                                    <div>
+                                        <span class="layui-font-12" style="color:grey;">自选 > 有色  [ - ] </span>
+                                        <hr>
+                                    </div>
+                                    <div>
+                                        <span class="layui-font-12" >成长评分：68分 | A股排名：680</span>
+                                        <hr>
+                                    </div>
+                                    <div>
+                                        <span class="layui-font-12" >价值评分：45分 | A股排名：2680</span>
+                                        <hr>
+                                    </div>
+                                    <div>
+                                        <span class="layui-font-12" >安全评分：85分 | A股排名：180</span>
+                                        <hr>
+                                    </div>
+                                    <div>
+                                        <span class="layui-font-12" >综合得分：45分 | A股排名：380</span>
+                                        <hr>
+                                    </div>
+                                    <div>
+                                        <span class="layui-font-12" >价格因子：45分 | A股排名：380</span>
+                                        <hr>
+                                    </div>
+                                    <div>
+                                        <span class="layui-font-12" >行业平均：45分 | A股排名：380</span>
+                                        <hr>
+                                    </div>
+                                    <div>
+                                        <span class="layui-font-12" >合理估值：24-28PE | 顶预判：65.5元</span>
+                                        <hr>
+                                    </div>
+                                    <div>
+                                        <span class="layui-font-12" >东财人气：55 | 220219 17:44</span>
+                                        <hr>
+                                    </div>
+                                    <div class="layui-font-12">
+                                        <ul>
+                                            <li><a href="javascript:;">矿山涨价……</a></li>
+                                            <li><a href="javascript:;">重大计提……</a></li>
+                                            <li><a href="javascript:;">年报预告……</a></li>
+                                        </ul>
+                                    </div>
+                                </td>
+                            </tr>
+                            </tbody>
+                        </table>
+
+
+                    </div>
+                    <div class="layui-tab-item">
+                    </div>
+                    <div class="layui-tab-item">3</div>
+                    <div class="layui-tab-item">4</div>
+                    <div class="layui-tab-item">5</div>
+                </div>
+            </div>
+        </div>
+
+
+    </div>
+
+
+{% endblock %}
+
+
+
+

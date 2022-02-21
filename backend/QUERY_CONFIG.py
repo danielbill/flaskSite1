@@ -7,89 +7,70 @@
 # @Software: PyCharm  #
 # 所有查询的配置定义在此
 # =========================== #
-import log
-
-#mysql查询条件符号
-MYSQL_WHERE_OPERATOR = ['>','<','=','<>','>=','<=']
 
 class QUERY_CONFIG():
     CONF ={
         #高利润查询配置
         'hm' : {
+            'sql':"""(select r.code,r.season,r.name,r.净利率,pe.debt_rate,
+                   PE2S,PE4S,PE4S_Y,PE2S_Y,PEkf2S,PEkf4S,PEkf2S_Y,PEkf4S_Y,
+                   r.营收环比,r.净利环比,r.扣非环比,
+                   y.净利环比 y_nphb,y.扣非环比 y_kfhb,y.营收环比 y_inhb,
+                   (lyr.扣非同比+r.扣非同比) kf_2y_tb,
+                   (lyr.净利同比+r.净利同比) np_2y_tb,
+                   (lyr.营收同比+r.营收同比) in_2y_tb
+            from my_season_report r
+                     inner join estimate_pe pe on r.code = pe.code
+                     left join my_season_report lyr on (lyr.code=r.code and lyr.season='{last_year_q4}')
+                     left join my_yubao y on y.code = r.code and y.season = '{next_season}'
+            where r.season='{this_season}'
+              and (r.净利率>20 and r.净利率<90 and pe.debt_rate<65)
+              {where}
+            )
+            union
+            (select r.code,r.season,r.name,r.净利率,pe.debt_rate,
+                   PE2S,PE4S,PE4S_Y,PE2S_Y,PEkf2S,PEkf4S,PEkf2S_Y,PEkf4S_Y,
+                   r.营收环比,r.净利环比,r.扣非环比,
+                   y.净利环比 y_nphb,y.扣非环比 y_kfhb,y.营收环比 y_inhb,
+                   (lyr.扣非同比+r.扣非同比) kf_2y_tb,
+                   (lyr.净利同比+r.净利同比) np_2y_tb,
+                   (lyr.营收同比+r.营收同比) in_2y_tb
+            from my_season_report r
+                     inner join estimate_pe pe on r.code = pe.code
+                     left join my_season_report lyr on (lyr.code=r.code and lyr.season='{last_year_q4}')
+                     left join my_yubao y on y.code = r.code and y.season = {this_season}
+            where r.season='{last_season}' 
+            and (r.净利率>20 and r.净利率<90 and pe.debt_rate<65)
+            and r.code not in
+              (select code from my_season_report where season='{this_season}')
+            {where}    
+            )   """,
             #查询参数 yb_hb 预报环比 , 2y_tb 2年增长同比
             'param':['np_rate','debt_rate','pe_2s','yb_hb','ls_tb','y2_tb'],
             #where参数, 查询参数转数据库条件参数
-            'where':['r.净利率>','r.资产负债率<','PE_2S<','yv.netprofit_hb>',
-                     """(r.`营业收入-同比增长`> and r.`净利润-同比增长`> )""",
-                     """((lyr.`营业收入-同比增长`+r.`营业收入-同比增长`)> 
-                     and (lyr.`净利润-同比增长`+r.`净利润-同比增长`)>)"""],
+            'where':['r.净利率>','pe.debt_rate<','PE2S<','y.净利环比>',
+                     """(r.营收同比> and r.净利同比> )""",
+                     """((lyr.营收同比+r.营收同比)> 
+                     and (lyr.净利同比+r.净利同比)>)"""],
             #form中查询标签
             'label':['净利率%>','资产负债率%<','PE_2S<','预报净利环比%>','上季营利同比%>','两年营利同比%>'],
             #input 默认值
-            'def_val':[35,55,25,5,30,70],
+            'def_val':[30,60,30,-5,30,100],
             #order by
-            'order':'netprofit_hb desc',
+            'order':'in_2y_tb desc',
             #数据表格的表头
-            'tableCol':['代码','名称','净利率','负债率','PE_2S','预报净利环比','预报扣非环比','净利两年同比','营收两年同比'],
+            'tableCol':['季度','代码','名称','净利率','负债率','PE_2S',
+                        '净利环比','扣非环比','预报净利环比','预报扣非环比','净利两年同比','营收两年同比'],
             #对应数据库返回字段
-            'dbCol':['股票代码','股票简称','净利率','资产负债率','PE_2S','netprofit_hb','kfprofit_hb','np_2y_tb','in_2y_tb'],
+            'dbCol':['season','code','name','净利率','debt_rate','PE2S',
+                     '净利环比','扣非环比','y_nphb','y_kfhb','np_2y_tb','in_2y_tb'],
+            #查询的定制页面
+            # 'page':
+
         },
     }
 
 QUERY_CONFIG = QUERY_CONFIG()
 
-#根据查询拼装完整的where条件
-def get_where_condition(query_key,params):
-    where = ''
-    try:
-        param_in_where = QUERY_CONFIG.CONF[query_key]['param']
-        where_condition = QUERY_CONFIG.CONF[query_key]['where']
-    except:
-        log.error('query key in QUERY_CONFIG is wrong, or param or where 没设置')
-    #获取查询参数的key和对应的index
-    for index,key in enumerate(param_in_where) :
-        try:
-            #查询参数的值
-            val = params.get(key)
-            if val is None or val=='':continue
-            #获取该参数对应的where条件
-            where_cond = where_condition[index]
-            #增加format符号
-            where_cond = _add_str_format_symbol(where_cond)
-            #替换占位符为查询值
-            where+=' and ' + where_cond.format(a=val)
-        except Exception as e:
-            continue
-    return where
-
-def get_order_condition(query_key,params):
-    try:
-        order_condition = QUERY_CONFIG.CONF[query_key]['order']
-        if order_condition is None :return
-    except:
-        log.error('query key in QUERY_CONFIG is wrong, or param or where 没设置')
-    #回头完善
-    order_key = params.get('order_key')
-    order_way = params.get('order_way')
-    order_condition = ' order by '+order_condition
-    return order_condition
-
-
-
-def _add_str_format_symbol(str):
-    for sym in MYSQL_WHERE_OPERATOR:
-        str = str.replace(sym, sym +'{a} ')
-    return str
-
-if __name__ == '__main__':
-    # print(QUERY_CONFIG.CONF['hm']['where'])
-    where  = """and (lyr.`营业收入-同比增长`+r.`营业收入-同比增长`)>
-    and (lyr.`净利润-同比增长`+r.`净利润-同比增长`)<"""
-    symbols = ['>','<','=','<>']
-    for sym in symbols :
-        where = where.replace(sym, sym +'{a} ')
-
-    print(where)
-    print(where.format(a=65))
 
 

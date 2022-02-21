@@ -1,5 +1,6 @@
 {% extends "iframe_tmpt.html" %}
-{% block title %}{% endblock %}
+{% block title %}
+{% endblock %}
 
 {% block head %}
     <!-- 此模板固定对应上方一个查询form(layui form),下方一个数据表格(handsontable) -->
@@ -7,10 +8,9 @@
     <link rel="stylesheet" href="{{ url_for('static',filename='css/my_handsontable.css') }}">
     <script src="{{ url_for('static',filename='handsontable/handsontable.min.js') }}"></script>
 
-    <script>
+    {% block subHead %}
+    {% endblock subHead %}
 
-
-    </script>
 {% endblock %}
 
 {% block body %}
@@ -21,7 +21,10 @@
             <div class="layui-card-header" style="height: 40px">
                 <div class="layui-row">
                         <div class="layui-col-md2" >
-                            <span class="layui-icon">&#xe627;</span><span>&nbsp预报高增低估甄选</span>
+                            {% block page_caption %}
+                                <span class="layui-icon">&#xe627;</span><span>&nbsp预报高增低估甄选</span>
+                            {% endblock page_caption %}
+
                         </div>
                         <div class="layui-col-md7" >
                             &nbsp
@@ -68,30 +71,33 @@
 
     <script>
         const container = document.querySelector('#data_table');
-        var mytable = new Handsontable(container, {
+        const mytable = new Handsontable(container, {
             data: null,
             colHeaders: [
-                {% for dbcol in qc.get('tableCol') %}
+                {% for dbcol in qc.get('tableCol') -%}
                     {{ ("'"+dbcol+"',")|safe }}
-                {% endfor %}
+                {%- endfor -%}
             ],
             columns: [
-                {% for dbcol in qc.get('dbCol') %}
+                {% for dbcol in qc.get('dbCol') -%}
                  {{ ("{data: '"+dbcol+"'},")|safe }}
-                {% endfor %}
+                {%- endfor -%}
             ],
             className: 'custom-table',
             rowHeaders: true,
-            height: 'auto',
+
             width: '100%',
-            readOnly: false,
+            height: 'auto',
+            rowHeights: 24,
+            colWidths: 90,
+            readOnly: true,
             copyable: true,
-            autoColumnSize: true,
+            columnAutoResize:true,
             columnSorting: true,
-            contextMenu:true,
+            contextMenu:false,
             manualColumnResize: true,
             manualColumnMove: true,//可整行整列移动
-            dropdownMenu: true, // 两项必须同时打开
+            dropdownMenu: false, // 两项必须同时打开
             filters: true,
             licenseKey: 'non-commercial-and-evaluation'
         });
@@ -109,17 +115,11 @@
 
         }
        $(document).ready(function () {
+           {% block document_ready_script %}
+           {% endblock %}
            load_handsonTable()
        });
-
-
-
-
-
-
     </script>
-
-
 {% endblock %}
 
 

@@ -9,10 +9,11 @@
 # =========================== #
 import log
 import py.akshare_data.as_em_yjbb_kb as bb_kb
-
+import py.tools.financial_report_tool as frt
+import py.akshare_data.as_em_zcfz as zcfz
 import py.tools.financial_report_tool as frt
 
-
+#更新东财季报
 def get_allreport(global_data):
     if frt.is_fina_report_time() == False:
         log.info("不是发布快报的时段,pass")
@@ -21,11 +22,11 @@ def get_allreport(global_data):
 
 #更新东财财务快报,这会变更财务报表更新的逻辑
 def get_em_seasonreport():
-
-
     fetcher = bb_kb.Fetcher()
     fetcher.allProcess()
+    f2 = zcfz.Fetcher(frt.get_emkb_season_code())
+    f2.allProcess()
 
 
 if __name__ == '__main__':
-    quit(0)
+    print(frt.get_emkb_season_code('20220401'))

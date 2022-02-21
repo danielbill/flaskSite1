@@ -9,13 +9,14 @@
 # =========================== #
 
 from flask import (
-    Blueprint, request,Response)
+    Blueprint, request,Response,make_response)
 
 import backend.model.trend_model as trdModl
 import py.tools.dataFrameTool as dfTool
 import backend.tool.modelTool as mt
 import backend.model.selection_model as slMod
 import backend.model.query_model as qMod
+import backend.db_reload.db_reload_manager as drm
 import json
 
 bp = Blueprint('ajaxapi', __name__, url_prefix='/ajaxapi')
@@ -59,8 +60,20 @@ def ls_hglp():
 
 @bp.route('/<query_key>')
 def query(query_key):
-    print('in ajax query  key is ' , query_key)
     param = request.args
     df  = qMod.df_from_db(query_key,param)
+    df = mt.fill_Na_and_Null(df)
     data = mt.df_to_layui_table_data(df)
+    # response = make_response(data)
+    # response.headers["charset"]='UTF-8'
     return data
+
+#前台缺部分数据时,临时刷新后台取数
+@bp.route('/reload/<reload_id>')
+def db_reload(reload_id):
+    print('db reload id is ' , reload_id)
+    param = request.args
+    drm.reload_db(reload_id,param)
+    # response = make_response(data)
+    # response.headers["charset"]='UTF-8'
+    return '200'

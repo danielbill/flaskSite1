@@ -22,6 +22,7 @@ import log
 bp = Blueprint('q', __name__, url_prefix='/q')
 
 #所有查询的动态route, 此方法某人路由到视图,查询由视图中的ajax接口调用
+#query参数为1时,不调用ajaxapi查询接口,直接此处查询给出结果
 @bp.route('/<query_key>/')
 @bp.route('/<query_key>/<int:query>')
 def query(query_key,query=0):
@@ -38,6 +39,7 @@ def query(query_key,query=0):
         'qc' :qc.QUERY_CONFIG.CONF.get(query_key),
         'query_key': query_key
     }
+
     # return render_template('query/query_form_and_table_tmpt1.html',data=data,qc=qc.QUERY_CONFIG.CONF.get(query_key))
-    return render_template('query/query_form_and_table_tmpt1.html',**context)
+    return render_template(f'query/{query_key}.html',**context)
 

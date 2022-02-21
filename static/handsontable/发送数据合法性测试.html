@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Hello Bulma!</title>
+    <script src="../js/jQuery/jquery-3.6.0.min.js"></script>
+    <link rel="stylesheet" type="text/css" href="handsontable.min.css" />
+    <script src="handsontable.min.js"></script>
+
+    <style>
+
+    </style>
+    <script>
+        alert(window.gl)
+    </script>
+</head>
+<body>
+
+
+
+            <div id="example1" class="hot"></div>
+
+
+
+<script>
+    window.gl = 'hahaha'
+    function myCallback(event,coords,TD){
+        col = coords.col
+        code = TD.innerHTML
+        if (col ==1) {
+            window.open("http://127.0.0.1/ls/hqlp?code=" + code);
+        }
+    }
+
+    $(document).ready(function () {
+        const container = document.getElementById('example1');
+        const hot = new Handsontable(container, {
+            data: Handsontable.helper.createSpreadsheetData(3, 11),
+            height: 396,
+            colHeaders: true,
+            rowHeaders: true,
+            licenseKey: 'non-commercial-and-evaluation'
+
+        });
+
+        hot.addHook('onCellDblClick', myCallback);
+
+        hot.view.wt.update('onCellDblClick', function (event,coords,TD) {
+            col = coords.col
+            code = TD.innerHTML
+            if (col ==1) {
+                window.open("http://127.0.0.1/ls/hqlp?code=" + code);
+            }
+
+        });
+    });
+
+
+
+
+
+
+</script>
+</body>
+</html>

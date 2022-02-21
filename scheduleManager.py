@@ -24,7 +24,7 @@ class SchedulerConfig(object):
                 'func': 'backend.schedule_task.sche_season_report:get_allreport',
                 'args': [self.global_data],  # 执行程序参数
                 'trigger': 'interval',  # 任务执行类型，定时器
-                'hours': 4  # 任务执行时间
+                'hours': 1  # 任务执行时间
             },
             {
                 'id': '东财预告定时抓取任务',  #
@@ -48,7 +48,7 @@ class SchedulerConfig(object):
                 'args': [self.global_data],  # 执行程序参数
                 'trigger': 'cron',
                 'day_of_week': 'mon-sun',  # 每周1至周7
-                'hour': 17,
+                'hour': 19,
                 'minute': 2
             },
             {
@@ -70,6 +70,17 @@ class SchedulerConfig(object):
                 'day': 'last',
                 'hour':18,
                 'minute':0
+            },
+            {
+                'id': '交易日盘中更新任务',  #
+                'func': 'backend.schedule_task.sche_during_trade_manager:on_trading_task',
+                'args':  [self.global_data],
+                'trigger': 'cron',
+                'year': '*',
+                'month': '*',
+                'day_of_week': "mon-fri",  # 周一到周五
+                "hour": "9-15",  # 9点到15点
+                "minute": "29,59",
             },
             {
                 'id': 'test',  #

@@ -12,6 +12,8 @@ import log
 import py.akshare_data.as_getEmYugao as yugao
 import py.core_value_calculate.yubao_calculator as yubao_cal
 import py.tools.financial_report_tool as frt
+import py.core_value_calculate.my_yubao_calculate as myc
+import py.core_value_calculate.estimate_pe as pe
 
 
 # 取预报,在每年的四个指定时段,目前还未优化到指定时段运行
@@ -20,14 +22,11 @@ def get_yubao(global_data):
     yugao.run()
     log.info('东财预告抓取完毕.')
     log.info('执行预报价值计算,请确保上季度季报价值计算已完成...')
-    cal_yubao_value()
+    # 计算预报价值前，上一季度的季报必须先计算完成
+    myc.calculate_my_yubao()
     log.info('预报价值计算完毕***')
-
-
-# 计算预报价值前，上一季度的季报必须先计算完成
-def cal_yubao_value():
-    yubao_cal.calculate_yb_value()
-
+    pe.update_pe()
+    log.info('更新个股估值完毕***')
 
 if __name__ == '__main__':
     quit(0)

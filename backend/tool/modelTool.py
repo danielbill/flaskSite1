@@ -35,5 +35,11 @@ def df_to_w2ui_table_data(df)->dict:
     data['records'] = json_like_dict
     return data
 
+#ajax传输时,无法转换na和null,导致加载失败
+def fill_Na_and_Null(df):
+    if df.empty : return
+    return df.fillna(0)
+
+
 if __name__ == '__main__':
     quit(0)

@@ -8,6 +8,7 @@
 #
 # =========================== #
 import backend.schedule_task.sche_update_industrial_chain_monthly as ic
+import py.akshare_data.as_shareholder as sh
 import log
 
 #所有月更新任务在此处注册
@@ -15,6 +16,7 @@ def run_monthly_task():
     #东财产业链内容月更新 -- 橡塑无法更新
     ic.update()
     log.info("产业链更新成功")
+
 
 if __name__ == '__main__':
     quit(0)

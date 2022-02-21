@@ -47,7 +47,7 @@ function getHandsonTableDate(func,url) {
         dataType: "json",
         data:getInputToWhere(),
         success: function (result) {
-            //console.log(result)
+            console.log(result)
             //获取数据
             data = result.data;
             func(data);
@@ -57,6 +57,14 @@ function getHandsonTableDate(func,url) {
         }
     });
     return data;
+}
+
+/**
+ *
+ */
+function ajax_call(url,param){
+    alert(param)
+    ajax_fetch(null,url,param)
 }
 
 /**
@@ -73,7 +81,9 @@ function ajax_fetch(func,url,param){
             var data = result.data;
             //alert("从服务器端获取数据成功.")
             //console.log(data)
-            func(data)
+            if (func != null){
+                func(data)
+            }
         },
         error: function () {
             alert("ajax加载失败.");

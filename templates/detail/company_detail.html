@@ -1,0 +1,323 @@
+
+    <head lang="zh">
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+        <!-- 此模板固定对应上方一个查询form(layui form),下方一个数据表格(handsontable) -->
+        <link rel="stylesheet" href="../../static/layui/css/layui.css">
+        <link rel="stylesheet" href="../../static/css/my.css">
+        <!-- js -->
+        <script src="../../static/js/echarts.min.js"></script>
+        <script src="../../static/js/jQuery/jquery-3.6.0.min.js"></script>
+        <script src="../../static/layui/layui.js"></script>
+        <script src="../../static/js/myjs.js"></script>
+        <style>
+            table td{
+                color:navy
+            }
+        </style>
+    </head>
+<body>
+<div class="layui-main"  >
+    <div class="layui-row">
+        <div class="layui-tab layui-tab-card" >
+            <ul class="layui-tab-title" >
+                <li class="layui-this" >公司详情</li>
+                <li>业务分析</li>
+                <li>公告新闻</li>
+                <li>行业政策</li>
+            </ul>
+            <div class="layui-tab-content" style="height: 1000px;background-color: white;padding:0px 0px;">
+                <div class="layui-tab-item layui-show" style="margin: 0px 20px">
+                    <table class="layui-table" lay-skin="nob" style="margin: 0;padding: 0">
+                        <colgroup>
+                            <col style="width:5%">
+                            <col style="">
+                        </colgroup>
+                        <tbody>
+                        <tr style="height: 50px">
+                            <td style="text-align: center">
+                                <span class="layui-font-20" style="color:navy;font-weight: bold">江西铜业</span>
+                            </td>
+                            <td>
+                                <table class="layui-table" lay-skin="line" lay-size="sm"
+                                       style="background-color: rgb(243,242,252)">
+                                    <thead>
+                                    <tr>
+                                        <th></th>
+                                        <th>营收环比</th>
+                                        <th>扣非环比</th>
+                                        <th>净利环比</th>
+                                        <th>营收同比</th>
+                                        <th>扣非同比</th>
+                                        <th>净利同比</th>
+                                        <th>PE4S</th>
+                                        <th>PE2S</th>
+                                        <th>PEKF4S</th>
+                                        <th>PEKF2S</th>
+                                        <th>净利率</th>
+                                        <th>资产负债率</th>
+                                    </tr>
+                                    </thead>
+                                    <tbody style="">
+                                    <tr>
+                                        <td>202112|预</td>
+                                        <td>12</td>
+                                        <td>12.9</td>
+                                        <td>12</td>
+                                        <td>12</td>
+                                    </tr>
+                                    <tr>
+                                        <td>202109</td>
+                                        <td>12</td>
+                                        <td>12.9</td>
+                                        <td>12</td>
+                                        <td>12</td>
+                                    </tr>
+                                    </tbody>
+                                </table>
+
+                            </td>
+                        </tr>
+                        </tbody>
+                    </table>
+                    <table class="layui-table" lay-skin="" style="margin: 0;padding: 0">
+                        <colgroup>
+                            <col style="width:65%">
+                            <col style="">
+                        </colgroup>
+                        <tbody>
+                        <tr>
+                            <td>
+                                <div id="main" style="width: 800px;height:300px;"></div>
+                                <script type="text/javascript">
+                                    // 基于准备好的dom，初始化echarts实例
+                                    var myChart = echarts.init(document.getElementById('main'));
+                                    // 指定图表的配置项和数据
+                                    option = {
+                                        legend: {},
+                                        tooltip: {},
+                                        grid: {
+                                            x: '2%',
+                                            y: '10%',
+                                            x2: '2%',
+                                            y2: '5%',
+                                            containLabel: true
+                                        },
+                                        dataset: {
+                                            source: [
+                                                ['type', '扣非', '净利', '营收'],
+                                                ['2103', 43.3, 85.8, 93.7],
+                                                ['2106', 83.1, 73.4, 55.1],
+                                                ['2109', 86.4, 65.2, 82.5],
+                                                ['2112', 72.4, 53.9, 39.1],
+                                                ['2203', 86.4, 65.2, 82.5],
+                                                ['2206', 72.4, 53.9, 39.1],
+                                                ['2209', 86.4, 65.2, 82.5],
+                                                ['2212', 72.4, 53.9, 39.1],
+                                            ]
+                                        },
+                                        xAxis: { type: 'category' },
+                                        yAxis: {},
+                                        // Declare several bar series, each will be mapped
+                                        // to a column of dataset.source by default.
+                                        series: [{ type: 'bar' }, { type: 'bar' }, { type: 'bar' }]
+                                    };
+
+                                    // 使用刚指定的配置项和数据显示图表。
+                                    myChart.setOption(option);
+                                </script>
+                                <div id="chart2" style="width: 800px;height:200px;margin-top: 10px"></div>
+                                <script type="text/javascript">
+                                    // 基于准备好的dom，初始化echarts实例
+                                    var myChart = echarts.init(document.getElementById('chart2'));
+                                    // 指定图表的配置项和数据
+                                    option = {
+
+                                        tooltip: {
+                                            trigger: 'axis'
+                                        },
+                                        legend: {
+                                            data: ['净利率', '资产负债率']
+                                        },
+                                        grid: {
+                                            x: '5%',
+                                            y: '15%',
+                                            x2: '5%',
+                                            y2: '10%',
+                                            containLabel: true
+                                        },
+
+                                        xAxis: {
+                                            type: 'category',
+                                            boundaryGap: false,
+                                            data: ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun']
+                                        },
+                                        yAxis: {
+                                            type: 'value'
+                                        },
+                                        series: [
+                                            {
+                                                name: '净利率',
+                                                type: 'line',
+                                                stack: 'Total',
+                                                data: [120, 132, 101, 134, 90, 230, 210]
+                                            },
+                                            {
+                                                name: '资产负债率',
+                                                type: 'line',
+                                                stack: 'Total',
+                                                data: [220, 182, 191, 234, 290, 330, 310]
+                                            },
+
+                                        ]
+                                    };
+
+                                    // 使用刚指定的配置项和数据显示图表。
+                                    myChart.setOption(option);
+                                </script>
+                                <div id="chart3" style="width: 800px;height:200px;margin-top: 10px"></div>
+                                <script type="text/javascript">
+                                    // 基于准备好的dom，初始化echarts实例
+                                    var myChart = echarts.init(document.getElementById('chart3'));
+                                    option = {
+
+                                        legend: {
+                                            data: ['人均持股', '股东人数']
+                                        },
+                                        toolbox: { //可视化的工具箱
+                                            show: true,
+                                            itemSize:20,
+                                            right:'8%',
+                                            top:'0%',
+                                            feature: {
+                                                myTool1: {    //必须要my开头
+                                                    show: true,
+                                                    title: '载入',
+                                                    iconStyle: {
+                                                        borderColor: '#343232'
+                                                    },
+                                                    icon:'image://../../static/images/icons/16/i_16_add.png',
+                                                    onclick: function (){
+                                                        alert('myToolHandler1')
+                                                    }
+                                                }
+                                            }
+                                        },
+                                        xAxis: [
+                                            {
+                                                type: 'category',
+                                                data: ['03', '06', '09', '12'],
+                                                axisPointer: {
+                                                    type: 'shadow'
+                                                }
+                                            }
+                                        ],
+                                        yAxis: [
+                                            {
+                                                type: 'value',
+                                                name: '人均持股',
+                                                min: 0,
+                                                max: 250,
+                                                interval: 50,
+                                            },
+                                            {
+                                                type: 'value',
+                                                name: '股东人数',
+                                                min: 0,
+                                                max: 25,
+                                                interval: 5,
+                                            }
+                                        ],
+                                        series: [
+
+                                            {
+                                                name: '股东人数',
+                                                type: 'bar',
+
+                                                data: [
+                                                    2.6, 5.9, 9.0, 26.4
+                                                ]
+                                            },
+                                            {
+                                                name: '人均持股',
+                                                type: 'line',
+                                                yAxisIndex: 1,
+
+                                                data: [2.0, 2.2, 3.3, 4.5]
+                                            }
+                                        ]
+                                    };
+
+                                    // 使用刚指定的配置项和数据显示图表。
+                                    myChart.setOption(option);
+                                </script>
+                            </td>
+                            <td style="text-align: left;vertical-align: top">
+                                <div>
+                                    <span class="layui-font-12" style="color:grey;">自选 > 有色  [ - ] </span>
+                                    <hr>
+                                </div>
+                                <div>
+                                    <span class="layui-font-12" >成长评分：68分 | A股排名：680</span>
+                                    <hr>
+                                </div>
+                                <div>
+                                    <span class="layui-font-12" >价值评分：45分 | A股排名：2680</span>
+                                    <hr>
+                                </div>
+                                <div>
+                                    <span class="layui-font-12" >安全评分：85分 | A股排名：180</span>
+                                    <hr>
+                                </div>
+                                <div>
+                                    <span class="layui-font-12" >综合得分：45分 | A股排名：380</span>
+                                    <hr>
+                                </div>
+                                <div>
+                                    <span class="layui-font-12" >价格因子：45分 | A股排名：380</span>
+                                    <hr>
+                                </div>
+                                <div>
+                                    <span class="layui-font-12" >行业平均：45分 | A股排名：380</span>
+                                    <hr>
+                                </div>
+                                <div>
+                                    <span class="layui-font-12" >合理估值：24-28PE | 顶预判：65.5元</span>
+                                    <hr>
+                                </div>
+                                <div>
+                                    <span class="layui-font-12" >东财人气：55 | 220219 17:44</span>
+                                    <hr>
+                                </div>
+                                <div class="layui-font-12">
+                                    <ul>
+                                        <li><a href="javascript:;">矿山涨价……</a></li>
+                                        <li><a href="javascript:;">重大计提……</a></li>
+                                        <li><a href="javascript:;">年报预告……</a></li>
+                                    </ul>
+                                </div>
+                            </td>
+                        </tr>
+                        </tbody>
+                    </table>
+
+
+                </div>
+                <div class="layui-tab-item">
+                </div>
+                <div class="layui-tab-item">3</div>
+                <div class="layui-tab-item">4</div>
+                <div class="layui-tab-item">5</div>
+            </div>
+        </div>
+    </div>
+
+
+</div>
+
+</body>
+
+
+
+
+

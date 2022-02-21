@@ -1,9 +1,9 @@
 .custom-table thead th{
     background-color: #dddddd;
     text-align: center;
-    font-size:13px;
+    font-size:10px;
     height: 28px;
-    padding-top: 5px;
+    padding: 5px 0px 0px 0px;
     font-weight: 500;
     font-family: "Microsoft YaHei";
     border: 0px;
@@ -19,5 +19,6 @@
 
 .custom-table tbody td{
     font-family: "Microsoft YaHei";
-    font-size: small;
+    font-size: 8px;
+    text-align: center;
 }
