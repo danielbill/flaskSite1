@@ -1,4 +1,4 @@
-{% extends "iframe_tmpt.html" %}
+{% extends "iframe_tmpt2.html" %}
 {% block title %}公司详情{% endblock %}
 
 {% block head %}
@@ -11,7 +11,8 @@
 {% endblock %}
 
 {% block body %}
-
+{% set code = request.args.get('code') %}
+{% set mystock = config.global_data.get_mystock() %}
     <div class="layui-main"  >
         <div class="layui-row">
             <div class="layui-tab layui-tab-card" >
@@ -20,8 +21,9 @@
                     <li>业务分析</li>
                     <li>公告新闻</li>
                     <li>行业政策</li>
+
                 </ul>
-                <div class="layui-tab-content" style="height: 1000px;background-color: white;padding:0px 0px;">
+                <div class="layui-tab-content" style="height: 1500px;background-color: white;padding:0px 0px;">
                     <div class="layui-tab-item layui-show" style="margin: 0px 20px">
                         <table class="layui-table" lay-skin="nob" style="margin: 0;padding: 0">
                             <colgroup>
@@ -109,13 +111,15 @@
                                         var myChart = echarts.init(document.getElementById('main'));
                                         // 指定图表的配置项和数据
                                         option = {
-
                                             tooltip: {
                                                 trigger: 'axis'
                                             },
+                                            legend: {
+                                                data: ['扣非', '净利', '营收']
+                                            },
                                             grid: {
                                                 x: '2%',
-                                                y: '10%',
+                                                y: '15%',
                                                 x2: '2%',
                                                 y2: '10%',
                                                 containLabel: true
@@ -129,7 +133,9 @@
                                                 ]
                                             },
                                             xAxis: { type: 'category',inverse:true },
-                                            yAxis: {},
+                                            yAxis: {
+                                                position:'right'
+                                            },
                                             // Declare several bar series, each will be mapped
                                             // to a column of dataset.source by default.
                                             series: [{ type: 'bar' }, { type: 'bar' }, { type: 'bar' }]
@@ -168,7 +174,9 @@
                                                     {% endfor %}
                                                 ]
                                             },
-                                            yAxis: {},
+                                            yAxis: {
+                                                position:'right'
+                                            },
                                             series: [
                                                 {
                                                     name: '净利率',
@@ -242,8 +250,7 @@
                                                         },
                                                         icon:'image://../../static/images/icons/18/i_18_search.png',
                                                         onclick:function(){
-                                                            alert('yea!')
-                                                            ajax_call('{{ url_for('ajaxapi.db_reload',reload_id=whole_view_key) }}',{'code':'{{request.args.get('code')}}'})
+                                                            ajax_call('{{ url_for('ajaxapi.db_reload',reload_id=whole_view_key) }}',{'code':'{{code}}'})
                                                         }
                                                     }
                                                 }
@@ -332,7 +339,19 @@
                                 </td>
                                 <td style="text-align: left;vertical-align: top">
                                     <div>
-                                        <span class="layui-font-12" style="color:grey;">自选 > 有色  [ - ] </span>
+                                        <span class="layui-font-12" style="color:grey;">
+                                            {% if mystock.empty == False and code in mystock['code'].tolist() %}
+                                                {% set row=mystock.loc[mystock.code==code]%}
+
+                                                自选{{ row['grp'].values[0] or ''}} >
+                                                {{ row['industry'].values[0] or ''}} &nbsp
+                                                {{ row['label'].values[0] or ''}} &nbsp|&nbsp
+                                                <a href="javascript:ajax_svc(null,'{{ url_for('ajaxapi.service',svc_id='mystock.del') }}',{'code':'{{code}}'})">移除 [ - ]</a>
+                                            {% else %}
+                                                <a href="javascript:ajax_svc(null,'{{ url_for('ajaxapi.service',svc_id='mystock.add') }}',{'code':'{{code}}'})">加入自选 [ + ]</a>
+                                            {% endif %}
+
+                                        </span>
                                         <hr>
                                     </div>
                                     <div>

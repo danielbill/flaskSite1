@@ -1,0 +1,36 @@
+{% extends "query/query_form_and_table_tmpt1.html" %}
+{% block title %} 自选股 {% endblock %}
+{% block subHead %}
+    <script>
+        /**
+         * 将字典数据刷新handsontable
+         * @param data
+         * @param handsonTable
+         */
+        function decodeData(data,handsonTable){
+            dataDict = tengxunStockDataToDict(data)
+            for (let i = 0; i < handsonTable.countRows(); i++) {
+                code = handsonTable.getDataAtCell(i,0)
+                stockData = dataDict[code]
+                handsonTable.setDataAtCell(i,4,stockData["最新"])
+                handsonTable.setDataAtCell(i,5,stockData["涨幅"])
+                handsonTable.setDataAtCell(i,6,stockData["换手"])
+               // handsonTable.setDataAtCell(i,7,stockData["金额"]/10000)
+            }
+        }
+    </script>
+{% endblock  subHead %}
+
+{% block bodyBottom %}
+<script defer="defer">
+    setInterval(function() {
+        codeStr = getQueryCodes(mytable)
+        var url = 'http://qt.gtimg.cn/q='+codeStr
+        var d = new Date();
+        var hour = d.getHours()
+        var min = d.getMinutes()
+        if (hour<9 | hour>15) return //非交易时段不刷新
+        html_ajax_fetch(decodeData,url,param=null,handsonTable=mytable)
+    }, 1000*60)
+</script>
+{% endblock bodyBottom%}

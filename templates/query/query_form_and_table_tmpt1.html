@@ -1,6 +1,7 @@
 {% extends "iframe_tmpt.html" %}
 {% block title %}
 {% endblock %}
+{% import 'jinja2_macro/macro_html_ele.html' as htm_ele %}
 
 {% block head %}
     <!-- 此模板固定对应上方一个查询form(layui form),下方一个数据表格(handsontable) -->
@@ -15,14 +16,15 @@
 
 {% block body %}
 
-
+{% set show_search = qc.get('show_search',True)  %}
+    {% if show_search %}
 <div class="layui-row" >
         <div class="layui-card shadow" >
             <div class="layui-card-header" style="height: 40px">
                 <div class="layui-row">
                         <div class="layui-col-md2" >
                             {% block page_caption %}
-                                <span class="layui-icon">&#xe627;</span><span>&nbsp预报高增低估甄选</span>
+                                <span class="layui-icon">&#xe627;</span><span>&nbsp{{ qc.get('search_title','') }}</span>
                             {% endblock page_caption %}
 
                         </div>
@@ -38,8 +40,10 @@
                         </div>
                     </div>
             </div>
+            {% set labels = qc.get('label') %}
+            {% if labels %}
             <div class="layui-card-body">
-                {% import 'jinja2_macro/macro_html_ele.html' as htm_ele %}
+
                 {% set moreCols=namespace(num=1) %}
                 <form id="query_form" class="layui-form-pane" action="">
 
@@ -62,64 +66,17 @@
                     <!--空白条2px-->
                 </div>
             </div>
+            {% endif %}
         </div>
-
     </div>
+    {% endif %}
     <div class="layui-row" style="margin-top: 10px">
-        <div id="data_table" class="fullWidth mytable"></div>
+        {% include 'base/handsontable_script.html' %}
     </div>
 
-    <script>
-        const container = document.querySelector('#data_table');
-        const mytable = new Handsontable(container, {
-            data: null,
-            colHeaders: [
-                {% for dbcol in qc.get('tableCol') -%}
-                    {{ ("'"+dbcol+"',")|safe }}
-                {%- endfor -%}
-            ],
-            columns: [
-                {% for dbcol in qc.get('dbCol') -%}
-                 {{ ("{data: '"+dbcol+"'},")|safe }}
-                {%- endfor -%}
-            ],
-            className: 'custom-table',
-            rowHeaders: true,
+    {% block bodyBottom %}
+    {% endblock bodyBottom%}
 
-            width: '100%',
-            height: 'auto',
-            rowHeights: 24,
-            colWidths: 90,
-            readOnly: true,
-            copyable: true,
-            columnAutoResize:true,
-            columnSorting: true,
-            contextMenu:false,
-            manualColumnResize: true,
-            manualColumnMove: true,//可整行整列移动
-            dropdownMenu: false, // 两项必须同时打开
-            filters: true,
-            licenseKey: 'non-commercial-and-evaluation'
-        });
-
-        function _tableUpdateData(data){
-            mytable.updateData(data)
-        }
-        /*
-        给handson table重新渲染时,加载form的input值
-         */
-        function load_handsonTable(){
-            const url = {{ ("'" + url_for('ajaxapi.query',_external=True,query_key=query_key) +"'")|safe }};
-            var param = getInputToWhere()
-            ajax_fetch(_tableUpdateData,url,param)
-
-        }
-       $(document).ready(function () {
-           {% block document_ready_script %}
-           {% endblock %}
-           load_handsonTable()
-       });
-    </script>
 {% endblock %}
 
 

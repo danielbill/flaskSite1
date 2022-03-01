@@ -3,7 +3,7 @@
 # @Time : 22/2/4 11:31     #
 # @Author : 毕磊              #
 # @Site : ---                 #
-# @File : bp_ajax_api.py          #
+# @File : bp_ajax_api.mypy          #
 # @Software: PyCharm  #
 #
 # =========================== #
@@ -12,12 +12,13 @@ from flask import (
     Blueprint, request,Response,make_response)
 
 import backend.model.trend_model as trdModl
-import py.tools.dataFrameTool as dfTool
+import log
+import mypy.tools.dataFrameTool as dfTool
 import backend.tool.modelTool as mt
 import backend.model.selection_model as slMod
 import backend.model.query_model as qMod
 import backend.db_reload.db_reload_manager as drm
-import json
+import backend.router.service_manager as svcMag
 
 bp = Blueprint('ajaxapi', __name__, url_prefix='/ajaxapi')
 
@@ -62,7 +63,7 @@ def ls_hglp():
 def query(query_key):
     param = request.args
     df  = qMod.df_from_db(query_key,param)
-    df = mt.fill_Na_and_Null(df)
+    df = mt.fill_NaNull_withEmptyStr(df)
     data = mt.df_to_layui_table_data(df)
     # response = make_response(data)
     # response.headers["charset"]='UTF-8'
@@ -77,3 +78,16 @@ def db_reload(reload_id):
     # response = make_response(data)
     # response.headers["charset"]='UTF-8'
     return '200'
+
+#后台服务,和reload的不一样,后台服务不需要返回结果
+@bp.route('/svc/<svc_id>')
+def service(svc_id):
+    log.debug(f'svc_id is {svc_id}')
+    param = request.args
+    context={
+        'msg':'success',
+        'svc_code':100 #成功
+    }
+    data = svcMag.do_service(svc_id,param)
+    context['data']=data
+    return context

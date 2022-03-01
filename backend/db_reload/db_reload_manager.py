@@ -3,7 +3,7 @@
 # @Time : 22/2/21 19:57     #
 # @Author : 毕磊              #
 # @Site : ---                 #
-# @File : db_reload_manager.py          #
+# @File : db_reload_manager.mypy          #
 # @Software: PyCharm  #
 #
 # =========================== #

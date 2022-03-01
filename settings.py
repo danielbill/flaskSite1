@@ -3,7 +3,7 @@
 # @Time : 22/1/25 17:55     #
 # @Author : 毕磊              #
 # @Site : ---                 #
-# @File : settings.py          #
+# @File : settings.mypy          #
 # @Software: PyCharm  #
 # =========================== #
 
@@ -11,6 +11,6 @@ DEBUG = False
 use_reloader=False
 JSON_AS_ASCII = False
 
-# app.config.from_pyfile('settings.py')
+# app.config.from_pyfile('settings.mypy')
 SQLALCHEMY_DATABASE_URI = 'mysql+pymysql://root:123456@localhost:3306/stock?charset=UTF8MB4'
 SQLALCHEMY_TRACK_MODIFICATIONS = True

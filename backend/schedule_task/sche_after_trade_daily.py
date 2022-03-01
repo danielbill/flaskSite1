@@ -3,27 +3,27 @@
 # @Time : 22/2/2 11:02     #
 # @Author : 毕磊              #
 # @Site : ---                 #
-# @File : sche_after_trade_daily.py          #
+# @File : sche_after_trade_daily.mypy          #
 # @Software: PyCharm  #
 # 收盘后的日常工作
 # =========================== #
 import os
 import global_data as gd
 import log
-import py.akshare_data.ak_em_stock_strong as stockStrong
-import py.akshare_data.ak_em_ztb as emztb
-import py.akshare_data.ak_lg_market_activity as marketActivity
-import py.akshare_data.ak_ths_cxd as cxd
-import py.akshare_data.ak_ths_cxg as cxg
-import py.akshare_data.as_getEmLatestPrice as priceTool
-import py.akshare_data.as_getEmStockAbcInfo as stockInfoTool
+import mypy.akshare_data.ak_em_stock_strong as stockStrong
+import mypy.akshare_data.ak_em_ztb as emztb
+import mypy.akshare_data.ak_lg_market_activity as marketActivity
+import mypy.akshare_data.ak_ths_cxd as cxd
+import mypy.akshare_data.ak_ths_cxg as cxg
+import mypy.akshare_data.as_getEmLatestPrice as priceTool
+import mypy.akshare_data.as_getEmStockAbcInfo as stockInfoTool
 
-import py.akshare_data.as_iwc_hotrank as hotrank
-import py.akshare_data.bulk_commodity.ak_future_price as fuPrice
-import py.akshare_data.bulk_commodity.ak_future_storage as fuStorage
-import py.data_process.processor_manager as processors
-import py.web_worm.em_web_worm.em_stock_popular_rank as em_rank
-import py.akshare_data.as_getMarketInfo as market
+import mypy.akshare_data.as_iwc_hotrank as hotrank
+import mypy.akshare_data.bulk_commodity.ak_future_price as fuPrice
+import mypy.akshare_data.bulk_commodity.ak_future_storage as fuStorage
+import mypy.data_process.processor_manager as processors
+import mypy.web_worm.em_web_worm.em_stock_popular_rank as em_rank
+import mypy.akshare_data.as_getMarketInfo as market
 
 # 收盘更新日常
 def update_after_marketClose_daily(global_data):
@@ -55,8 +55,8 @@ def update_after_marketClose_daily(global_data):
     update_market_activity.allProcess()
     log.info('当日市场活跃度获取成功')
     # 更新个股热度
-    hotrank.get_today_rank()
-    log.info('当日问财活跃度获取成功')
+    # hotrank.get_today_rank()
+    # log.info('当日问财活跃度获取成功')
     # 更新需要十分钟,东财的热度是逐个股票更新的
     emrank_fetcher = em_rank.em_popular_rank_fetcher()
     emrank_fetcher.allProcess()

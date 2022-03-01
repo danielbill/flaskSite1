@@ -1,0 +1,82 @@
+<html>
+<head lang="zh">
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <!-- 此模板固定对应上方一个查询form(layui form),下方一个数据表格(handsontable) -->
+
+    <link rel="stylesheet" href="../../static/handsontable/handsontable.min.css">
+    <link rel="stylesheet" href="../../static/css/my_handsontable.css">
+
+    <!-- js -->
+    <script src="../../static/handsontable/handsontable.min.js"></script>
+    <script src="../../static/js/jQuery/jquery-3.6.0.min.js"></script>
+    <script src="../../static/js/myjs.js"></script>
+    <script>
+        /**
+         * 将字典数据刷新handsontable
+         * @param data
+         * @param handsonTable
+         */
+        function decodeData(data,handsonTable){
+            dataDict = tengxunStockDataToDict(data)
+            for (let i = 1; i < handsonTable.countRows(); i++) {
+                code = handsonTable.getDataAtCell(i,0)
+                stockData = dataDict[code]
+                handsonTable.setDataAtCell(i,1,stockData["最新"])
+                handsonTable.setDataAtCell(i,2,stockData["涨幅"])
+                handsonTable.setDataAtCell(i,3,stockData["金额"]/10000)
+                handsonTable.setDataAtCell(i,4,stockData["换手"]+'%')
+            }
+        }
+    </script>
+</head>
+<body>
+<div id="data_table" class="fullWidth mytable"></div>
+<div id="test"></div>
+
+<script>
+    var data = [
+        ['code', '最新', '涨跌', '成交额', '换手'],
+        ['000960', 10, 11, 12, 13],
+        ['300023', 20, 11, 14, 13],
+        ['600362', 30, 15, 12, 13]
+    ];
+
+    var container = document.getElementById('data_table');
+    var hot = new Handsontable(container, {
+        data: data,
+        className: 'custom-table',
+        rowHeaders: false,
+        width: '100%',
+        height: 'auto',
+        rowHeights: 24,
+        colWidths: 90,
+        readOnly: true,
+        copyable: true,
+        columnAutoResize:true,
+        columnSorting: true,
+        contextMenu:false,
+        manualColumnResize: true,
+        manualColumnMove: true,//可整行整列移动
+        dropdownMenu: false, // 两项必须同时打开
+        filters: true,
+        licenseKey: 'non-commercial-and-evaluation'
+    });
+
+
+
+</script>
+<script>
+    codeStr = getQueryCodes(hot)
+    var url = 'http://qt.gtimg.cn/q='+codeStr
+
+    setInterval(function() {
+        var d = new Date();
+        var hour = d.getHours()
+        var min = d.getMinutes()
+        //if (hour<9 | hour>15) return //非交易时段不刷新
+        html_ajax_fetch(decodeData,url,param=null,handsonTable=hot)
+    }, 1000*1)
+</script>
+</body>
+</html>

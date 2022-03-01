@@ -1,0 +1,60 @@
+<div id="data_table" class="fullWidth mytable"></div>
+{% import 'jinja2_macro/macro_js_ele.html' as js_ele %}
+<script>
+    const container = document.querySelector('#data_table');
+    const mytable = new Handsontable(container, {
+        data: null,
+        colHeaders: [
+            {% for dbcol in qc.get('tableCol') -%}
+                {{ ("'"+dbcol+"',")|safe }}
+            {%- endfor -%}
+        ],
+        columns: [
+            {% for dbcol in qc.get('dbCol') -%}
+                {{ ("{data: '"+dbcol+"'},")|safe }}
+            {%- endfor -%}
+        ],
+        className: 'custom-table',
+        rowHeaders: true,
+        width: '100%',
+        height: {{qc.get('tableHeight',420)}},
+        rowHeights: 24,
+        colWidths: 85,
+        readOnly: true,
+        copyable: true,
+        columnAutoResize:true,
+        columnSorting: true,
+        contextMenu:true,
+        fixedColumnsLeft: 3,
+        manualColumnFreeze: true,
+        manualColumnResize: true,
+        manualColumnMove: false,//可整行整列移动
+        dropdownMenu: false, // 两项必须同时打开
+        filters: true,
+
+        licenseKey: 'non-commercial-and-evaluation'
+    });
+
+    function _tableUpdateData(data){
+        mytable.updateData(data)
+    }
+    /*
+    给handson table重新渲染时,加载form的input值
+     */
+    function load_handsonTable(){
+        const url = {{ ("'" + url_for('ajaxapi.query',_external=True,query_key=query_key) +"'")|safe }};
+        var param = getInputToWhere()
+        ajax_fetch(_tableUpdateData,url,param)
+
+    }
+    $(document).ready(function () {
+        {% block document_ready_script %}
+        {% endblock %}
+        {% set qc_extra = qc.get('extra',{}) %}
+        {% set codeToDetail = qc_extra.get('codeToDetail',-1) %}
+        {% if codeToDetail!=-1 %}
+            {{ js_ele.handsonTalbe_codeToDetail(codeToDetail) }}
+        {% endif %}
+        load_handsonTable()
+    });
+</script>

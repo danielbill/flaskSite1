@@ -13,10 +13,12 @@ app.register_blueprint(bp_common.bp)
 
 from global_data import *
 #设置站点级全局变量
-global_data = Site_global_data()
 #配置参数
 app.config.from_pyfile('settings.py')
-app.config['global_data'] = global_data
+app.config['global_data'] = SGD
+import mypy.choice.choice_strategy as cho_stgy
+app.config['CHOICE_STRATEGY'] = cho_stgy.CHOICE_STRATEGY
+
 
 
 from flask_apscheduler import APScheduler
@@ -31,6 +33,11 @@ with app.app_context():
 @app.route('/')
 def index():
     return render_template('/home_iframe.html')
+
+@app.route('/test')
+def test():
+    return render_template('base/test'
+                           '.html')
 
 
 if __name__ == '__main__':

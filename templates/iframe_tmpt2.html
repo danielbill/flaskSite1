@@ -1,0 +1,11 @@
+{% extends "iframe_tmpt.html" %}
+{% block big_body %}
+    <body>
+    {% set url = request.path %} <!--内置url对象-->
+    <div class="layui-container layui-fluid"  style="background-color: transparent;width: 100%;margin-top: 10px;">
+        {% block body %}
+            这是基类base.html中的内容
+        {% endblock %}
+    </div>
+    </body>
+{% endblock %}

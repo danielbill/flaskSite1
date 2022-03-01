@@ -1,0 +1,96 @@
+
+<head lang="zh">
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <!-- 此模板固定对应上方一个查询form(layui form),下方一个数据表格(handsontable) -->
+    <link rel="stylesheet" href="../../static/layui/css/layui.css">
+    <link rel="stylesheet" href="../../static/css/my.css">
+    <!-- js -->
+    <script src="../../static/js/jQuery/jquery-3.6.0.min.js"></script>
+    <script src="../../static/layui/layui.js"></script>
+    <script src="../../static/js/myjs.js"></script>
+    <script src="../../static/handsontable/handsontable.min.css"></script>
+    <link rel="stylesheet" href="../../static/css/my_handsontable.css">
+    <!-- js -->
+    <script src="../../static/handsontable/handsontable.min.js"></script>
+    <style>
+        .layui-nav .layui-nav-item {
+            line-height: 40px;
+        }
+        .layui-this > a {
+            background-color: rgba(255, 255, 255, 0.99) !important;
+            color: rgba(99, 99, 99, 0.8) !important;
+        }
+        .layui-nav .layui-this:after,.layui-nav-bar {
+            background-color: #1E9FFF;
+        }
+    </style>
+</head>
+<body>
+<div class="layui-main"  >
+    <ul class="layui-nav">
+        <li class="layui-nav-item layui-this"><a href="">预增低估</a></li>
+        <li class="layui-nav-item">
+            <a href="javascript:;">扭亏为盈</a>
+        </li>
+        <li class="layui-nav-item"><a href="">大幅减亏</a></li>
+        <li class="layui-nav-item"><a href="">高速扩张</a></li>
+        <li class="layui-nav-item"><a href="">高利稳增</a></li>
+        <li class="layui-nav-item"><a href="">涨价低估</a></li>
+        <li class="layui-nav-item"><a href="">涨价亏损</a></li>
+        <li class="layui-nav-item"><a href="">人气龙头</a></li>
+    </ul>
+    <div class="layui-row layui-col-space10">
+        <div class="layui-col-md12">
+            <div class="layui-panel">
+                <div style="padding: 20px 20px;">
+                    <article>
+                        预告高增低估,针对预告该策略一直有效,如果每年四次,每次20%,
+                        也能得到年60%+回报,大仓位策略
+                    </article>
+                </div>
+                <div id="data_table" class="fullWidth mytable" style="padding:5px 20px 20px 20px;"></div>
+            </div>
+        </div>
+    </div>
+
+
+    <script>
+        var data = [
+            ['', 'Ford', 'Tesla', 'Toyota', 'Honda'],
+            ['2017', 10, 11, 12, 13],
+            ['2018', 20, 11, 14, 13],
+            ['2019', 30, 15, 12, 13]
+        ];
+
+        var container = document.getElementById('data_table');
+        var hot = new Handsontable(container, {
+            data: data,
+            className: 'custom-table',
+            rowHeaders: false,
+            width: '100%',
+            height: 'auto',
+            rowHeights: 24,
+            colWidths: 90,
+            readOnly: true,
+            copyable: true,
+            columnAutoResize:true,
+            columnSorting: true,
+            contextMenu:false,
+            manualColumnResize: true,
+            manualColumnMove: true,//可整行整列移动
+            dropdownMenu: false, // 两项必须同时打开
+            filters: true,
+            licenseKey: 'non-commercial-and-evaluation'
+        });
+    </script>
+
+
+</div>
+
+</body>
+
+
+
+
+

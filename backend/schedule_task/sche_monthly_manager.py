@@ -3,12 +3,12 @@
 # @Time : 22/2/9 8:01     #
 # @Author : 毕磊              #
 # @Site : ---                 #
-# @File : sche_monthly_manager.py          #
+# @File : sche_monthly_manager.mypy          #
 # @Software: PyCharm  #
 #
 # =========================== #
 import backend.schedule_task.sche_update_industrial_chain_monthly as ic
-import py.akshare_data.as_shareholder as sh
+import mypy.akshare_data.as_shareholder as sh
 import log
 
 #所有月更新任务在此处注册

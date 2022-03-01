@@ -3,12 +3,12 @@
 # @Time : 22/2/18 19:53     #
 # @Author : 毕磊              #
 # @Site : ---                 #
-# @File : sql_common_processor.py          #
+# @File : sql_common_processor.mypy          #
 # @Software: PyCharm  #
 #
 # =========================== #
 import backend.model.extra.sql_processor as sp
-import py.db.dao.sql_query_in_stock as sqlq
+import mypy.db.dao.sql_query_in_stock as sqlq
 import log
 
 #mysql查询条件符号
@@ -21,11 +21,11 @@ class sql_processor(sp.SQL_PROCESSOR):
 
     def _where_helper(self,param,query_conf):
         where = ''
-        try:
-            param_in_where = query_conf['param']
-            where_condition = query_conf['where']
-        except:
-            log.error('query key in QUERY_CONFIG is wrong, or param or where 没设置')
+        param_in_where = query_conf.get('param',None)
+        if param_in_where is None : return where
+        where_condition = query_conf.get('where',None)
+        if where_condition is None : return where
+
         #获取查询参数的key和对应的index
         for index,key in enumerate(param_in_where) :
             try:

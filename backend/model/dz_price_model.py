@@ -3,14 +3,14 @@
 # @Time : 22/2/10 11:44     #
 # @Author : 毕磊              #
 # @Site : ---                 #
-# @File : dz_price_model.py          #
+# @File : dz_price_model.mypy          #
 # @Software: PyCharm  #
 #
 # =========================== #
 import log
-import py.db.mysql_db_manager as mydb
-import py.db.dao.sql_in_stock as sqls
-import py.tools.dataFrameTool as dfTool
+import mypy.db.mysql_db_manager as mydb
+import mypy.db.dao.sql_in_stock as sqls
+import mypy.tools.dataFrameTool as dfTool
 
 def get_price_change(chg_type):
     view_data={}

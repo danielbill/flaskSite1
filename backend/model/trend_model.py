@@ -3,12 +3,12 @@
 # @Time : 22/2/4 12:40     #
 # @Author : 毕磊              #
 # @Site : ---                 #
-# @File : trend_model.py          #
+# @File : trend_model.mypy          #
 # @Software: PyCharm  #
 # 走势相关的数据model
 # =========================== #
-import py.db.dao.sql_in_stock as sqls
-import py.db.mysql_db_manager as mydb
+import mypy.db.dao.sql_in_stock as sqls
+import mypy.db.mysql_db_manager as mydb
 
 #获取新高新低统计数据
 def get_stats_xgxd()->dict:

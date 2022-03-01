@@ -3,11 +3,13 @@
 # @Time : 22/2/12 14:22     #
 # @Author : 毕磊              #
 # @Site : ---                 #
-# @File : modelTool.py          #
+# @File : modelTool.mypy          #
 # @Software: PyCharm  #
 # 将数据层转化为视图层的工具
 # =========================== #
-import py.tools.dataFrameTool as dfTool
+import pandas as pd
+
+import mypy.tools.dataFrameTool as dfTool
 
 #将后台数据库df转义成layui的数据表所需的对象
 def df_to_layui_table_data(df)->dict:
@@ -16,6 +18,7 @@ def df_to_layui_table_data(df)->dict:
         'msg': 'ok',
         'data': []
     }
+    if df is None or df.empty == True : return data
     # 转为record,但不是json
     json_like_dict = dfTool.df_to_records(df)
     data['count'] = len(df)
@@ -40,6 +43,14 @@ def fill_Na_and_Null(df):
     if df.empty : return
     return df.fillna(0)
 
+def fill_NaNull_withEmptyStr(df,defValue=''):
+    if df.empty : return
+    return df.fillna(defValue)
+
 
 if __name__ == '__main__':
-    quit(0)
+    data = [1,None]
+    data1 = ['ccc',None]
+    df = pd.DataFrame(data=[data,data1],columns=['a','b'])
+    print(df.fillna(''))
+

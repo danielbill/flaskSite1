@@ -3,13 +3,13 @@
 # @Time : 22/2/3 16:19     #
 # @Author : 毕磊              #
 # @Site : ---                 #
-# @File : market_home_model.py          #
+# @File : market_home_model.mypy          #
 # @Software: PyCharm  #
 #
 # =========================== #
 import log
-import py.db.dao.sql_in_stock as sqls
-import py.db.mysql_db_manager as mydb
+import mypy.db.dao.sql_in_stock as sqls
+import mypy.db.mysql_db_manager as mydb
 
 
 def model_for_view():

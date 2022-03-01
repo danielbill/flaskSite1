@@ -3,7 +3,7 @@
 # @Time : 22/2/3 16:19     #
 # @Author : 毕磊              #
 # @Site : ---                 #
-# @File : __init__.py.py          #
+# @File : __init__.mypy.mypy          #
 # @Software: PyCharm  #
 #
 # =========================== #

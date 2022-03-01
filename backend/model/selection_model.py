@@ -3,16 +3,16 @@
 # @Time : 22/2/12 10:29     #
 # @Author : 毕磊              #
 # @Site : ---                 #
-# @File : selection_model.py          #
+# @File : selection_model.mypy          #
 # @Software: PyCharm  #
 # 当季高增低估,预报选股利器!
 # =========================== #
-import py.db.mysql_db_manager as mydb
-import py.db.dao.sql_in_stock as sqls
-import py.db.db_config_helper as dbcf
+import mypy.db.mysql_db_manager as mydb
+import mypy.db.dao.sql_in_stock as sqls
+import mypy.db.db_config_helper as dbcf
 import log
-import py.tools.financial_report_tool as frt
-import py.tools.param_tool as pt
+import mypy.tools.financial_report_tool as frt
+import mypy.tools.param_tool as pt
 
 
 #当季高增低估查询
@@ -23,7 +23,7 @@ def get_ls_hglp(param):
     where = ''
     for key in param.keys():
         val = param.get(key)
-        if val is None or len(val)==0:continue
+        if val is None:continue
         try:
             where +=" and "+ dbcf.cf.get_where_condition('ls_hglp',key)
             where +=str(param.get(key))

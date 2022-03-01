@@ -3,13 +3,13 @@
 # @Time : 22/2/8 18:59     #
 # @Author : 毕磊              #
 # @Site : ---                 #
-# @File : dz_storage_model.py          #
+# @File : dz_storage_model.mypy          #
 # @Software: PyCharm  #
 # 大宗期货主页
 # =========================== #
 import log
-import py.db.dao.sql_in_stock as sqls
-import py.db.mysql_db_manager as mydb
+import mypy.db.dao.sql_in_stock as sqls
+import mypy.db.mysql_db_manager as mydb
 
 
 def model_for_view():

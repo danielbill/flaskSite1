@@ -44,6 +44,10 @@ body {
     width:150px;
 }
 
+input.middle{
+    width:70px;
+}
+
 input.xsmall{
     width:50px;
 }
@@ -52,7 +56,7 @@ input.small{
     width:50px;
 }
 
-input.small,input.xsmall {
+input.small,input.xsmall,input.middle {
     font-family: 'microsoft yahei';
     font-size: 6px;
     color: #706c6c;
@@ -95,6 +99,19 @@ input.small,input.xsmall {
     width: 5px;
     height: 0;
     background-color: #1E9FFF !important;
+}
+
+.layui-nav .layui-this:after, .layui-nav-bar {
+    content: "";
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 0;
+    height: 5px;
+    background-color: #1E9FFF;
+    transition: all .2s;
+    -webkit-transition: all .2s;
+    pointer-events: none;
 }
 
 .layui-nav-item span{
@@ -149,4 +166,15 @@ input.small,input.xsmall {
 
 .layui-col-md3{
     left:40px
+}
+
+.layui-nav .layui-nav-item {
+    line-height: 40px;
+}
+.layui-this > a {
+    background-color: rgba(255, 255, 255, 0.99) !important;
+    color: rgba(99, 99, 99, 0.8) !important;
+}
+.layui-nav .layui-this:after,.layui-nav-bar {
+    background-color: #1E9FFF;
 }

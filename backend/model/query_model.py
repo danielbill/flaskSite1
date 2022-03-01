@@ -3,13 +3,13 @@
 # @Time : 22/2/14 12:09     #
 # @Author : 毕磊              #
 # @Site : ---                 #
-# @File : query_model.py          #
+# @File : query_model.mypy          #
 # @Software: PyCharm  #
 #
 # =========================== #
 import log
-import py.db.mysql_db_manager as mydb
-import py.db.dao.sql_query_in_stock as sqls
+import mypy.db.mysql_db_manager as mydb
+import mypy.db.dao.sql_query_in_stock as sqls
 import backend.QUERY_CONFIG as qc
 import backend.model.extra.extra_manager as em
 

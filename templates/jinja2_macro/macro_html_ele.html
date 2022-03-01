@@ -1,4 +1,4 @@
-{%- macro col_md3_input(label, name, type='number', value='',verify='',class='small') %}
+{%- macro col_md3_input(label, name, type='number', value='',verify='',class='middle') %}
         <div class="layui-col-md3">
             <label class="layui-form-label">{{label}}</label>
             <input name="{{name}}" type="{{ type }}" lay-verify="{{ verify }}" autocomplete="off"
@@ -14,3 +14,5 @@
         </div>
     {% endif %}
 {%- endmacro %}
+
+

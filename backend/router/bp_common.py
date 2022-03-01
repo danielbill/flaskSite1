@@ -3,7 +3,7 @@
 # @Time : 22/2/20 9:29     #
 # @Author : 毕磊              #
 # @Site : ---                 #
-# @File : bp_common.py          #
+# @File : bp_common.mypy          #
 # @Software: PyCharm  #
 # 所有股票相关页面导航从这里走,通用查询除外
 # =========================== #

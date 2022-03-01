@@ -3,15 +3,15 @@
 # @Time : 22/2/18 18:27     #
 # @Author : 毕磊              #
 # @Site : ---                 #
-# @File : qe_hm.py          #
+# @File : qe_hm.mypy          #
 # @Software: PyCharm  #
 # 处理hm1查询语句的方法
 # =========================== #
 import math
 
 import backend.model.extra.sql_common_processor as cp
-import py.tools.financial_report_tool as frt
-import py.db.dao.sql_query_in_stock as sqlq
+import mypy.tools.financial_report_tool as frt
+import mypy.db.dao.sql_query_in_stock as sqlq
 
 class sql_processor(cp.sql_processor):
 

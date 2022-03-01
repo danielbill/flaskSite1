@@ -3,11 +3,11 @@
 # @Time : 22/2/20 9:39     #
 # @Author : 毕磊              #
 # @Site : ---                 #
-# @File : common_model.py          #
+# @File : common_model.mypy          #
 # @Software: PyCharm  #
 #
 # =========================== #
-import py.db.mysql_db_manager as mydb
+import mypy.db.mysql_db_manager as mydb
 import backend.model.view_data_manager as vdm
 
 def get_view_data(view_key,param:dict):

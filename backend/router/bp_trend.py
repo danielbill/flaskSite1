@@ -3,7 +3,7 @@
 # @Time : 22/1/27 16:09     #
 # @Author : 毕磊              #
 # @Site : ---                 #
-# @File : bp_trend.py          #
+# @File : bp_trend.mypy          #
 # @Software: PyCharm  #
 # 和股票走势相关的route都在这里编写
 # =========================== #

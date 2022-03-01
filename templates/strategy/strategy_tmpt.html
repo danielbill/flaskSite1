@@ -1,0 +1,60 @@
+{% extends "iframe_tmpt.html" %}
+{% block title %}选股策略{% endblock %}
+{% block head %}
+    <link rel="stylesheet" href="{{ url_for('static',filename='handsontable/handsontable.min.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static',filename='css/my_handsontable.css') }}">
+    <script src="{{ url_for('static',filename='handsontable/handsontable.min.js') }}"></script>
+    <style>
+
+    </style>
+{% endblock %}
+
+{% block body %}
+<div class="layui-main"  >
+    <ul class="layui-nav">
+        <li class="layui-nav-item {% if query_key=='strategy.yrglp' %}layui-this"{% endif %}">
+            <a href="{{ url_for('q.query', query_key='strategy.yrglp')}}">爆增低估</a></li>
+        <li class="layui-nav-item {% if query_key=='strategy.yd2e' %}layui-this"{% endif %}">
+        <a href="{{ url_for('q.query', query_key='strategy.yd2e')}}">扭亏为盈</a></li>
+        <li class="layui-nav-item {% if query_key=='strategy.hrglp' %}layui-this"{% endif %}">
+        <a href="{{ url_for('q.query', query_key='strategy.hrglp')}}">高增低估</a></li>
+        <li class="layui-nav-item {% if query_key=='strategy.ysrd' %}layui-this"{% endif %}">
+            <a href="{{ url_for('q.query', query_key='strategy.ysrd')}}">大幅减亏</a></li>
+        <li class="layui-nav-item {% if query_key=='strategy.hse' %}layui-this"{% endif %}">
+        <a href="{{ url_for('q.query', query_key='strategy.hse')}}">高速扩张</a></li>
+        <li class="layui-nav-item {% if query_key=='strategy.semse' %}layui-this"{% endif %}">
+        <a href="{{ url_for('q.query', query_key='strategy.semse')}}">高利稳增</a></li>
+        <li class="layui-nav-item {% if query_key=='strategy.prpl' %}layui-this"{% endif %}">
+        <a href="{{ url_for('q.query', query_key='strategy.prpl')}}">涨价低估</a></li>
+        <li class="layui-nav-item {% if query_key=='strategy.prbd' %}layui-this"{% endif %}">
+        <a href="{{ url_for('q.query', query_key='strategy.prbd')}}">涨价亏损</a></li>
+        <li class="layui-nav-item {% if query_key=='strategy.mp' %}layui-this"{% endif %}">
+        <a href="{{ url_for('q.query', query_key='strategy.mp')}}">人气龙头</a></li>
+
+    </ul>
+    <div class="layui-row layui-col-space10">
+        <div class="layui-col-md12">
+            <div class="layui-panel">
+                <div style="padding: 20px 20px;">
+                    <article>
+                        {% set strg_conf = config.CHOICE_STRATEGY.get(query_key[query_key.find('.')+1:]) %}
+                        {{ strg_conf.stat }}
+                        <hr>
+                        {{ config.global_data.getParam('yb_s2') }}
+                    </article>
+                </div>
+                <div  style="padding:5px 20px 20px 20px;height: 1500px">
+                {% include 'base/handsontable_script.html' %}
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>
+
+
+{% endblock %}
+
+
+
+

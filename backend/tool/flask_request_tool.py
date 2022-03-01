@@ -3,7 +3,7 @@
 # @Time : 22/2/4 11:23     #
 # @Author : 毕磊              #
 # @Site : ---                 #
-# @File : flask_request_tool.py          #
+# @File : flask_request_tool.mypy          #
 # @Software: PyCharm  #
 # flask获取参数方式：
 #

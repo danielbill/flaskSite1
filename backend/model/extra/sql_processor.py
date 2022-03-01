@@ -3,7 +3,7 @@
 # @Time : 22/2/18 18:29     #
 # @Author : 毕磊              #
 # @Site : ---                 #
-# @File : sql_processor.py          #
+# @File : sql_processor.mypy          #
 # @Software: PyCharm  #
 #
 # =========================== #
@@ -44,8 +44,10 @@ class SQL_PROCESSOR(metaclass=ABCMeta):
         return ''
 
 
-    def _assemble_limit(self,param)->str:
-        return " \n     limit 100 "
+    def _assemble_limit(self,param,query_conf)->str:
+        limit = query_conf.get('limit')
+        if limit is None : return " \n     limit 100 "
+        return " \n "+limit
 
     def _prepare_sql(self,sql,param,query_conf):
         if sql.find(_where) == -1 :#如果提前写了复杂的查询语句,内置了{where}变量,则跳过
@@ -66,7 +68,7 @@ class SQL_PROCESSOR(metaclass=ABCMeta):
         sql_param['where']=where_str
         order_str = self._assemble_order(self.param,self.query_conf)
         sql_param['order']=order_str
-        limit_str = self._assemble_limit(self.param)
+        limit_str = self._assemble_limit(self.param,self.query_conf)
         sql_param['limit']=limit_str
         sql = sql.format(**sql_param)
         return sql

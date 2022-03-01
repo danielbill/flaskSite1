@@ -3,12 +3,13 @@
 # @Time : 22/2/2 11:32     #
 # @Author : 毕磊              #
 # @Site : ---                 #
-# @File : sche_stock_holders.py          #
+# @File : sche_stock_holders.mypy          #
 # @Software: PyCharm  #
 # 股东情况更新任务
 # =========================== #
-import py.akshare_data.as_shareholder as holders
-import py.tools.financial_report_tool as frt
+import log
+import mypy.akshare_data.as_shareholder as holders
+import mypy.tools.financial_report_tool as frt
 
 # 股东变化
 def getShareHolder(global_data):
@@ -21,6 +22,7 @@ def getShareHolder(global_data):
 
     #东财按照个股更新的股东变动情况,更新频率高
     holders.get_all_holder_detail()
+    log.info("股东人数更新完毕")
 
 
 if __name__ == '__main__':

@@ -3,11 +3,11 @@
 # @Time : 22/2/20 9:45     #
 # @Author : 毕磊              #
 # @Site : ---                 #
-# @File : view_data_manager.py          #
+# @File : view_data_manager.mypy          #
 # @Software: PyCharm  #
 # 视图所需的数据和提供的参数,集中管理在此处
 # =========================== #
-import py.db.dao.sql_query_in_stock as sqls
+import mypy.db.dao.sql_query_in_stock as sqls
 #页面查询的入参/处理/出参定义
 VIEW_CONF ={
     #dir.view_key
@@ -23,7 +23,7 @@ VIEW_CONF ={
                         union
                         select season,code,s营收,s净利,s扣非 from my_season_report
                         where code={code}
-                        order by season desc limit 8""",
+                        order by season desc limit 12""",
             #8季度 净利率 负债率走势图
             'ndrate_trend':"""select r.season,r.code,r.净利率,r.资产负债率,i.ROA,i.ROEA,i.npMARgin npr
                         from my_season_report r, u_earn_indicator i

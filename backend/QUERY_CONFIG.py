@@ -3,7 +3,7 @@
 # @Time : 22/2/14 10:43     #
 # @Author : 毕磊              #
 # @Site : ---                 #
-# @File : QUERY_CONFIG.py          #
+# @File : QUERY_CONFIG.mypy          #
 # @Software: PyCharm  #
 # 所有查询的配置定义在此
 # =========================== #
@@ -67,6 +67,120 @@ class QUERY_CONFIG():
             #查询的定制页面
             # 'page':
 
+        },
+        #自选股查询配置
+        'mystock' : {
+            'sql':"""select s.code,s.name,s.industry,r.成长性,r.成长排名,r.盈利能力,r.盈利排名,
+                           pe4s,pe2s,pe4s_y,pe2s_y,pekf2s_y,pekf2s_y,pop.`rank`,
+                           lp.最新价 最新,lp.成交额 金额,lp.换手率 换手,lp.总市值,lp.涨跌幅
+                    from my_stock s,my_score r,estimate_pe p,em_stock_popular_rank pop,em_latestprice lp
+                    where s.code =r.code and s.code=p.code and s.code=pop.scode and lp.代码=s.code""",
+            #order by
+            'order':'code',
+            #查询页名称
+            'search_title':'自选股',
+            #是否显示查询面板
+            'show_search':False,
+            #数据表格的表头
+            'tableCol':['代码','名称','行业','人气','最新','涨跌幅','换手','市值','成长性','成长排名','盈利能力','盈利排名',
+                        'pe4s','pe4s_y','pe2s_y','pekf2s_y'],
+            #对应数据库返回字段
+            'dbCol':['code','name','industry','rank','最新','涨跌幅','换手','总市值','成长性','成长排名','盈利能力','盈利排名',
+                     'pe4s','pe4s_y','pe2s_y','pekf2s_y'],
+            #数据表格的高度
+            'tableHeight':500,
+            #查询的定制页面
+            # 'page':
+            'extra': {
+                'codeToDetail':0#点击数据表格的code列,打开个股详情页面,1代表第二列
+            }
+
+        },
+        #排名表查询配置
+        'rank' : {
+            'sql':"""select * from my_score                     
+                    where 成长排名 is not null and 盈利排名 is not null 
+                    {where}                    
+                    order by 成长排名 limit 100""",
+            #查询参数
+            'param':['grow_rank','earn_rank'],
+            #where参数, 查询参数转数据库条件参数
+            'where':['成长排名<','盈利排名<'],
+            #form中查询标签
+            'label':['成长排名<','盈利排名<'],
+            #input 默认值
+            'def_val':[200,500],
+            #order by
+            'order':'成长排名',
+            #查询页名称
+            'search_title':'排名',
+            #是否显示查询面板
+            'show_search':True,
+            #数据表格的表头
+            'tableCol':['代码','名称','g_season','成长排名','成长性','e_season','盈利排名','盈利能力'],
+            #对应数据库返回字段
+            'dbCol':['code','name','g_season','成长排名','成长性','e_season','盈利排名','盈利能力'],
+            #查询的定制页面
+            # 'page':
+            #通用定制项
+            'extra': {
+                'codeToDetail':0#点击数据表格的code列,打开个股详情页面,1代表第二列
+            }
+        },
+        #预报暴增
+        'strategy.yrglp' : { #预告暴增低PE
+            'sql':"""select * from v_cho_yrglp
+                    where season=(select max(season) from v_cho_yrglp)                       
+                    order by pe2s_y""",
+            #数据表格的表头
+            'tableCol':['季度','代码','名称','PE2S_Y','PEkf2S_Y'],
+            #对应数据库返回字段
+            'dbCol':['season','code','name','PE2S_Y','PEkf2S_Y'],
+            #查询的定制页面
+            'page':'strategy/strategy_tmpt.html',
+            #通用定制项
+            'extra': {
+                'codeToDetail':1#点击数据表格的code列,打开个股详情页面,1代表第二列
+            }
+        },
+        #预报扭亏为盈
+        'strategy.yd2e' : {
+            'sql':"""select y.*,pe.PEkf2S_Y,pe.PE2S_Y,pe.PEkf4S_Y,pe.PE4S_Y,r.`rank`,p.总市值,p.最新价
+                    from my_yubao y , estimate_pe pe, em_latestprice p,em_stock_popular_rank r
+                    where y.code=pe.code and y.code=p.代码 and y.season = pe.season_y and y.code=r.scode
+                       and y.season = (select max(season) from my_yubao)
+                       and 预报类型='扭亏' and s净利>0 and s扣非>0 and 净利环比>0 and 扣非环比>0 and 净利同比>0
+                    and r.`rank`<2000
+                    order by 总市值""",
+            #数据表格的表头
+            'tableCol':['季度','代码','名称','人气','PE4S_Y','PEkf4S_Y','总市值','最新价'],
+            #对应数据库返回字段
+            'dbCol':['season','code','name','rank','PE4S_Y','PEkf4S_Y','总市值','最新价'],
+            #查询的定制页面
+            'page':'strategy/strategy_tmpt.html',
+            #通用定制项
+            'extra': {
+                'codeToDetail':1#点击数据表格的code列,打开个股详情页面,1代表第二列
+            }
+        },
+        #预报减亏
+        'strategy.ysrd' : {
+            'sql':"""select y.*,pe.PEkf2S_Y,pe.PE2S_Y,pe.PEkf4S_Y,pe.PE4S_Y,r.`rank`,p.总市值,p.最新价
+                    from my_yubao y , estimate_pe pe, em_latestprice p,em_stock_popular_rank r
+                    where y.code=pe.code and y.code=p.代码 and y.season = pe.season_y and y.code=r.scode
+                      and y.season = (select max(season) from my_yubao)
+                      and 预报类型='减亏' and s净利>0 and s扣非>0 and 净利环比>0 and 扣非环比>0
+                    order by 总市值""",
+            #数据表格的表头
+            'tableCol':['季度','代码','名称','人气','PE4S_Y','PEkf4S_Y','总市值','最新价'],
+            #对应数据库返回字段
+            'dbCol':['season','code','name','rank','PE4S_Y','PEkf4S_Y','总市值','最新价'],
+            #查询的定制页面
+            'page':'strategy/strategy_tmpt.html',
+            #通用定制项
+            'extra': {
+                'codeToDetail':1#点击数据表格的code列,打开个股详情页面,1代表第二列
+            }
         },
     }
 

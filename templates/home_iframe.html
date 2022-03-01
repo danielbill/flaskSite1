@@ -37,10 +37,12 @@
                 <li class="layui-nav-item layui-nav-itemed">
                     <a href="javascript:;"><i class="layui-icon"> &#xe735; </i><span> 甄股</span></a>
                     <dl class="layui-nav-child">
+                        <dd><a href="{{ url_for('q.query', query_key='mystock')}}">自选</a></dd>
+                        <dd><a href="{{ url_for('q.query', query_key='rank')}}">排名</a></dd>
+                        <dd><a href="{{ url_for('q.query', query_key='strategy.yrglp')}}">策略</a></dd>
                         <dd><a href="{{ url_for('sl.hglp') }}">高增低估</a></dd>
                         <dd><a href="{{ url_for('q.query', query_key='hm')}}">优质金牛</a></dd>
-                        <dd><a href="{{ url_for('sl.hglp') }}">持续扩张</a></dd>
-                        <dd><a href="{{ url_for('sl.hglp') }}">扭亏为盈</a></dd>
+
                     </dl>
                 </li>
                 <li class="layui-nav-item " >

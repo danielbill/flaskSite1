@@ -3,14 +3,14 @@
 # @Time : 22/2/8 7:39     #
 # @Author : 毕磊              #
 # @Site : ---                 #
-# @File : market_info_model.py          #
+# @File : market_info_model.mypy          #
 # @Software: PyCharm  #
 #
 # =========================== #
 import log
-import py.db.dao.sql_in_stock as sql
-import py.db.mysql_db_manager as mydb
-import py.tools.dataFrameTool as dfTool
+import mypy.db.dao.sql_in_stock as sql
+import mypy.db.mysql_db_manager as mydb
+import mypy.tools.dataFrameTool as dfTool
 
 
 def get_market_info():

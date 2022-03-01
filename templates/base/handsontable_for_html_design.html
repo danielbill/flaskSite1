@@ -1,0 +1,83 @@
+<html>
+<head lang="zh">
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <!-- 此模板固定对应上方一个查询form(layui form),下方一个数据表格(handsontable) -->
+
+    <link rel="stylesheet" href="../../static/handsontable/handsontable.min.css">
+    <link rel="stylesheet" href="../../static/css/my_handsontable.css">
+
+    <!-- js -->
+    <script src="../../static/handsontable/handsontable.min.js"></script>
+    <script src="../../static/js/jQuery/jquery-3.6.0.min.js"></script>
+    <script src="../../static/js/myjs.js"></script>
+    <script>
+        function decodeData(data){
+            alert('i am in decode ')
+            alert(data)
+        }
+        function txQueryCodeStr(codes){
+            var codeStr =''
+            for(i = 0; i < codes.length; i++) {
+                code = headCode(codes[i]);
+                codeStr+=code+','
+            }
+            return codeStr
+        }
+        function headCode(code){
+           if (code>='400000'){
+               return 'sh'+code;
+           }else{
+               return 'sz'+code;
+           }
+        }
+
+    </script>
+</head>
+<body>
+    <div id="data_table" class="fullWidth mytable"></div>
+
+<script>
+    var data = [
+        ['code', '股价', '涨跌', '成交额', '换手'],
+        ['000960', 10, 11, 12, 13],
+        ['300023', 20, 11, 14, 13],
+        ['600362', 30, 15, 12, 13]
+    ];
+
+    var container = document.getElementById('data_table');
+    var hot = new Handsontable(container, {
+        data: data,
+        className: 'custom-table',
+        rowHeaders: false,
+        width: '100%',
+        height: 'auto',
+        rowHeights: 24,
+        colWidths: 90,
+        readOnly: true,
+        copyable: true,
+        columnAutoResize:true,
+        columnSorting: true,
+        contextMenu:false,
+        manualColumnResize: true,
+        manualColumnMove: true,//可整行整列移动
+        dropdownMenu: false, // 两项必须同时打开
+        filters: true,
+        licenseKey: 'non-commercial-and-evaluation'
+    });
+    hotData = hot.getData()
+    var codes = []
+    $.each(hotData, function(key, val) {     //以jQuery对象的方法调用，兼容性好;也可以用$(a)将a转化为jquery对象，然后以$(a).each(function(){})的形式调用,下面的方法同
+        codes.push(val[0])
+    });
+    codes.shift()
+    codeStr = txQueryCodeStr(codes)
+    var url = 'http://qt.gtimg.cn/q='+codeStr
+    html_ajax_fetch(decodeData,url)
+
+</script>
+<script>
+
+</script>
+</body>
+</html>

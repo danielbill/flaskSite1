@@ -3,7 +3,7 @@
 # @Time : 22/2/14 19:58     #
 # @Author : 毕磊              #
 # @Site : ---                 #
-# @File : jinja_test.py          #
+# @File : jinja_test.mypy          #
 # @Software: PyCharm  #
 #
 # =========================== #
@@ -23,6 +23,17 @@ def test_render():
     template = env.get_template('templates/query/tmpt_test.html')
     print(template.render(queryConf=qc.QUERY_CONFIG.CONF.get('hm'),lstrip_blocks=True,trim_blocks=True))
 
+def test_emailContent():
+    env = Environment(loader=FileSystemLoader('../'))
+    template = env.get_template('templates/strategy/strategy_tmpt.html')
+    params ={
+        'query_key':'strategy.yrglp',
+        'qc':qc.QUERY_CONFIG.CONF.get('yrglp')
+    }
+    print(template.render(**params,lstrip_blocks=True,trim_blocks=True))
+
+
+
 
 if __name__ == '__main__' :
-    test_render()
+    test_emailContent()

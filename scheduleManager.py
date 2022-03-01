@@ -3,7 +3,7 @@
 # @Time : 22/1/25 20:33     #
 # @Author : 毕磊              #
 # @Site : ---                 #
-# @File : scheduleManager.py          #
+# @File : scheduleManager.mypy          #
 # @Software: PyCharm  #
 # =========================== #
 

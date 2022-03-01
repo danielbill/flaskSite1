@@ -1,0 +1,9 @@
+{%- macro handsonTalbe_codeToDetail(code_col_index) -%}
+    mytable.view.wt.update('onCellDblClick', function (event,coords,TD) {
+    col = coords.col
+    code = TD.innerHTML
+    if (col =={{ code_col_index }}) {
+    window.open("{{ url_for('com.view',dir='stock', view_key='company_detail') }}?code="+code);
+    }
+    });
+{%- endmacro %}

@@ -3,7 +3,7 @@
 # @Time : 22/2/8 17:41     #
 # @Author : 毕磊              #
 # @Site : ---                 #
-# @File : bp_dazong.py          #
+# @File : bp_dazong.mypy          #
 # @Software: PyCharm  #
 #
 # =========================== #
