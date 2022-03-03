@@ -12,7 +12,7 @@ import mypy.db.dao.sql_query_in_stock as sqls
 VIEW_CONF ={
     #dir.view_key
     'stock.company_detail':{
-        'param':['code'],
+        'param':['code','codeOrName'],
         'query':{
             'yubao':sqls.QUERY_SQLS.get('my_yubao_and_pe_bycode'),
             'report':sqls.QUERY_SQLS.get('my_report_and_pe_bycode'),

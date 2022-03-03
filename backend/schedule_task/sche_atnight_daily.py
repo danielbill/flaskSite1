@@ -10,7 +10,7 @@
 import mypy.akshare_data.as_sina_finaIndic2 as sfi2
 import mypy.tools.financial_report_tool as frt
 import log
-import sche_stock_holders as ssh
+import backend.schedule_task.sche_stock_holders as ssh
 
 #更新东财季报
 def do_jobs_atnight(global_data):
@@ -24,6 +24,7 @@ def _update_sina_fi():
     if frt.is_fina_report_time() == False:
         log.info("不是发布快报的时段,pass")
         return
+    #更新财务指标表,同比扣非给my_season_report,并更新扣非相关计算值
     sfi2.get_sina_financial_indicator()
 
 

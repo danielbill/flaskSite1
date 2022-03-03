@@ -9,7 +9,7 @@
 # =========================== #
 
 from flask import (
-    Blueprint, render_template,request,Response,url_for)
+    Blueprint, render_template,request,Response,url_for,redirect)
 
 import backend.model.trend_model as trdModl
 import mypy.tools.dataFrameTool as dfTool
@@ -18,6 +18,7 @@ import backend.model.query_model as qMod
 import backend.QUERY_CONFIG as qc
 import json
 import log
+import mypy.db.mysql_db_manager as mydb
 
 bp = Blueprint('q', __name__, url_prefix='/q')
 
@@ -60,6 +61,16 @@ def _getPage(query_key):
     else:
         page = query_key+page
     return dir+'/'+page
+
+@bp.route('/qStock')
+def qStock():
+    codeOrName = request.args.get('codeOrName')
+    sql = f"""select 代码 as code  from em_latestprice where 代码='{codeOrName}' or 名称='{codeOrName}'"""
+    df = mydb.queryToDataframe(sql)
+    if df is None or df.empty == True:
+        return "查询错,请确认股票代码或名称"
+    code = df.loc[0]['code']
+    return redirect(url_for('com.view',dir='stock', view_key='company_detail',code=code))
 
 
 if __name__ == '__main__':

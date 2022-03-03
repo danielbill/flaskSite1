@@ -38,11 +38,9 @@
                     <a href="javascript:;"><i class="layui-icon"> &#xe735; </i><span> 甄股</span></a>
                     <dl class="layui-nav-child">
                         <dd><a href="{{ url_for('q.query', query_key='mystock')}}">自选</a></dd>
-                        <dd><a href="{{ url_for('q.query', query_key='rank')}}">排名</a></dd>
                         <dd><a href="{{ url_for('q.query', query_key='strategy.yrglp')}}">策略</a></dd>
-                        <dd><a href="{{ url_for('sl.hglp') }}">高增低估</a></dd>
-                        <dd><a href="{{ url_for('q.query', query_key='hm')}}">优质金牛</a></dd>
-
+                        <dd><a href="{{ url_for('q.query', query_key='rank')}}">排名</a></dd>
+                        <dd><a href="{{ url_for('page',dir='stock',page='query')}}">查询</a></dd>
                     </dl>
                 </li>
                 <li class="layui-nav-item " >

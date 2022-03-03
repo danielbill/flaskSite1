@@ -36,8 +36,11 @@ def index():
 
 @app.route('/test')
 def test():
-    return render_template('base/test'
-                           '.html')
+    return render_template('base/test.html')
+
+@app.route('/<dir>/<page>')
+def page(dir,page):
+    return render_template(f'{dir}/{page}.html')
 
 
 if __name__ == '__main__':
