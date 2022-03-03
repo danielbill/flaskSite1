@@ -9,9 +9,10 @@
 # =========================== #
 import mypy.db.mysql_db_manager as mydb
 import backend.model.view_data_manager as vdm
+import log
 
 def get_view_data(view_key,param:dict):
-    print('view key is ',view_key)
+    log.debug('view key is %s ' %view_key)
     view_conf = vdm.VIEW_CONF.get(view_key)
     if view_conf is None : return
     param_in = view_conf.get('param')
@@ -28,7 +29,7 @@ def get_view_data(view_key,param:dict):
         sql = sql.format(**param_query)
         df = mydb.queryToDataframe(sql)
         param_out[key] = df.fillna(0)#空值填充为0, 只为了视图使用,持久层应该保持空值
-    print(param_out)
+    log.debug(param_out)
     return param_out
 
 

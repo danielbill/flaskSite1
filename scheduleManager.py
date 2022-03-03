@@ -39,17 +39,17 @@ class SchedulerConfig(object):
                 'args': [self.global_data],  # 执行程序参数
                 'trigger': 'cron',
                 'day_of_week': '0-4',  # 每周1至周5 16点执行
-                'hour': 17,
-                'minute': 50
+                'hour': 18,
+                'minute': 30
             },
             {
-                'id': '获取股东变化情况',  #
-                'func': 'backend.schedule_task.sche_stock_holders:getShareHolder',  # 任务执行程序
+                'id': '夜间任务',  #
+                'func': 'backend.schedule_task.sche_atnight_daily:do_jobs_atnight',
                 'args': [self.global_data],  # 执行程序参数
                 'trigger': 'cron',
                 'day_of_week': 'mon-sun',  # 每周1至周7
-                'hour': 19,
-                'minute': 2
+                'hour': 21,
+                'minute': 0
             },
             {
                 'id': '每日盘前更新任务',  #
@@ -80,7 +80,7 @@ class SchedulerConfig(object):
                 'month': '*',
                 'day_of_week': "mon-fri",  # 周一到周五
                 "hour": "9-15",  # 9点到15点
-                "minute": "29,59",
+                "minute": "0,30",
             },
             {
                 'id': 'test',  #

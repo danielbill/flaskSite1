@@ -13,6 +13,9 @@ import mypy.akshare_data.as_getEmYugao as yugao
 import mypy.tools.financial_report_tool as frt
 import mypy.core_value_calculate.my_yubao_calculate as myc
 import mypy.core_value_calculate.estimate_pe as pe
+import mypy.choice.cho_yrglp as yrglp
+import mypy.inform.email_inform as email
+import mypy.choice.choice_strategy as choices
 
 
 # 取预报,在每年的四个指定时段,目前还未优化到指定时段运行
@@ -26,6 +29,9 @@ def get_yubao(global_data):
     log.info('预报价值计算完毕***')
     pe.update_pe()
     log.info('更新个股估值完毕***')
+    #预报及估值结束后,立刻进入选股环节
+    choices.run_dealer(2)
+    log.info('选股更新完毕')
 
 if __name__ == '__main__':
-    quit(0)
+    choices.run_dealer(2)

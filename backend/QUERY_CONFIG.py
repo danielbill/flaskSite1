@@ -129,13 +129,41 @@ class QUERY_CONFIG():
         },
         #预报暴增
         'strategy.yrglp' : { #预告暴增低PE
-            'sql':"""select * from v_cho_yrglp
-                    where season=(select max(season) from v_cho_yrglp)                       
-                    order by pe2s_y""",
+            'sql':"""select yrg.*,y.净利环比,y.扣非环比,y.营收环比,y.净利同比,y.扣非同比,y.营收同比,
+                       PE4S, PE2S, PEkf4S, PEkf2S, PE2S_Y, PE4S_Y, PEkf2S_Y, PEkf4S_Y,
+                       r.`rank`
+                from my_choice yrg, my_yubao y,estimate_pe p,em_stock_popular_rank r
+                where yrg.code = y.code and y.code = p.code and r.scode = p.code
+                  and yrg.type='yrglp'
+                  and yrg.season = y.season and y.season = p.season_y
+                  and yrg.season = (select max(season) from my_choice)
+                order by PE2S_Y""",
             #数据表格的表头
-            'tableCol':['季度','代码','名称','PE2S_Y','PEkf2S_Y'],
+            'tableCol':['季度','代码','名称','人气','PE2S_Y','PEkf2S_Y','净利环比','扣非环比','营收环比'],
             #对应数据库返回字段
-            'dbCol':['season','code','name','PE2S_Y','PEkf2S_Y'],
+            'dbCol':['season','code','name','rank','PE2S_Y','PEkf2S_Y','净利环比','扣非环比','营收环比'],
+            #查询的定制页面
+            'page':'strategy/strategy_tmpt.html',
+            #通用定制项
+            'extra': {
+                'codeToDetail':1#点击数据表格的code列,打开个股详情页面,1代表第二列
+            }
+        },
+        #预报暴增
+        'strategy.yhglp' : { #预告暴增低PE
+            'sql':"""select yrg.*,y.净利环比,y.扣非环比,y.营收环比,y.净利同比,y.扣非同比,y.营收同比,
+                       PE4S, PE2S, PEkf4S, PEkf2S, PE2S_Y, PE4S_Y, PEkf2S_Y, PEkf4S_Y,
+                       r.`rank`
+                from my_choice yrg, my_yubao y,estimate_pe p,em_stock_popular_rank r
+                where yrg.code = y.code and y.code = p.code and r.scode = p.code
+                  and yrg.type='yhglp'
+                  and yrg.season = y.season and y.season = p.season_y
+                  and yrg.season = (select max(season) from my_choice)
+                order by PE2S_Y""",
+            #数据表格的表头
+            'tableCol':['季度','代码','名称','人气','PE2S_Y','PEkf2S_Y','净利环比','扣非环比','营收环比'],
+            #对应数据库返回字段
+            'dbCol':['season','code','name','rank','PE2S_Y','PEkf2S_Y','净利环比','扣非环比','营收环比'],
             #查询的定制页面
             'page':'strategy/strategy_tmpt.html',
             #通用定制项
@@ -149,7 +177,7 @@ class QUERY_CONFIG():
                     from my_yubao y , estimate_pe pe, em_latestprice p,em_stock_popular_rank r
                     where y.code=pe.code and y.code=p.代码 and y.season = pe.season_y and y.code=r.scode
                        and y.season = (select max(season) from my_yubao)
-                       and 预报类型='扭亏' and s净利>0 and s扣非>0 and 净利环比>0 and 扣非环比>0 and 净利同比>0
+                       and 预报类型='扭亏' and s净利>0 and s扣非>0 and 净利环比>0 and 扣非环比>0 and 净利同比>10
                     and r.`rank`<2000
                     order by 总市值""",
             #数据表格的表头

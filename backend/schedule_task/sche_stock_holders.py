@@ -12,7 +12,7 @@ import mypy.akshare_data.as_shareholder as holders
 import mypy.tools.financial_report_tool as frt
 
 # 股东变化
-def getShareHolder(global_data):
+def getShareHolder(global_data=None):
     seasons = []
     lat_season = frt.get_season_code_with_day(frt.get_latest_report_season())
     seasons.append(lat_season)

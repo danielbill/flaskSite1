@@ -1,0 +1,31 @@
+# =========================== #
+# -*- coding: utf-8 -*-       #
+# @Time : 22/3/3 8:50     #
+# @Author : 毕磊              #
+# @Site : ---                 #
+# @File : sche_atnight_daily.py          #
+# @Software: PyCharm  #
+# 深夜收盘作业
+# =========================== #
+import mypy.akshare_data.as_sina_finaIndic2 as sfi2
+import mypy.tools.financial_report_tool as frt
+import log
+import sche_stock_holders as ssh
+
+#更新东财季报
+def do_jobs_atnight(global_data):
+    #更新财务指标
+    _update_sina_fi()
+    #更新股东人数
+    ssh.getShareHolder()
+
+
+def _update_sina_fi():
+    if frt.is_fina_report_time() == False:
+        log.info("不是发布快报的时段,pass")
+        return
+    sfi2.get_sina_financial_indicator()
+
+
+if __name__ == '__main__':
+    quit(0)
