@@ -47,7 +47,7 @@ class SchedulerConfig(object):
                 'args': [self.global_data],  # 执行程序参数
                 'trigger': 'cron',
                 'day_of_week': 'mon-sun',  # 每周1至周7
-                'hour': 21,
+                'hour': 20,
                 'minute': 0
             },
             {
@@ -78,8 +78,8 @@ class SchedulerConfig(object):
                 'year': '*',
                 'month': '*',
                 'day_of_week': "mon-fri",  # 周一到周五
-                "hour": "9-15",  # 9点到15点
-                "minute": "0,30",
+                "hour": "9-14",  # 9点到15点
+                "minute": "29,59",
             },
             {
                 'id': 'test',  #

@@ -210,6 +210,23 @@ class QUERY_CONFIG():
                 'codeToDetail':1#点击数据表格的code列,打开个股详情页面,1代表第二列
             }
         },
+        #市场成交活跃200
+        'strategy.mp' : {
+            'sql':"""select p.代码 code, p.名称 name, p.涨跌幅, p.换手率,round(p.成交额/100000000,2) as amount,p.rank_ae,r.`rank`,i.行业
+                    from em_latestprice p, em_stock_popular_rank r, em_stockabcinfo i
+                    where r.scode = p.代码 and p.代码=i.股票代码
+                    order by rank_ae limit 200""",
+            #数据表格的表头
+            'tableCol':['代码','名称','涨幅','换手','金额','活跃排名','东财人气','行业'],
+            #对应数据库返回字段
+            'dbCol':['code','name','涨跌幅','换手率','amount','rank_ae','rank','行业'],
+            #查询的定制页面
+            'page':'strategy/strategy_tmpt.html',
+            #通用定制项
+            'extra': {
+                'codeToDetail':0#点击数据表格的code列,打开个股详情页面,1代表第二列
+            }
+        },
     }
 
 QUERY_CONFIG = QUERY_CONFIG()
