@@ -7,9 +7,9 @@
 # @Software: PyCharm  #
 # 收盘后的日常工作
 # =========================== #
-import os
 import global_data as gd
 import log
+import mypy.akshare_data.ak_em_mystock_price as msp
 import mypy.akshare_data.ak_em_stock_strong as stockStrong
 import mypy.akshare_data.ak_em_ztb as emztb
 import mypy.akshare_data.ak_lg_market_activity as marketActivity
@@ -17,20 +17,18 @@ import mypy.akshare_data.ak_ths_cxd as cxd
 import mypy.akshare_data.ak_ths_cxg as cxg
 import mypy.akshare_data.as_getEmLatestPrice as priceTool
 import mypy.akshare_data.as_getEmStockAbcInfo as stockInfoTool
-
-import mypy.akshare_data.as_iwc_hotrank as hotrank
+import mypy.akshare_data.as_getMarketInfo as market
 import mypy.akshare_data.bulk_commodity.ak_future_price as fuPrice
 import mypy.akshare_data.bulk_commodity.ak_future_storage as fuStorage
 import mypy.data_process.processor_manager as processors
 import mypy.web_worm.em_web_worm.em_stock_popular_rank as em_rank
-import mypy.akshare_data.as_getMarketInfo as market
+import mypy.akshare_data.ak_ths_moneyflow as tmf
 
 # 收盘更新日常
 def update_after_marketClose_daily(global_data):
     if global_data is None:
         global_data = gd.Site_global_data()
     if global_data.is_trade_day() == False: return
-    i = 0
     # 1,更新个股最新价格
     priceTool.getLatestPrice()
     log.info('收盘股价抓取成功')
@@ -76,6 +74,10 @@ def update_after_marketClose_daily(global_data):
     # 获取市场统计情况,主要是成交额,平均市盈率
     market.getMarketInfo()
     log.info('市场大致情况获取成功')
+    msp.get_mystock_history_price()
+    log.info('自选股价格更新完毕')
+    tmf.get_moneyflow()
+    log.info('同花顺资金流向更新完毕')
 
     # -----------------------------------------------------
     log.info('当日收盘结束!')

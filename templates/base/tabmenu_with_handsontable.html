@@ -1,0 +1,36 @@
+{% extends "iframe_tmpt.html" %}
+{% block head %}
+    <link rel="stylesheet" href="{{ url_for('static',filename='handsontable/handsontable.min.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static',filename='css/my_handsontable.css') }}">
+    <script src="{{ url_for('static',filename='handsontable/handsontable.min.js') }}"></script>
+{% endblock %}
+
+{% block body %}
+    <div class="layui-main"  >
+        <ul class="layui-nav">
+            {% block nav_part%}
+            {% endblock %}
+        </ul>
+        <div class="layui-row layui-col-space10">
+            <div class="layui-col-md12">
+                <div class="layui-panel">
+                    <div style="padding: 20px 20px 0px 20px;">
+                        {% block statement %}
+                        {% endblock  %}
+                    </div>
+                    <div  style="padding:0px 20px 20px 20px;height: 1500px">
+                        {% include 'base/handsontable_script.html' %}
+                    </div>
+                </div>
+            </div>
+        </div>
+        {% block body_bottom %}
+        {% endblock  %}
+    </div>
+
+
+{% endblock %}
+
+
+
+

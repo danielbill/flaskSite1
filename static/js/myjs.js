@@ -28,12 +28,16 @@ function reload_layui_table(){
 获取form的所有input值给一个数组
  */
 function getInputToWhere(){
-    var a= $( "form input");
+    var a= $( ":input");
     var where={}
     $.each(a,function(){
+        if (this.type=='radio'){
+            if(this.checked !=true){
+                return true
+            }
+        }
         where[this.name] = this.value
     })
-    // alert(where)
     return where
 }
 /*

@@ -69,23 +69,6 @@ input.small,input.xsmall,input.middle {
     margin: 5px 5px 5px 0px;
 }
 
-/*设置layui表格cell的内边距*/
-.layui-table-cell{
-    height:auto;
-    padding: 0 ;
-    margin: 0 ;
-    line-height:24px;
-    /*空白会被浏览器忽略*/
-    /*white-space: normal;*/
-    white-space: nowrap;
-    /*允许长单词换行到下一行*/
-    /*word-wrap: break-word;*/
-    /*允许在单词内换行*/
-    /*word-break: break-all;*/
-}
-.layui-table[lay-size=sm] th{font-size:10px; font-weight: 600;
-    padding:2px 10px;display: table-cell;text-align: center;white-space: nowrap;}
-/*.layui-table th {padding:5px 0px;}*/
 
 
 .layui-card{

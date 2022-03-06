@@ -29,8 +29,10 @@ class SchedulerConfig(object):
                 'id': '东财预告定时抓取任务',  #
                 'func': 'backend.schedule_task.sche_yubao:get_yubao',
                 'args': [self.global_data],  # 执行程序参数
-                'trigger': 'interval',  # 任务执行类型，定时器
-                'minutes': 30  # 任务执行时间
+                'trigger': 'cron',
+                'day_of_week': "mon-sun",
+                "hour": "7-22",
+                "minute": "0,30",
             },
             {
                 'id': '每日收盘更新任务',  #
@@ -64,8 +66,6 @@ class SchedulerConfig(object):
                 'func': 'backend.schedule_task.sche_monthly_manager:run_monthly_task',
                 'args': None,  # 执行程序参数
                 'trigger': 'cron',
-                'year': '*',
-                'month': '*',
                 'day': 'last',
                 'hour':18,
                 'minute':0
@@ -75,11 +75,10 @@ class SchedulerConfig(object):
                 'func': 'backend.schedule_task.sche_during_trade_manager:on_trading_task',
                 'args':  [self.global_data],
                 'trigger': 'cron',
-                'year': '*',
-                'month': '*',
                 'day_of_week': "mon-fri",  # 周一到周五
                 "hour": "9-14",  # 9点到15点
                 "minute": "29,59",
+                "second": "58",
             },
             {
                 'id': 'test',  #

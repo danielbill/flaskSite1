@@ -30,7 +30,7 @@ def get_yubao(global_data):
     pe.update_pe()
     log.info('更新个股估值完毕***')
     #预报及估值结束后,立刻进入选股环节
-    choices.run_dealer(2)
+    choices.run_dealer('预报策略')
     log.info('选股更新完毕')
 
 if __name__ == '__main__':

@@ -12,7 +12,7 @@ import mypy.akshare_data.as_em_yjbb_kb as bb_kb
 import mypy.tools.financial_report_tool as frt
 import mypy.akshare_data.as_em_zcfz as zcfz
 import mypy.tools.financial_report_tool as frt
-
+import mypy.choice.choice_strategy as choices
 
 #更新东财季报
 def get_allreport(global_data):
@@ -31,6 +31,7 @@ def get_em_seasonreport():
     f2 = zcfz.Fetcher(frt.get_emkb_season_code())
     f2.allProcess()
     log.info("东财的资产负债表抓取完毕,并同步my季报表和PE表完毕")
+    choices.run_dealer('季报策略')
 
 
 

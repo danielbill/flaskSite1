@@ -51,6 +51,5 @@ class sql_processor(sp.SQL_PROCESSOR):
 
 
 if __name__ == '__main__':
-    sql = sqlq.QUERY_SQLS.get('hm1')
-    sp = sql_processor(query_key='hm1', param={'np_rate':50})
+    sp = sql_processor(query_key='strategy.yrglp', param={'season':'202203'})
     print(sp.process())

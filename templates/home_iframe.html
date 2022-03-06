@@ -2,7 +2,7 @@
 <head>
     <meta charset="utf-8">
 
-    <title>大道</title>
+    <title>ZoeA</title>
     <link rel="shortcut icon" href="{{ url_for('static',filename='favicon.ico') }}"
           type="image/x-ico" media="screen">
     <!-- The Main CSS File -->
@@ -37,7 +37,7 @@
                 <li class="layui-nav-item layui-nav-itemed">
                     <a href="javascript:;"><i class="layui-icon"> &#xe735; </i><span> 甄股</span></a>
                     <dl class="layui-nav-child">
-                        <dd><a href="{{ url_for('q.query', query_key='mystock')}}">自选</a></dd>
+                        <dd><a href="{{ url_for('q.query', query_key='ms_mkt')}}">自选</a></dd>
                         <dd><a href="{{ url_for('q.query', query_key='strategy.yrglp')}}">策略</a></dd>
                         <dd><a href="{{ url_for('q.query', query_key='rank')}}">排名</a></dd>
                         <dd><a href="{{ url_for('page',dir='stock',page='query')}}">查询</a></dd>
@@ -48,8 +48,6 @@
                     <dl class="layui-nav-child">
                         <dd><a href="{{ url_for('market.home') }}">状态总览</a></dd>
                         <dd><a href="{{ url_for('trend.xgxd') }}">新高新低</a></dd>
-                        <dd><a href="{{ url_for('trend.xgxd') }}">热点人气</a></dd>
-                        <dd><a href="{{ url_for('trend.xgxd') }}">股东变化</a></dd>
                     </dl>
                 </li>
                 <li class="layui-nav-item">
@@ -57,7 +55,7 @@
                     <dl class="layui-nav-child">
                         <dd><a href="{{ url_for('dz.price') }}">价格变动</a></dd>
                         <dd><a href="{{ url_for('dz.jicha') }}">基差分析</a></dd>
-                        <dd><a href="{{ url_for('dz.storage') }}">库存变化</a></dd>
+                        <dd><a href="{{url_for('dz.storage')}}">库存变化</a></dd>
                     </dl>
                 </li>
                 <li class="layui-nav-item">

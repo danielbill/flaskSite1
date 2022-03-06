@@ -15,4 +15,12 @@
     {% endif %}
 {%- endmacro %}
 
+{%- macro layui_nav_item(current_query_key,qKey,title) -%}
+    <li class="layui-nav-item {% if current_query_key==qKey %}layui-this"{% endif %}">
+    <a href="{{ url_for('q.query', query_key=qKey)}}">{{title}}</a></li>
+{%- endmacro %}
+
+
+
+
 

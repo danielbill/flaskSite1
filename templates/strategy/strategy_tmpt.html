@@ -7,6 +7,7 @@
     <style>
 
     </style>
+
 {% endblock %}
 
 {% block body %}
@@ -22,8 +23,10 @@
             <a href="{{ url_for('q.query', query_key='strategy.ysrd')}}">大幅减亏</a></li>
         <li class="layui-nav-item {% if query_key=='strategy.hse' %}layui-this"{% endif %}">
         <a href="{{ url_for('q.query', query_key='strategy.hse')}}">高速扩张</a></li>
+        <li class="layui-nav-item {% if query_key=='strategy.hmse' %}layui-this"{% endif %}">
+        <a href="{{ url_for('q.query', query_key='strategy.hmse')}}">高利稳增</a></li>
         <li class="layui-nav-item {% if query_key=='strategy.semse' %}layui-this"{% endif %}">
-        <a href="{{ url_for('q.query', query_key='strategy.semse')}}">高利稳增</a></li>
+        <a href="{{ url_for('q.query', query_key='strategy.semse')}}">中利稳增</a></li>
         <li class="layui-nav-item {% if query_key=='strategy.prpl' %}layui-this"{% endif %}">
         <a href="{{ url_for('q.query', query_key='strategy.prpl')}}">涨价低估</a></li>
         <li class="layui-nav-item {% if query_key=='strategy.prbd' %}layui-this"{% endif %}">
@@ -35,12 +38,24 @@
     <div class="layui-row layui-col-space10">
         <div class="layui-col-md12">
             <div class="layui-panel">
-                <div style="padding: 20px 20px;">
+                <div style="padding: 20px 20px 0px 20px;">
                     <article>
                         {% set strg_conf = config.CHOICE_STRATEGY.get(query_key[query_key.find('.')+1:]) %}
                         {{ strg_conf.stat }}
                         <hr>
-                        {{ config.global_data.getParam('yb_s2') }}
+                    {% if query_key in ['strategy.yrglp','strategy.yd2e','strategy.yhglp','strategy.ysrd'] %}
+                        {% set seasons = config.global_data.getParam('yb_s2')  %}
+                        {% if seasons.empty==False %}
+                            <div style="text-align: center">
+                            {% for index,row in seasons.iterrows() %}
+                                <input type="radio" name="season" value="{{ row['season'] }}"
+                                      {% if index==0  %}checked{% endif %}>&nbsp{{ row['season'] }}
+                                &nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp
+                            {% endfor %}
+                            </div>
+                        {% endif %}
+                    {% endif %}
+
                     </article>
                 </div>
                 <div  style="padding:5px 20px 20px 20px;height: 1500px">
@@ -49,7 +64,11 @@
             </div>
         </div>
     </div>
-
+    <script>
+        $(":radio").on("click",function(){
+            load_handsonTable()
+        });
+    </script>
 </div>
 
 

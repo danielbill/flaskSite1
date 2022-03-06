@@ -26,6 +26,8 @@
                 window.open(url,target="_blank");
             }
         });
+
+
     </script>
     <style>
         .bigQueryInput {
@@ -89,12 +91,31 @@
     </div>
 
     <div class="layui-body">
-
-        <iframe id="iframeMain" src="" style="width:100%;height: 100%;
-            frameborder:'no'; border:0; marginwidth:0; marginheight:0;
-            scrolling:'no'; allowtransparency:'yes'"></iframe>
-
+        <input type="radio" name="sex" value="男" title="男" >
+        <input type="radio" name="sex" value="女" title="女" checked>
     </div>
+    <script>
+        $(":radio").on("change",function(){
+            let where = getInputToWhere()
+            alert('final value is '+where['sex'])
+        });
+        function getInputToWhere(){
+            var a= $( ":input");
+            var where={}
+            $.each(a,function(){
+                if (this.type=='radio'){
+                   if(this.checked !=true){
+                       return true
+                   }
+                }
+                where[this.name] = this.value
+            })
+            return where
+        }
+
+
+    </script>
+
 </div>
 <script>
     side_width = 100

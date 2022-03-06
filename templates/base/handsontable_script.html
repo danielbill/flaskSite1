@@ -19,7 +19,7 @@
         width: '100%',
         height: {{qc.get('tableHeight',420)}},
         rowHeights: 24,
-        colWidths: 85,
+        colWidths: 74,
         readOnly: true,
         copyable: true,
         columnAutoResize:true,
@@ -42,7 +42,7 @@
     给handson table重新渲染时,加载form的input值
      */
     function load_handsonTable(){
-        const url = {{ ("'" + url_for('ajaxapi.query',_external=True,query_key=query_key) +"'")|safe }};
+        const url = '{{ url_for('ajaxapi.query',_external=True,query_key=query_key) }}';
         var param = getInputToWhere()
         ajax_fetch(_tableUpdateData,url,param)
 
