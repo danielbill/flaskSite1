@@ -31,7 +31,7 @@
     <div class="layui-side layui-bg-black">
         <div class="layui-side-scroll tocenter">
             <div class="kit-side-fold" >
-                <li class="layui-icon" style="padding:10px 40px 10px 40px" >&#xe668;</li>
+                <li class="layui-icon" style="padding:10px 40px 5px 40px" >&#xe668;</li>
             </div>
             <ul class="layui-nav layui-nav-tree" lay-filter="test" style="align-items: center;">
                 <li class="layui-nav-item layui-nav-itemed">
@@ -43,19 +43,20 @@
                         <dd><a href="{{ url_for('page',dir='stock',page='query')}}">查询</a></dd>
                     </dl>
                 </li>
+                <li class="layui-nav-item">
+                    <a href="javascript:;"><i class="layui-icon"> &#xe63c; </i><span> 大宗</span></a>
+                    <dl class="layui-nav-child">
+                        <dd><a href="{{ url_for('dz.dzb') }}">大宗总榜</a></dd>
+                        <dd><a href="{{ url_for('dz.price') }}">期货价格</a></dd>
+                        <dd><a href="{{ url_for('dz.jicha') }}">期现基差</a></dd>
+                        <dd><a href="{{url_for('dz.storage')}}">库存变化</a></dd>
+                    </dl>
+                </li>
                 <li class="layui-nav-item " >
                     <a href="javascript:;"><i class="layui-icon"> &#xe62c; </i><span> 市场</span></a>
                     <dl class="layui-nav-child">
                         <dd><a href="{{ url_for('market.home') }}">状态总览</a></dd>
                         <dd><a href="{{ url_for('trend.xgxd') }}">新高新低</a></dd>
-                    </dl>
-                </li>
-                <li class="layui-nav-item">
-                    <a href="javascript:;"><i class="layui-icon"> &#xe63c; </i><span> 大宗</span></a>
-                    <dl class="layui-nav-child">
-                        <dd><a href="{{ url_for('dz.price') }}">价格变动</a></dd>
-                        <dd><a href="{{ url_for('dz.jicha') }}">基差分析</a></dd>
-                        <dd><a href="{{url_for('dz.storage')}}">库存变化</a></dd>
                     </dl>
                 </li>
                 <li class="layui-nav-item">
@@ -75,7 +76,7 @@
     </div>
 </div>
 <script>
-    side_width = 100
+    side_width = 90
     side_small_with = 50
     //JavaScript代码区域
     layui.use('element', function(){

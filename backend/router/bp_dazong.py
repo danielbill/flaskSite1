@@ -24,8 +24,14 @@ def storage():
 @bp.route('/price', methods=('GET', 'POST'))
 def price():
     chg_type = request.args.get('chg_type')
-    if chg_type is None or len(chg_type) == 0: chg_type ='chg_d20'
+    if chg_type is None or len(chg_type) == 0: chg_type ='chg_d5'
     return render_template('dz/dz_price.html',data=priceMod.get_price_change(chg_type))
+
+@bp.route('/dzb', methods=('GET', 'POST'))
+def dzb():
+    order_type = request.args.get('order_type')
+    if order_type is None or len(order_type) == 0: order_type ='gr_w1'
+    return render_template('dz/dz_dzb.html',data=priceMod.get_dzb(order_type))
 
 @bp.route('/jicha', methods=('GET', 'POST'))
 def jicha():

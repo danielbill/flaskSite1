@@ -23,7 +23,7 @@ import mypy.akshare_data.bulk_commodity.ak_future_storage as fuStorage
 import mypy.data_process.processor_manager as processors
 import mypy.web_worm.em_web_worm.em_stock_popular_rank as em_rank
 import mypy.akshare_data.ak_ths_moneyflow as tmf
-
+import mypy.tools.soundTool as sound
 # 收盘更新日常
 def update_after_marketClose_daily(global_data):
     if global_data is None:
@@ -81,10 +81,12 @@ def update_after_marketClose_daily(global_data):
 
     # -----------------------------------------------------
     log.info('当日收盘结束!')
+    sound.wellDone()
     log.info("启动后处理...")
     # -----------------------------------------------------
     # 数据后处理
     after_update_after_marketClose_daily(global_data)
+    sound.wellDone()
 
 
 # 在日收盘后的数据处理程序

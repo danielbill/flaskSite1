@@ -25,8 +25,8 @@ body {
 
 }
 
-.layui-side{position:fixed;left:0;top:0;bottom:0;z-index:999;width:100px;background-color: #f9f9f9}
-.layui-body{position:relative;left:100px;right:0;top:0;bottom:0;z-index:900;
+.layui-side{position:fixed;left:0;top:0;bottom:0;z-index:999;width:90px;background-color: #f9f9f9}
+.layui-body{position:relative;left:90px;right:0;top:0;bottom:0;z-index:900;
     width: 100%;box-sizing:border-box}
 
 .layui-card-header{
@@ -161,4 +161,24 @@ input.small,input.xsmall,input.middle {
 }
 .layui-nav .layui-this:after,.layui-nav-bar {
     background-color: #1E9FFF;
+}
+
+h4 a  {
+    color : #9a9a9a;
+    font-weight: normal;
+}
+
+a.selected{
+    color:rgb(185,40,40);
+    font-weight: bold;
+}
+
+.layui-fluid {
+    position: relative;
+    margin: 0 auto;
+    padding: 0 0px;
+}
+
+.layui-main {
+    float: left;
 }
