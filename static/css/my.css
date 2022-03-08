@@ -156,8 +156,9 @@ input.small,input.xsmall,input.middle {
     line-height: 40px;
 }
 .layui-this > a {
-    background-color: rgba(255, 255, 255, 0.99) !important;
-    color: rgba(99, 99, 99, 0.8) !important;
+    background-color: rgba(255, 255, 255, 0.94) !important;
+    color: rgba(90, 90, 90, 0.9) !important;
+
 }
 .layui-nav .layui-this:after,.layui-nav-bar {
     background-color: #1E9FFF;
@@ -179,6 +180,22 @@ a.selected{
     padding: 0 0px;
 }
 
-.layui-main {
-    float: left;
+.layui-nav-child{
+    padding:0px 0;
 }
+
+.layui-nav-tree .layui-nav-item>a {
+    position: relative;
+    height: 30px;
+    line-height: 30px;
+    text-overflow: ellipsis;
+    overflow: hidden;
+    white-space: nowrap;
+    padding-top: 3px;
+    padding-bottom: 3px;
+}
+
+.datatable_div{
+    background-color: rgba(255, 255, 255, 0.93)
+}
+

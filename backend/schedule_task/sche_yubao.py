@@ -11,8 +11,8 @@
 import log
 import mypy.akshare_data.as_getEmYugao as yugao
 import mypy.tools.financial_report_tool as frt
-import mypy.core_value_calculate.my_yubao_calculate as myc
-import mypy.core_value_calculate.estimate_pe as pe
+import mypy.core_calc.my_yubao_calculate as myc
+import mypy.core_calc.estimate_pe as pe
 import mypy.choice.cho_yrglp as yrglp
 import mypy.inform.email_inform as email
 import mypy.choice.choice_strategy as choices

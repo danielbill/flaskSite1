@@ -20,15 +20,18 @@ import mypy.akshare_data.as_getEmStockAbcInfo as stockInfoTool
 import mypy.akshare_data.as_getMarketInfo as market
 import mypy.akshare_data.bulk_commodity.ak_future_price as fuPrice
 import mypy.akshare_data.bulk_commodity.ak_future_storage as fuStorage
-import mypy.data_process.processor_manager as processors
+
 import mypy.web_worm.em_web_worm.em_stock_popular_rank as em_rank
 import mypy.akshare_data.ak_ths_moneyflow as tmf
+import mypy.data_process.processor_manager as processors
 import mypy.tools.soundTool as sound
+
 # 收盘更新日常
-def update_after_marketClose_daily(global_data):
+def update_after_market_close(global_data):
     if global_data is None:
         global_data = gd.Site_global_data()
     if global_data.is_trade_day() == False: return
+    # sound.say('开始复盘')
     # 1,更新个股最新价格
     priceTool.getLatestPrice()
     log.info('收盘股价抓取成功')
@@ -96,4 +99,4 @@ def after_update_after_marketClose_daily(global_data):
 
 
 if __name__ == '__main__':
-    update_after_marketClose_daily(None)
+    update_after_market_close(None)

@@ -36,7 +36,7 @@ class SchedulerConfig(object):
             },
             {
                 'id': '每日收盘更新任务',  #
-                'func': 'backend.schedule_task.sche_after_trade_daily:update_after_marketClose_daily',
+                'func': 'backend.schedule_task.sche_after_trade_daily:update_after_market_close',
                 'args': [self.global_data],  # 执行程序参数
                 'trigger': 'cron',
                 'day_of_week': '0-4',  # 每周1至周5 16点执行
@@ -79,6 +79,15 @@ class SchedulerConfig(object):
                 "hour": "9-14",  # 9点到15点
                 "minute": "29,59",
                 "second": "58",
+            },
+            {
+                'id': '每周更新任务',  #
+                'func': 'backend.schedule_task.sche_weekly_manager:run_weekly_task',
+                'args': None,  # 执行程序参数
+                'trigger': 'cron',
+                'day_of_week': '6',  # 每周1至周5 16点执行
+                'hour': 10,
+                'minute': 30
             },
             {
                 'id': 'test',  #

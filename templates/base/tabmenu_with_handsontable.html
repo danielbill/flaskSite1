@@ -6,19 +6,19 @@
 {% endblock %}
 
 {% block body %}
-    <div class="layui-main" >
+    <div class="layui-main" style="float: left">
         <ul class="layui-nav">
             {% block nav_part%}
             {% endblock %}
         </ul>
         <div class="layui-row layui-col-space10">
             <div class="layui-col-md12">
-                <div class="layui-panel">
+                <div class="layui-panel datatable_div">
                     <div style="padding: 20px 20px 0px 20px;">
                         {% block statement %}
                         {% endblock  %}
                     </div>
-                    <div  style="padding:0px 20px 20px 20px;height: 1500px">
+                    <div class="" style="padding:0px 20px 20px 20px;height: 1500px;">
                         {% include 'base/handsontable_script.html' %}
                     </div>
                 </div>

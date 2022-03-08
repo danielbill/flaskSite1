@@ -3,7 +3,7 @@
     <meta charset="utf-8">
 
     <title>ZoeA</title>
-    <link rel="shortcut icon" href="{{ url_for('static',filename='favicon.ico') }}"
+    <link rel="shortcut icon" href="{{ url_for('static',filename='zoea.ico') }}"
           type="image/x-ico" media="screen">
     <!-- The Main CSS File -->
     <link rel="stylesheet" href="{{ url_for('static',filename='layui/css/layui.css') }}">
@@ -31,16 +31,16 @@
     <div class="layui-side layui-bg-black">
         <div class="layui-side-scroll tocenter">
             <div class="kit-side-fold" >
-                <li class="layui-icon" style="padding:10px 40px 5px 40px" >&#xe668;</li>
+                <li class="layui-icon" style="padding:10px 35px 5px 35px" >&#xe668;</li>
             </div>
             <ul class="layui-nav layui-nav-tree" lay-filter="test" style="align-items: center;">
                 <li class="layui-nav-item layui-nav-itemed">
                     <a href="javascript:;"><i class="layui-icon"> &#xe735; </i><span> 甄股</span></a>
                     <dl class="layui-nav-child">
-                        <dd><a href="{{ url_for('q.query', query_key='ms_mkt')}}">自选</a></dd>
-                        <dd><a href="{{ url_for('q.query', query_key='strategy.yrglp')}}">策略</a></dd>
-                        <dd><a href="{{ url_for('q.query', query_key='rank')}}">排名</a></dd>
-                        <dd><a href="{{ url_for('page',dir='stock',page='query')}}">查询</a></dd>
+                        <dd><a href="{{ url_for('q.query', query_key='ms_mkt')}}"> 自 选</a></dd>
+                        <dd><a href="{{ url_for('q.query', query_key='strategy.yrglp')}}"> 策 略</a></dd>
+                        <dd><a href="{{ url_for('q.query', query_key='rank')}}"> 排 名</a></dd>
+                        <dd><a href="{{ url_for('page',dir='stock',page='query')}}"> 查 询</a></dd>
                     </dl>
                 </li>
                 <li class="layui-nav-item">
@@ -109,7 +109,7 @@
             isShow =false;
         }else{
             $('.layui-side').width(side_width);
-            $('.kit-side-fold li').css('padding-left', '40px');
+            $('.kit-side-fold li').css('padding-left', '35px');
             $('.kit-side-fold li').html('&#xe668;')
             $('.layui-body').css('left', side_width+'px');
             $('dd a').each(function(){
